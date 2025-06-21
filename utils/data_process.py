@@ -1,6 +1,18 @@
 import os
 import json
+import h5py
 import numpy as np
+
+
+def process_raw_imu_data(source_dir, target_dir):
+    mapping = {'1': 'livingroom', '2': 'office', '3': 'kitchen'}
+    os.makedirs(target_dir, exist_ok=True)
+    for filename in os.listdir(source_dir):
+        with h5py.File(os.path.join(source_dir, filename), 'r') as f:
+            data = f['data'][()]
+        name_parts = filename.replace('.h5', '').split('_')
+        name_parts[1] = mapping[name_parts[1]]
+        np.save(os.path.join(target_dir, '_'.join(name_parts) + '.npy'), data)
 
 
 def process_raw_pose_data(source_dir, target_dir):
@@ -54,4 +66,6 @@ def split_npy_to_windows(input_path, output_dir, window_size, stride):
 
 
 if __name__ == "__main__":
-    process("/home/xinglibao/workspace/data/future/pose", 90, 15)
+    # process("/home/xinglibao/workspace/data/future/pose", 90, 15)
+    # process_raw_pose_data("/home/xinglibao/data/kitchen", "/home/xinglibao/workspace/future/data/pose_raw")
+    process_raw_imu_data("/home/luohonglin/workspace/imu/", "/home/xinglibao/workspace/future/data/imu_raw")

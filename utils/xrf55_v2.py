@@ -25,8 +25,10 @@ class XRF55(Dataset):
 
     def __getitem__(self, idx):
         imu = torch.tensor(np.load(os.path.join(self.data_path_imu, self.filenames[idx])), dtype=torch.float32)
+        imu = imu.permute(1, 0, 2).reshape(-1, 5 * 6)
         pose = torch.tensor(np.load(os.path.join(self.data_path_pose, self.filenames[idx])), dtype=torch.float32)
-        return imu[:, :self.len_input_imu, :], imu[:, self.len_input_imu:, :], pose[:self.len_input_pose], pose[self.len_input_pose:]
+        pose = pose[:, :, :2].reshape(-1, 25 * 2)
+        return imu[:self.len_input_imu], imu[self.len_input_imu:], pose[:self.len_input_pose], pose[self.len_input_pose:]
     
     def get_filenames(self):
         filenames_imu = self.get_filenames_imu()

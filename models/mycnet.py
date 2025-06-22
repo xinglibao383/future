@@ -137,6 +137,7 @@ class IMUPose(nn.Module):
         imu_feature = self.imu_feature_extractor(imu)
         label1 = self.imu_classfier(imu_feature)
         imu2 = self.imu_predictor(imu_feature)
+        # todo 可以把之前的imu拼一些给imu2
         imu2_feature = self.imu_feature_extractor(imu2)
         label2 = self.imu_classfier(imu2_feature)
         return label1, imu2, label2

@@ -78,7 +78,9 @@ def train(model, train_loader, val_loader, lr, num_epochs, devices, checkpoint_s
     criterion1 = nn.CrossEntropyLoss()
     criterion2 = nn.MSELoss()
 
-    
+    max_acc1 = -1
+    max_acc2 = -1
+
     for epoch in range(num_epochs):
         metric = Accumulator(7)
         model.train()
@@ -90,6 +92,7 @@ def train(model, train_loader, val_loader, lr, num_epochs, devices, checkpoint_s
             loss1 = criterion1(y1_hat, y1)
             loss2 = criterion2(x2_hat, x2)
             loss3 = criterion1(y2_hat, y2)
+            # todo imu预测的权重可以低一些，毕竟只需要能识别出来在做什么动作即可
             loss = loss1 + loss2 + loss3
             loss.backward()
             optimizer.step()
@@ -114,10 +117,17 @@ def train(model, train_loader, val_loader, lr, num_epochs, devices, checkpoint_s
         train_acc1 = metric[4] / metric[6]
         train_acc2 = metric[5] / metric[6]
         print(f'Epoch: {epoch}, train loss: {train_loss:.4f}, train loss1: {train_loss1:.4f}, train loss2: {train_loss2:.4f}, train loss3: {train_loss3:.4f}, train acc1: {train_acc1:.4f}, train acc2: {train_acc2:.4f}')
-        
+        logger.record([f'Epoch: {epoch}, train loss: {train_loss:.4f}, train loss1: {train_loss1:.4f}, train loss2: {train_loss2:.4f}, train loss3: {train_loss3:.4f}, train acc1: {train_acc1:.4f}, train acc2: {train_acc2:.4f}'])
         
         val_loss, val_loss1, val_loss2, val_loss3, val_acc1, val_acc2 = evaluate(model, val_loader, criterion1, criterion2)
         print(f'Epoch: {epoch}, val loss: {val_loss:.4f}, val loss1: {val_loss1:.4f}, val loss2: {val_loss2:.4f}, val loss3: {val_loss3:.4f}, val acc1: {val_acc1:.4f}, val acc2: {val_acc2:.4f}')
+        logger.record([f'Epoch: {epoch}, val loss: {val_loss:.4f}, val loss1: {val_loss1:.4f}, val loss2: {val_loss2:.4f}, val loss3: {val_loss3:.4f}, val acc1: {val_acc1:.4f}, val acc2: {val_acc2:.4f}'])
+        
+        if val_acc1 >= max_acc1 or val_acc2 >= max_acc2:
+            max_acc1 = val_acc1
+            max_acc2 = val_acc2
+            torch.save(model.state_dict(), os.path.join(checkpoint_save_path, f"checkpoint_{epoch}.pth"))
+        
         # val_loss, val_acc = evaluate(model, val_loader, criterion)
         # logger.record([f'Epoch: {epoch}, train loss: {train_loss:.4f}, val loss: {val_loss:.4f}, train acc: {train_acc:.4f}, val acc: {val_acc:.4f}'])
         

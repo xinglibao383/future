@@ -39,8 +39,9 @@ def split_and_save_full_h5_segment(h5_path, window_size, stride, save_dir):
         end = start + window_size
         segment = data[:, start:end, :]  # shape: (5, window_size, 6)
 
-        major_label = get_major_label(start, end, label)
-        filename = f"{basename}_{num_saved}_{major_label}.npy"
+        major_label1 = get_major_label(start, start + window_size // 2, label)
+        major_label2 = get_major_label(start + window_size // 2, end, label)
+        filename = f"{basename}_{num_saved}_{major_label1}_{major_label2}.npy"
         np.save(os.path.join(save_dir, filename), segment)
         num_saved += 1
 
@@ -52,7 +53,7 @@ def process_all_h5_in_folder(folder_path, window_size, stride, save_dir):
     遍历文件夹中的所有 h5 文件，并调用分割保存函数。
     """
     save_dir = os.path.join(save_dir, f"imu_{window_size}_{stride}")
-    os.makedirs(target_folder, exist_ok=True)
+    os.makedirs(save_dir, exist_ok=True)
 
     h5_files = [f for f in os.listdir(folder_path) if f.endswith('.h5')]
 
@@ -79,8 +80,9 @@ class XRF55(Dataset):
     def __getitem__(self, idx):
         data = torch.tensor(np.load(os.path.join(self.data_path, self.filenames[idx])), dtype=torch.float32)
         data = data.permute(0, 2, 1).reshape(5 * 6, self.window_size)
-        lable = int(os.path.splitext(os.path.basename(self.filenames[idx]))[0].split('_')[-1])
-        return data, lable
+        lable1 = int(os.path.splitext(os.path.basename(self.filenames[idx]))[0].split('_')[-2])
+        lable2 = int(os.path.splitext(os.path.basename(self.filenames[idx]))[0].split('_')[-1])
+        return data[:, :self.window_size//2], lable1, data[:, self.window_size//2:], lable2
     
     def get_filenames(self):
         if not os.path.isdir(self.data_path):
@@ -102,6 +104,6 @@ def get_dataloaders(root_path, window_size, stride, batch_size, train_ratio):
             DataLoader(val_dataset, batch_size=batch_size, shuffle=False, num_workers=4, prefetch_factor=16, persistent_workers=True))
 
 if __name__ == "__main__":
-    train_dataloader, val_dataloader = get_dataloaders("/home/xinglibao/workspace/future/datac/imu", 100, 70, 32, 0.8)
-    for i, (x, y) in enumerate(train_dataloader):
-        print(i, x.shape, y.shape)
+    train_dataloader, val_dataloader = get_dataloaders("/home/xinglibao/workspace/future/datac/imu", 150, 50, 32, 0.8)
+    for i, (x1, y1, x2, y2) in enumerate(train_dataloader):
+        print(i, x1.shape, y1.shape, x2.shape, y2.shape)

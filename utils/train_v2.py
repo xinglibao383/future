@@ -19,7 +19,8 @@ def evaluate_loss(model, dataloader, criterion):
             loss2 = criterion(y_pose, future_pose1)
             loss3 = criterion(y_imu, future_imu)
             loss4 = criterion(y_pose, future_pose2)
-            loss = loss1 + loss2 + loss3 + loss4
+            # loss = loss1 + loss2 + loss3 + loss4
+            loss = loss1
             metric.add(loss1.item() * batch_size, loss2.item() * batch_size, loss3.item() * batch_size, loss4.item() * batch_size, loss.item() * batch_size, batch_size)
 
     return metric[0] / metric[5], metric[1] / metric[5], metric[2] / metric[5], metric[3] / metric[5], metric[4] / metric[5]
@@ -50,7 +51,8 @@ def train(model, train_loader, val_loader, lr, num_epochs, devices, checkpoint_s
             loss2 = criterion(y_pose, future_pose1)
             loss3 = criterion(y_imu, future_imu)
             loss4 = criterion(y_pose, future_pose2)
-            loss = loss1 + loss2 + loss3 + loss4
+            # loss = loss1 + loss2 + loss3 + loss4
+            loss = loss1
             loss.backward()
             optimizer.step()
 

@@ -8,12 +8,13 @@ class IMUPose(nn.Module):
         super(IMUPose, self).__init__()
         self.imu_channel = 5 * 6
         self.pose_channel = 25 * 2
+        self.hidden_size = 1024
         self.imu_feature_extractor = resnet18(in_channel=self.imu_channel)
-        self.pose_predictor = MLP(feature_dim=512, hidden_size=256, output_len=len_input*15, output_dim=self.pose_channel)
+        self.pose_predictor = MLP(feature_dim=512, hidden_size=self.hidden_size, output_len=len_input*15, output_dim=self.pose_channel)
         self.pose_feature_extractor = resnet18(in_channel=self.pose_channel)
-        self.future_pose_predictor1 = MLP(feature_dim=512, hidden_size=256, output_len=len_output*15, output_dim=self.pose_channel)
-        self.imu_predictor = MLP(feature_dim=512, hidden_size=256, output_len=len_output*50, output_dim=self.imu_channel)
-        self.future_pose_predictor2 = MLP(feature_dim=512, hidden_size=256, output_len=len_output*15, output_dim=self.pose_channel)
+        self.future_pose_predictor1 = MLP(feature_dim=512, hidden_size=self.hidden_size, output_len=len_output*15, output_dim=self.pose_channel)
+        self.imu_predictor = MLP(feature_dim=512, hidden_size=self.hidden_size, output_len=len_output*50, output_dim=self.imu_channel)
+        self.future_pose_predictor2 = MLP(feature_dim=512, hidden_size=self.hidden_size, output_len=len_output*15, output_dim=self.pose_channel)
 
     def forward(self, imu):
         imu_feature = self.imu_feature_extractor(imu)

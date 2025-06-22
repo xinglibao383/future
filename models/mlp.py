@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 
 class MLP(nn.Module):
-    def __init__(self, feature_dim, hidden_size, output_len, output_dim):
+    def __init__(self, feature_dim, hidden_size, output_len, output_dim, dropout=0.3):
         super(MLP, self).__init__()
         self.output_len = output_len
         self.output_dim = output_dim
@@ -10,6 +10,7 @@ class MLP(nn.Module):
         self.decoder = nn.Sequential(
             nn.Linear(feature_dim, hidden_size),
             nn.ReLU(),
+            nn.Dropout(p=dropout),
             nn.Linear(hidden_size, output_len * output_dim)
         )
 

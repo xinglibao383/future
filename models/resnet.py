@@ -40,10 +40,9 @@ class BasicBlock(nn.Module):
 
 
 class ResNet(nn.Module):
-    def __init__(self, block, layers, in_channel, return_features=False):
+    def __init__(self, block, layers, in_channel):
         super(ResNet, self).__init__()
         self.inplanes = 128
-        self.return_features = return_features
         self.conv1 = nn.Conv1d(in_channel, 128, kernel_size=7, stride=2, padding=3, bias=False, groups=1)
         self.bn1 = nn.BatchNorm1d(128)
         self.conv2 = nn.Conv1d(128, 128, kernel_size=7, stride=2, padding=3, bias=False)
@@ -59,7 +58,6 @@ class ResNet(nn.Module):
         self.layer4 = self._make_layer(block, 512, layers[3], stride=2, group=1)
         self.conv4 = conv3x3(512, 512, stride=2)
         self.avg_pool = nn.AdaptiveAvgPool1d(1)
-        self.fc = nn.Linear(512 * block.expansion, 55)
 
     def _make_layer(self, block, planes, blocks, stride=1, group=1):
         downsample = None
@@ -78,6 +76,7 @@ class ResNet(nn.Module):
         return nn.Sequential(*layers)
 
     def forward(self, x):
+        x = x.permute(0, 2, 1)
         x = self.conv1(x)
         x = self.bn1(x)
         x = self.relu(x)
@@ -87,18 +86,15 @@ class ResNet(nn.Module):
         c3 = self.layer3(c2)
         c4 = self.layer4(c3)
         output = self.avg_pool(c4)
-        output = output.view(output.size(0), -1)
-        if self.return_features:
-            return output
-        return self.fc(output)
+        return output.view(output.size(0), -1)
 
 
-def resnet18():
-    return ResNet(BasicBlock, [2, 2, 2, 2], in_channel=6, return_features=True)
+def resnet18(in_channel):
+    return ResNet(BasicBlock, [2, 2, 2, 2], in_channel)
 
 
 if __name__ == "__main__":
-    x = torch.randn(32, 6, 2950)
-    model = resnet18()
+    x = torch.randn(32, 200, 6)
+    model = resnet18(in_channel=6)
     y = model(x)
     print("Y shape:", y.shape)

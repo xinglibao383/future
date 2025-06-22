@@ -12,7 +12,7 @@ def evaluate_loss(model, dataloader, criterion):
     model.eval()
     with torch.no_grad():
         for x_imu, y_imu, x_pose, y_pose in dataloader:
-            batch_size = x.shape[0]
+            batch_size = x_imu.shape[0]
             x_imu, y_imu, x_pose, y_pose = x_imu.to(device), y_imu.to(device), x_pose.to(device), y_pose.to(device)
             pose, future_pose1, future_imu, future_pose2 = model(x_imu)
             loss1 = criterion(x_pose, pose)
@@ -46,7 +46,6 @@ def train(model, train_loader, val_loader, lr, num_epochs, devices, checkpoint_s
             batch_size = x_imu.shape[0]
             x_imu, y_imu, x_pose, y_pose = x_imu.to(devices[0]), y_imu.to(devices[0]), x_pose.to(devices[0]), y_pose.to(devices[0])
             pose, future_pose1, future_imu, future_pose2 = model(x_imu)
-            print(pose.shape, future_pose1.shape, future_imu.shape, future_pose2.shape)
             loss1 = criterion(x_pose, pose)
             loss2 = criterion(y_pose, future_pose1)
             loss3 = criterion(y_imu, future_imu)

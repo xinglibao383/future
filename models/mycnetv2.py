@@ -61,11 +61,11 @@ class LSTM(nn.Module):
     
 
 class IMUPose(nn.Module):
-    def __init__(self, len_output):
+    def __init__(self, hidden_dim, num_layers, len_output, dropout):
         super(IMUPose, self).__init__()
         self.imu_channel = 5 * 6
-        self.lstm = LSTM(input_dim=self.imu_channel, hidden_dim=512, num_layers=3, pred_len=int(len_output*50))
-        self.imu_classfier = MLPC(512, 256, 34, 0.3)
+        self.lstm = LSTM(input_dim=self.imu_channel, hidden_dim=hidden_dim, num_layers=num_layers, pred_len=int(len_output*50))
+        self.imu_classfier = MLPC(hidden_dim, hidden_dim * 2, 34, dropout)
 
     def forward(self, imu):
         imu_feature, imu2 = self.lstm(imu)

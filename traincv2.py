@@ -9,12 +9,13 @@ from models.mycnetv2 import IMUPose as IMUPosev2
 
 
 if __name__ == "__main__":
-    window_size, stride, lr, num_epochs = 150, 50, 1e-3, 800
-    # model = IMUPose(len_output=window_size / 2 / 50)
-    model = IMUPosev2(len_output=window_size / 2 / 50)
-    train_loader, val_loader = get_dataloaders("/home/xinglibao/workspace/future/datac/imu", window_size, stride, 128, 0.8)
+    hidden_dim, num_layers, dropout, window_size, stride, batch_size, lr, num_epochs = 512, 3, 0.3, 150, 50, 512, 1e-3, 800
+    model = IMUPosev2(hidden_dim=hidden_dim, num_layers=num_layers, len_output=window_size/2/50, dropout=dropout)
+    train_loader, val_loader = get_dataloaders("/home/xinglibao/workspace/future/datac/imu", window_size, stride, batch_size, 0.8)
     devices = [torch.device('cuda:0'), torch.device('cuda:1'), torch.device('cuda:2'), torch.device('cuda:3')]
     output_save_path = os.path.join('/home/xinglibao/workspace/future/outputs', datetime.datetime.now().strftime("%Y%m%d%H%M%S"))
     logger = Logger(save_path=output_save_path)
-    logger.record([f'Params: window_size = {window_size}, stride = {stride}, lr = {lr}, num_epochs = {num_epochs}'])
+    logger.record([f'Params: hidden_dim = {hidden_dim}, num_layers = {num_layers}, dropout = {dropout}, '
+                f'window_size = {window_size}, stride = {stride}, batch_size = {batch_size}, '
+                f'lr = {lr}, num_epochs = {num_epochs}'])
     train(model, train_loader, val_loader, lr, num_epochs, devices, output_save_path, logger)

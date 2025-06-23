@@ -93,8 +93,12 @@ def resnet18(in_channel):
     return ResNet(BasicBlock, [2, 2, 2, 2], in_channel)
 
 
+def resnet34(in_channel):
+    return ResNet(BasicBlock, [3, 4, 6, 3], in_channel)
+
+
 if __name__ == "__main__":
     x = torch.randn(32, 200, 6)
-    model = resnet18(in_channel=6)
+    model = resnet34(in_channel=6)
     y = model(x)
     print("Y shape:", y.shape)

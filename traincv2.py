@@ -5,12 +5,14 @@ from utils.logger import Logger
 from utils.dataloaderc import *
 from utils.traincv2 import train
 from models.mycnet import IMUPose
+from models.mycnetv2 import IMUPose as IMUPosev2
 
 
 if __name__ == "__main__":
     window_size, stride, lr, num_epochs = 150, 50, 1e-3, 800
-    model = IMUPose(len_output=window_size / 2 / 50)
-    train_loader, val_loader = get_dataloaders("/home/xinglibao/workspace/future/datac/imu", window_size, stride, 64, 0.8)
+    # model = IMUPose(len_output=window_size / 2 / 50)
+    model = IMUPosev2(len_output=window_size / 2 / 50)
+    train_loader, val_loader = get_dataloaders("/home/xinglibao/workspace/future/datac/imu", window_size, stride, 128, 0.8)
     devices = [torch.device('cuda:0'), torch.device('cuda:1'), torch.device('cuda:2'), torch.device('cuda:3')]
     output_save_path = os.path.join('/home/xinglibao/workspace/future/outputs', datetime.datetime.now().strftime("%Y%m%d%H%M%S"))
     logger = Logger(save_path=output_save_path)

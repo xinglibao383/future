@@ -125,11 +125,14 @@ class ResNet(nn.Module):
 def resnet18(in_channel):
     return ResNet(BasicBlock, [2, 2, 2, 2], in_channel)
 
+def resnet34(in_channel):
+    return ResNet(BasicBlock, [3, 4, 6, 3], in_channel)
+
 class IMUPose(nn.Module):
     def __init__(self, len_output):
         super(IMUPose, self).__init__()
         self.imu_channel = 5 * 6
-        self.imu_feature_extractor = resnet18(in_channel=self.imu_channel)
+        self.imu_feature_extractor = resnet34(in_channel=self.imu_channel)
         self.imu_classfier = MLPC(512, 256, 34, 0.3)
         self.imu_predictor = MLP(feature_dim=512, hidden_size=256, output_len=int(len_output*50), output_dim=self.imu_channel)
 

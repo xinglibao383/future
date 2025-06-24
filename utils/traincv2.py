@@ -67,7 +67,7 @@ def evaluate(model, dataloader, criterion1, criterion2):
     return train_loss, train_loss1, train_loss2, train_loss3, train_acc1, train_acc2
 
 
-def train(model, train_loader, val_loader, lr, weight_decay, mask_ratio, num_epochs, devices, checkpoint_save_path, logger):
+def train(model, train_loader, val_loader, lr, weight_decay, mask_ratio, num_epochs, devices, checkpoint_save_path, logger, alpha, beta, gamma):
     def init_weights(m):
         if type(m) == nn.Linear or type(m) == nn.Conv2d:
             nn.init.xavier_uniform_(m.weight)
@@ -96,9 +96,6 @@ def train(model, train_loader, val_loader, lr, weight_decay, mask_ratio, num_epo
             loss2 = criterion2(x2_hat, x2)
             loss3 = criterion1(y2_hat, y2)
             # todo imu预测的权重可以低一些，毕竟只需要能识别出来在做什么动作即可
-            alpha = 10     # loss1 的权重
-            beta = 0.001   # loss2 的权重
-            gamma = 1      # loss3 的权重
             loss = alpha * loss1 + beta * loss2 + gamma * loss3
             # loss = loss1 + loss2 + loss3
             loss.backward()
@@ -133,7 +130,7 @@ def train(model, train_loader, val_loader, lr, weight_decay, mask_ratio, num_epo
         if val_acc1 >= max_acc1 or val_acc2 >= max_acc2:
             max_acc1 = val_acc1
             max_acc2 = val_acc2
-            torch.save(model.state_dict(), os.path.join(checkpoint_save_path, f"checkpoint_{epoch}.pth"))
+            # torch.save(model.state_dict(), os.path.join(checkpoint_save_path, f"checkpoint_{epoch}.pth"))
         
         # val_loss, val_acc = evaluate(model, val_loader, criterion)
         # logger.record([f'Epoch: {epoch}, train loss: {train_loss:.4f}, val loss: {val_loss:.4f}, train acc: {train_acc:.4f}, val acc: {val_acc:.4f}'])

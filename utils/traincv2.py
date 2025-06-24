@@ -67,14 +67,14 @@ def evaluate(model, dataloader, criterion1, criterion2):
     return train_loss, train_loss1, train_loss2, train_loss3, train_acc1, train_acc2
 
 
-def train(model, train_loader, val_loader, lr, num_epochs, devices, checkpoint_save_path, logger):
+def train(model, train_loader, val_loader, lr, weight_decay, mask_ratio, num_epochs, devices, checkpoint_save_path, logger):
     def init_weights(m):
         if type(m) == nn.Linear or type(m) == nn.Conv2d:
             nn.init.xavier_uniform_(m.weight)
     model.apply(init_weights)
 
     model = nn.DataParallel(model, device_ids=devices).to(devices[0])
-    optimizer = torch.optim.AdamW(model.parameters(), lr=lr)
+    optimizer = torch.optim.AdamW(model.parameters(), lr=lr, weight_decay=weight_decay)
     criterion1 = nn.CrossEntropyLoss()
     criterion2 = nn.MSELoss()
 
@@ -87,13 +87,20 @@ def train(model, train_loader, val_loader, lr, num_epochs, devices, checkpoint_s
         for i, (x1, y1, x2, y2) in enumerate(train_loader):
             optimizer.zero_grad()
             batch_size = x1.shape[0]
+            if mask_ratio > 0:
+                mask = torch.rand_like(x1) > mask_ratio
+                x1 = x1 * mask.float()
             x1, y1, x2, y2 = x1.to(devices[0]), y1.to(devices[0]), x2.to(devices[0]), y2.to(devices[0])
             y1_hat, x2_hat, y2_hat = model(x1)
             loss1 = criterion1(y1_hat, y1)
             loss2 = criterion2(x2_hat, x2)
             loss3 = criterion1(y2_hat, y2)
             # todo imu预测的权重可以低一些，毕竟只需要能识别出来在做什么动作即可
-            loss = loss1 + loss2 + loss3
+            alpha = 10     # loss1 的权重
+            beta = 0.001   # loss2 的权重
+            gamma = 1      # loss3 的权重
+            loss = alpha * loss1 + beta * loss2 + gamma * loss3
+            # loss = loss1 + loss2 + loss3
             loss.backward()
             optimizer.step()
             acc1 = accuracy(y1_hat, y1)

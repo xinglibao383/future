@@ -67,7 +67,7 @@ def evaluate(model, dataloader, criterion1, criterion2):
     return train_loss, train_loss1, train_loss2, train_loss3, train_acc1, train_acc2
 
 
-def train(model, train_loader, val_loader, lr, weight_decay, mask_ratio, num_epochs, devices, checkpoint_save_path, logger, alpha, beta, gamma):
+def train(model, train_loader, val_loader, lr, weight_decay, mask_ratio, num_epochs, devices, checkpoint_save_path, logger):
     def init_weights(m):
         if type(m) == nn.Linear or type(m) == nn.Conv2d:
             nn.init.xavier_uniform_(m.weight)
@@ -80,6 +80,8 @@ def train(model, train_loader, val_loader, lr, weight_decay, mask_ratio, num_epo
 
     max_acc1 = -1
     max_acc2 = -1
+
+    alpha, beta, gamma = 1.0, 1.0, 1.0
 
     for epoch in range(num_epochs):
         metric = Accumulator(7)
@@ -101,6 +103,10 @@ def train(model, train_loader, val_loader, lr, weight_decay, mask_ratio, num_epo
             optimizer.step()
             acc1 = accuracy(y1_hat, y1)
             acc2 = accuracy(y2_hat, y2)
+
+            alpha = 1.0 / max(acc2, 1e-5) * float(loss3.item())
+            beta = 1.0 / max(loss2.item(), 1e-5)
+            gamma = 1.0 / max(acc1, 1e-5) * float(loss1.item())
 
             metric.add(loss.item() * batch_size, loss1.item() * batch_size, loss2.item() * batch_size, loss3.item() * batch_size, 
                        acc1 * batch_size, acc2 * batch_size,

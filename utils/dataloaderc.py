@@ -87,7 +87,7 @@ class XRF55(Dataset):
     def get_filenames(self):
         if not os.path.isdir(self.data_path):
             process_all_h5_in_folder(
-                folder_path="/home/luohonglin/workspace/imu",
+                folder_path="/data/luohonglin/imu",
                 window_size=self.window_size,
                 stride=self.stride,
                 save_dir=self.root_path

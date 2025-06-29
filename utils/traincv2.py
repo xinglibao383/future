@@ -133,11 +133,9 @@ def train(model, train_loader, val_loader, lr, weight_decay, mask_ratio, num_epo
                 os.makedirs(checkpoint_save_path, exist_ok=True)
                 torch.save(model.state_dict(), os.path.join(checkpoint_save_path, f"checkpoint_{epoch}.pth"))
 
-        if epoch > 15 and max_acc1 < 0.8:
+        if epoch > 200 and max_acc1 < 0.8:
             break
-        if epoch > 50 and max_acc2 < 0.4:
-            break
-        if epoch > 200 and max_acc2 < 0.7:
+        if epoch > 200 and max_acc2 < 0.6:
             break
         
         # val_loss, val_acc = evaluate(model, val_loader, criterion)

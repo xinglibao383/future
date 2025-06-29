@@ -16,11 +16,11 @@ if __name__ == "__main__":
     model = IMUPosev2(hidden_dim=hidden_dim, num_layers=num_layers, len_output=window_size/2/50, dropout=dropout)
     train_loader, val_loader = get_dataloaders("/data/xinglibao/data/future/imu", window_size, stride, batch_size, 0.8)
     devices = [torch.device('cuda:0'), torch.device('cuda:1'), torch.device('cuda:2'), torch.device('cuda:3')]
-    output_save_path = os.path.join('/home/xinglibao/workspace/future/outputs', datetime.datetime.now().strftime("%Y%m%d%H%M%S"))
-    logger = Logger(save_path=output_save_path)
-    logger.record(['使用的train2，想要复现之前最好的效果'])
+    timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+    logger = Logger(save_path='/home/xinglibao/workspace/future/outputs', timestamp=timestamp)
+    logger.record(['Comment: sota'])
     logger.record([f'Params: hidden_dim = {hidden_dim}, num_layers = {num_layers}, dropout = {dropout}, '
                 f'window_size = {window_size}, stride = {stride}, batch_size = {batch_size}, mask_ratio = {mask_ratio} '
                 f'lr = {lr}, weight_decay = {weight_decay}, num_epochs = {num_epochs} '
                 f'alpha = {alpha}, beta = {beta}, gamma = {gamma} '])
-    train(model, train_loader, val_loader, lr, weight_decay, mask_ratio, num_epochs, devices, output_save_path, logger, alpha, beta, gamma)
+    train(model, train_loader, val_loader, lr, weight_decay, mask_ratio, num_epochs, devices, os.path.join('/data/xinglibao/outputs', timestamp), logger, alpha, beta, gamma)

@@ -129,8 +129,16 @@ def train(model, train_loader, val_loader, lr, weight_decay, mask_ratio, num_epo
         if val_acc1 >= max_acc1 or val_acc2 >= max_acc2:
             max_acc1 = val_acc1
             max_acc2 = val_acc2
-            os.makedirs(checkpoint_save_path, exist_ok=True)
-            torch.save(model.state_dict(), os.path.join(checkpoint_save_path, f"checkpoint_{epoch}.pth"))
+            if checkpoint_save_path != '':
+                os.makedirs(checkpoint_save_path, exist_ok=True)
+                torch.save(model.state_dict(), os.path.join(checkpoint_save_path, f"checkpoint_{epoch}.pth"))
+
+        if epoch > 15 and max_acc1 < 0.8:
+            break
+        if epoch > 50 and max_acc2 < 0.4:
+            break
+        if epoch > 200 and max_acc2 < 0.7:
+            break
         
         # val_loss, val_acc = evaluate(model, val_loader, criterion)
         # logger.record([f'Epoch: {epoch}, train loss: {train_loss:.4f}, val loss: {val_loss:.4f}, train acc: {train_acc:.4f}, val acc: {val_acc:.4f}'])

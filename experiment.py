@@ -22,7 +22,7 @@ def run(hidden_dim, num_layers, dropout, window_size, stride, batch_size, mask_r
 
 
 def experiment1():
-    hidden_dim, num_layers, dropout, window_size, stride, batch_size, mask_ratio, lr, weight_decay, num_epochs, alpha, beta, gamma = 128, 2, 0.3, 250, 25, 512, 0.15, 1e-3, 1e-4, 800, 10, 0.001, 1
+    hidden_dim, num_layers, dropout, window_size, stride, batch_size, mask_ratio, lr, weight_decay, num_epochs, alpha, beta, gamma = 128, 2, 0.3, 250, 25, 512, 0.15, 1e-3, 1e-4, 250, 10, 0.001, 1
     timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
     logger = Logger(save_path='/home/xinglibao/workspace/future/outputs', timestamp=timestamp, extend='experiment1')
     for hidden_dim in (64, 128, 256):

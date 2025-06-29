@@ -78,8 +78,10 @@ def train(model, train_loader, val_loader, lr, weight_decay, mask_ratio, num_epo
     criterion1 = nn.CrossEntropyLoss()
     criterion2 = nn.MSELoss()
 
-    max_acc1 = -1
-    max_acc2 = -1
+    min_val_loss1 = float('inf')
+    min_val_loss2 = float('inf')
+    min_val_loss3 = float('inf')
+    invalid_num_epochs = 0
 
     for epoch in range(num_epochs):
         metric = Accumulator(7)
@@ -125,17 +127,26 @@ def train(model, train_loader, val_loader, lr, weight_decay, mask_ratio, num_epo
         val_loss, val_loss1, val_loss2, val_loss3, val_acc1, val_acc2 = evaluate(model, val_loader, criterion1, criterion2)
         print(f'Epoch: {epoch}, val loss: {val_loss:.4f}, val loss1: {val_loss1:.4f}, val loss2: {val_loss2:.4f}, val loss3: {val_loss3:.4f}, val acc1: {val_acc1:.4f}, val acc2: {val_acc2:.4f}')
         logger.record([f'Epoch: {epoch}, val loss: {val_loss:.4f}, val loss1: {val_loss1:.4f}, val loss2: {val_loss2:.4f}, val loss3: {val_loss3:.4f}, val acc1: {val_acc1:.4f}, val acc2: {val_acc2:.4f}'])
-        
-        if val_acc1 >= max_acc1 or val_acc2 >= max_acc2:
-            max_acc1 = val_acc1
-            max_acc2 = val_acc2
-            if checkpoint_save_path != '':
-                os.makedirs(checkpoint_save_path, exist_ok=True)
-                torch.save(model.state_dict(), os.path.join(checkpoint_save_path, f"checkpoint_{epoch}.pth"))
 
-        if epoch > 200 and max_acc1 < 0.8:
-            break
-        if epoch > 200 and max_acc2 < 0.6:
+        save_flag = False
+        if val_loss1 < min_val_loss1:
+            min_val_loss1 = val_loss1
+            invalid_num_epochs = 0
+            save_flag = True
+        else:
+            invalid_num_epochs = invalid_num_epochs + 1
+        if val_loss2 < min_val_loss2:
+            min_val_loss2 = val_loss2
+        if val_loss3 < min_val_loss3:
+            min_val_loss3 = val_loss3
+            invalid_num_epochs = 0
+        else:
+            invalid_num_epochs = invalid_num_epochs + 1
+            save_flag = True
+        if save_flag and checkpoint_save_path != '':
+            os.makedirs(checkpoint_save_path, exist_ok=True)
+            torch.save(model.state_dict(), os.path.join(checkpoint_save_path, f"checkpoint_{epoch}.pth"))
+        if invalid_num_epochs > 20:
             break
         
         # val_loss, val_acc = evaluate(model, val_loader, criterion)

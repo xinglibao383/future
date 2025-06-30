@@ -67,7 +67,7 @@ def evaluate(model, dataloader, criterion1, criterion2):
     return train_loss, train_loss1, train_loss2, train_loss3, train_acc1, train_acc2
 
 
-def train(model, train_loader, val_loader, lr, weight_decay, mask_ratio, num_epochs, devices, checkpoint_save_path, logger, alpha, beta, gamma):
+def train(model, train_loader, val_loader, lr, weight_decay, mask_ratio, num_epochs, devices, checkpoint_save_path, logger, alpha, beta, gamma, max_invalid_num_epochs = -1):
     def init_weights(m):
         if type(m) == nn.Linear or type(m) == nn.Conv2d:
             nn.init.xavier_uniform_(m.weight)
@@ -146,7 +146,7 @@ def train(model, train_loader, val_loader, lr, weight_decay, mask_ratio, num_epo
         if save_flag and checkpoint_save_path != '':
             os.makedirs(checkpoint_save_path, exist_ok=True)
             torch.save(model.state_dict(), os.path.join(checkpoint_save_path, f"checkpoint_{epoch}.pth"))
-        if invalid_num_epochs > 20:
+        if max_invalid_num_epochs != -1 and invalid_num_epochs >= max_invalid_num_epochs * 2:
             break
         
         # val_loss, val_acc = evaluate(model, val_loader, criterion)

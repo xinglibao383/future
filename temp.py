@@ -1,35 +1,26 @@
-import torch
-from collections import Counter
+import os
 
+def analyze_npy_filenames(folder_path):
+    filenames = [f for f in os.listdir(folder_path) if f.endswith('.npy')]
+    split_numbers = []
 
-def compute_class_weights(label_list, num_classes=34):
-    counts = Counter(label_list)
-    total = sum(counts.values())
-    weights = [0.0] * num_classes
-    for label, count in counts.items():
-        weights[label] = total / count
-    weights = torch.tensor(weights, dtype=torch.float32)
-    weights = weights / weights.sum() * num_classes
-    return weights
+    for fname in filenames:
+        name_parts = fname[:-4].split('_')  # 去掉 .npy 后缀并按下划线分割
+        try:
+            nums = [int(part) for part in name_parts]  # 或者 float(part) 如果是小数
+            split_numbers.append(nums)
+        except ValueError:
+            print(f"跳过无法解析为数字的文件名: {fname}")
 
+    if not split_numbers:
+        print("没有有效的文件名可供分析。")
+        return
 
-def get_class_weights(train_loader, val_loader, logger, num_classes=34):
-    y1_train = torch.cat([y1 for _, y1, _, _ in train_loader]).tolist()
-    y2_train = torch.cat([y2 for _, _, _, y2 in train_loader]).tolist()
-    y1_val = torch.cat([y1 for _, y1, _, _ in val_loader]).tolist()
-    y2_val = torch.cat([y2 for _, _, _, y2 in val_loader]).tolist()
+    num_parts = len(split_numbers[0])
+    for i in range(num_parts):
+        ith_values = [parts[i] for parts in split_numbers if len(parts) > i]
+        print(f"第 {i+1} 段：min={min(ith_values)}, max={max(ith_values)}")
 
-    logger.record([f"Train y1 count: {Counter(y1_train)}"])
-    logger.record([f"Train y2 count: {Counter(y2_train)}"])
-    logger.record([f"Val y1 count: {Counter(y1_val)}"])
-    logger.record([f"Val y2 count: {Counter(y2_val)}"])
-
-    y1_weights = compute_class_weights(y1_train, num_classes)
-    y2_weights = compute_class_weights(y2_train, num_classes)
-    y1_y2_weights = compute_class_weights(y1_train + y2_train, num_classes)
-
-    logger.record([f"y1 class weights: {y1_weights}"])
-    logger.record([f"y2 class weights: {y2_weights}"])
-    logger.record([f"y1 + y2 class weights: {y1_y2_weights}"])
-
-    return y1_weights, y2_weights, y1_y2_weights
+# ✅ 使用示例
+folder_path = "/home/xinglibao/workspace/future/datac/imu/imu_150_25"  # ← 修改为你的文件夹路径
+analyze_npy_filenames(folder_path)

@@ -6,6 +6,7 @@ from utils.dataloaderc import *
 from utils.traincv2 import train as train
 from models.mycnet import IMUPose
 from models.mycnetv2 import IMUPose as IMUPosev2
+from collections import Counter
 
 
 def run(hidden_dim, num_layers, dropout, window_size, stride, batch_size, mask_ratio, lr, weight_decay, num_epochs, alpha, beta, gamma, logger):
@@ -19,6 +20,20 @@ def run(hidden_dim, num_layers, dropout, window_size, stride, batch_size, mask_r
                 f'lr = {lr}, weight_decay = {weight_decay}, num_epochs = {num_epochs} '
                 f'alpha = {alpha}, beta = {beta}, gamma = {gamma} '])
     train(model, train_loader, val_loader, lr, weight_decay, mask_ratio, num_epochs, devices, '', logger, alpha, beta, gamma)
+
+
+def experiment0():
+    window_size, stride, batch_size = 250, 25, 512
+    train_loader, val_loader = get_dataloaders("/data/xinglibao/data/future/imu", window_size, stride, batch_size, 0.8)
+    # 统计train_loader和val_loader的y1和y2的每个类别的数量
+    y1_train = torch.cat([y1 for _, y1, _, _ in train_loader]).tolist()
+    y2_train = torch.cat([y2 for _, _, _, y2 in train_loader]).tolist()
+    y1_val = torch.cat([y1 for _, y1, _, _ in val_loader]).tolist()
+    y2_val = torch.cat([y2 for _, _, _, y2 in val_loader]).tolist()
+    print("Train y1 count:", Counter(y1_train))
+    print("Train y2 count:", Counter(y2_train))
+    print("Val y1 count:", Counter(y1_val))
+    print("Val y2 count:", Counter(y2_val))
 
 
 def experiment1():
@@ -37,4 +52,4 @@ def experiment1():
 
 
 if __name__ == "__main__":
-    experiment1()
+    experiment0()

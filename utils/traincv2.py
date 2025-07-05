@@ -123,17 +123,17 @@ def train(model, train_loader, val_loader, lr, weight_decay, mask_ratio, num_epo
         train_loss3 = metric[3] / metric[6]
         train_acc1 = metric[4] / metric[6]
         train_acc2 = metric[5] / metric[6]
-        print(f'Epoch: {epoch}, train loss: {train_loss:.4f}, train loss1: {train_loss1:.4f}, train loss2: {train_loss2:.4f}, train loss3: {train_loss3:.4f}, train acc1: {train_acc1:.4f}, train acc2: {train_acc2:.4f}')
         logger.record([f'Epoch: {epoch}, train loss: {train_loss:.4f}, train loss1: {train_loss1:.4f}, train loss2: {train_loss2:.4f}, train loss3: {train_loss3:.4f}, train acc1: {train_acc1:.4f}, train acc2: {train_acc2:.4f}'])
-        train_confusion_matrix = compute_confusion_matrix(model, train_loader)
-        logger.record([f'Train confusion matrix:\n{pd.DataFrame(train_confusion_matrix[0])}'], print_flag=False)
-        logger.record([f'Train confusion matrix:\n{pd.DataFrame(train_confusion_matrix[1])}'], print_flag=False)
+        
         val_loss, val_loss1, val_loss2, val_loss3, val_acc1, val_acc2 = evaluate(model, val_loader, criterion1, criterion2)
-        print(f'Epoch: {epoch}, val loss: {val_loss:.4f}, val loss1: {val_loss1:.4f}, val loss2: {val_loss2:.4f}, val loss3: {val_loss3:.4f}, val acc1: {val_acc1:.4f}, val acc2: {val_acc2:.4f}')
         logger.record([f'Epoch: {epoch}, val loss: {val_loss:.4f}, val loss1: {val_loss1:.4f}, val loss2: {val_loss2:.4f}, val loss3: {val_loss3:.4f}, val acc1: {val_acc1:.4f}, val acc2: {val_acc2:.4f}'])
-        val_confusion_matrix = compute_confusion_matrix(model, val_loader)
-        logger.record([f'Val confusion matrix:\n{pd.DataFrame(val_confusion_matrix[0])}'], print_flag=False)
-        logger.record([f'Val confusion matrix:\n{pd.DataFrame(val_confusion_matrix[1])}'], print_flag=False)
+        if train_acc1 > 0.8 and train_acc2 > 0.3:
+            train_confusion_matrix = compute_confusion_matrix(model, train_loader)
+            logger.record([f'Epoch: {epoch} train confusion matrix1:\n{pd.DataFrame(train_confusion_matrix[0])}'], print_flag=False)
+            logger.record([f'Epoch: {epoch} train confusion matrix2:\n{pd.DataFrame(train_confusion_matrix[1])}'], print_flag=False)
+            val_confusion_matrix = compute_confusion_matrix(model, val_loader)
+            logger.record([f'Epoch: {epoch} val confusion matrix1:\n{pd.DataFrame(val_confusion_matrix[0])}'], print_flag=False)
+            logger.record([f'Epoch: {epoch} val confusion matrix2:\n{pd.DataFrame(val_confusion_matrix[1])}'], print_flag=False)
         save_flag = False
         if val_loss1 < min_val_loss1:
             min_val_loss1 = val_loss1

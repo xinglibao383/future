@@ -23,7 +23,13 @@ def compute_confusion_matrix(model, dataloader):
     cm_y1 = confusion_matrix(all_labels_y1, all_preds_y1)
     cm_y2 = confusion_matrix(all_labels_y2, all_preds_y2)
 
-    normalized_cm_y1 = cm_y1.astype('float') / cm_y1.sum(axis=1, keepdims=True)
-    normalized_cm_y2 = cm_y2.astype('float') / cm_y2.sum(axis=1, keepdims=True)
+    # normalized_cm_y1 = cm_y1.astype('float') / cm_y1.sum(axis=1, keepdims=True)
+    # normalized_cm_y2 = cm_y2.astype('float') / cm_y2.sum(axis=1, keepdims=True)
+    with np.errstate(divide='ignore', invalid='ignore'):
+        row_sum_y1 = cm_y1.sum(axis=1, keepdims=True)
+        normalized_cm_y1 = np.divide(cm_y1, row_sum_y1, out=np.zeros_like(cm_y1, dtype=float), where=row_sum_y1 != 0)
+
+        row_sum_y2 = cm_y2.sum(axis=1, keepdims=True)
+        normalized_cm_y2 = np.divide(cm_y2, row_sum_y2, out=np.zeros_like(cm_y2, dtype=float), where=row_sum_y2 != 0)
 
     return np.round(normalized_cm_y1, 2), np.round(normalized_cm_y2, 2)

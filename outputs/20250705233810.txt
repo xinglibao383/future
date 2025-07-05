@@ -50,3 +50,5 @@ Epoch: 15, train loss: 7.3580, train loss1: 0.3226, train loss2: 780.6418, train
 Epoch: 15, val loss: 656.2354, val loss1: 1.6938, val loss2: 651.1754, val loss3: 3.3661, val acc1: 0.6216, val acc2: 0.0872
 Epoch: 16, train loss: 7.1801, train loss1: 0.3048, train loss2: 780.6285, train loss3: 3.3510, train acc1: 0.8967, train acc2: 0.0792
 Epoch: 16, val loss: 656.1877, val loss1: 1.6476, val loss2: 651.1706, val loss3: 3.3695, val acc1: 0.6277, val acc2: 0.0872
+Epoch: 17, train loss: 6.9781, train loss1: 0.2847, train loss2: 780.6115, train loss3: 3.3509, train acc1: 0.9035, train acc2: 0.0795
+Epoch: 17, val loss: 656.2580, val loss1: 1.7312, val loss2: 651.1576, val loss3: 3.3692, val acc1: 0.6311, val acc2: 0.0872

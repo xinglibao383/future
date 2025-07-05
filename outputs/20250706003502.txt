@@ -16,3 +16,7 @@ y1 + y2 class weights: tensor([0.3131, 0.1896, 0.7009, 0.6393, 0.7210, 0.3213, 0
         0.6631, 0.8823, 0.5188, 0.9458, 0.5276, 0.7230, 1.0166, 0.7363, 0.5594,
         0.8976, 0.7089, 0.2451, 0.9492, 0.3727, 0.8145, 0.8820, 0.3596, 0.8406,
         0.4670, 1.0218, 1.4427, 0.2762, 1.4254, 3.8653, 9.0518])
+Epoch: 0, train loss: 27.0141, train loss1: 2.2802, train loss2: 783.0221, train loss3: 3.4295, train acc1: 0.3382, train acc2: 0.0630
+Epoch: 0, val loss: 617.0629, val loss1: 1.8500, val loss2: 611.7754, val loss3: 3.4374, val acc1: 0.4331, val acc2: 0.0743
+Epoch: 1, train loss: 18.7808, train loss1: 1.4796, train loss2: 783.5193, train loss3: 3.2017, train acc1: 0.5419, train acc2: 0.1063
+Epoch: 1, val loss: 616.5818, val loss1: 1.5889, val loss2: 612.2107, val loss3: 2.7822, val acc1: 0.5124, val acc2: 0.1579

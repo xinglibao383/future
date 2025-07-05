@@ -1,4 +1,5 @@
 import os
+import random
 import datetime
 import torch
 from utils.logger import Logger
@@ -13,13 +14,13 @@ def run(val_person, num_total_persons=16):
     """
     Params: hidden_dim = 128, num_layers = 2, dropout = 0.3, window_size = 250, stride = 25, batch_size = 512, mask_ratio = 0.15 lr = 0.001, weight_decay = 0.0001, num_epochs = 800 alpha = 10, beta = 0.001, gamma = 1 
     """
-    hidden_dim, num_layers, dropout, window_size, stride, batch_size, mask_ratio, lr, weight_decay, num_epochs, alpha, beta, gamma = 128, 2, 0.3, 250, 25, 512, 0.15, 1e-3, 1e-4, 800, 10, 0.001, 1
+    hidden_dim, num_layers, dropout, window_size, stride, batch_size, mask_ratio, lr, weight_decay, num_epochs, alpha, beta, gamma = 128, 2, 0.3, 250, 25, 512, 0.15, 1e-3, 1e-4, 300, 10, 0.001, 1
     model = IMUPosev2(hidden_dim=hidden_dim, num_layers=num_layers, len_output=window_size/2/50, dropout=dropout)
     train_loader, val_loader = get_dataloaders_cross_person("/data/xinglibao/data/future/imu", window_size, stride, batch_size, train_person_ids, val_person_ids)
     devices = [torch.device('cuda:0'), torch.device('cuda:1'), torch.device('cuda:2'), torch.device('cuda:3')]
     timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
     logger = Logger(save_path='/home/xinglibao/workspace/future/outputs', timestamp=timestamp)
-    logger.record([f'Comment: sota, cross person, train_person_ids = {train_person_ids}, val_person_ids = {val_person_ids}'])
+    logger.record([f'Comment: sota, cross person, val_person_id = {val_person}'])
     logger.record([f'Params: hidden_dim = {hidden_dim}, num_layers = {num_layers}, dropout = {dropout}, '
                 f'window_size = {window_size}, stride = {stride}, batch_size = {batch_size}, mask_ratio = {mask_ratio} '
                 f'lr = {lr}, weight_decay = {weight_decay}, num_epochs = {num_epochs} '
@@ -27,5 +28,11 @@ def run(val_person, num_total_persons=16):
     train(model, train_loader, val_loader, lr, weight_decay, mask_ratio, num_epochs, devices, os.path.join('/data/xinglibao/outputs', timestamp), logger, alpha, beta, gamma)
 
 
+def run_16(num_total_persons=16):
+    person_ids = list(range(num_total_persons))
+    random.shuffle(person_ids)
+    for id in person_ids:
+        run(id)
+
 if __name__ == "__main__":
-    run(0)
+    run_16()

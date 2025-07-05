@@ -26,7 +26,7 @@ def run(train_environment_ids, val_environment_ids):
 
 
 if __name__ == "__main__":
-    # train_environment_ids, val_environment_ids = [1, 2], [3]
-    train_environment_ids, val_environment_ids = [1, 3], [2]
+    train_environment_ids, val_environment_ids = [1, 2], [3]
+    # train_environment_ids, val_environment_ids = [1, 3], [2]
     # train_environment_ids, val_environment_ids = [2, 3], [1]
     run(train_environment_ids, val_environment_ids)

@@ -5,40 +5,13 @@ import pandas as pd
 from torch import nn
 from utils.accumulator import Accumulator
 from utils.dataloader import *
-# from sklearn.metrics import confusion_matrix
+from utils.tools import *
 from utils.confusion_matrix import compute_confusion_matrix
 
 
 def accuracy(y_hat, y):
     return (torch.argmax(y_hat, dim=1) == y).float().mean().item()
 
-"""
-def compute_confusion_matrix(model, dataloader):
-    device = next(iter(model.parameters())).device
-    all_identity_preds, all_identity_labels = [], []
-    all_activity_preds, all_activity_labels = [], []
-    model.eval()
-    with torch.no_grad():
-        for x, y1, y2 in dataloader:
-            x, y1, y2 = x.to(device), y1.to(device), y2.to(device)
-            y1_hat, y2_hat = model(x)
-
-            all_identity_preds.extend(torch.argmax(y1_hat, dim=1).view(-1).cpu().numpy())
-            all_identity_labels.extend(y1.view(-1).cpu().numpy())
-
-            all_activity_preds.extend(torch.argmax(y2_hat, dim=1).view(-1).cpu().numpy())
-            all_activity_labels.extend(y2.view(-1).cpu().numpy())
-            
-
-    cm_identity = confusion_matrix(all_identity_labels, all_identity_preds)
-    cm_activity = confusion_matrix(all_activity_labels, all_activity_preds)
-
-    with np.errstate(divide='ignore', invalid='ignore'):
-        normalized_cm_identity = np.nan_to_num(cm_identity.astype('float') / cm_identity.sum(axis=1, keepdims=True))
-        normalized_cm_activity = np.nan_to_num(cm_activity.astype('float') / cm_activity.sum(axis=1, keepdims=True))
-
-    return np.round(normalized_cm_identity, 2), np.round(normalized_cm_activity, 2)
-"""
 
 def evaluate(model, dataloader, criterion1, criterion2):
     metric = Accumulator(7)
@@ -69,7 +42,8 @@ def evaluate(model, dataloader, criterion1, criterion2):
     return train_loss, train_loss1, train_loss2, train_loss3, train_acc1, train_acc2
 
 
-def train(model, train_loader, val_loader, lr, weight_decay, mask_ratio, num_epochs, devices, checkpoint_save_path, logger, alpha, beta, gamma, max_invalid_num_epochs = -1):
+def train(model, train_loader, val_loader, lr, weight_decay, mask_ratio, num_epochs, devices, checkpoint_save_path, logger, alpha, beta, gamma, max_invalid_num_epochs = -1, use_dynamic_weights = None):
+    y1_weights, _, y1_y2_weights = get_class_weights(train_loader, val_loader, logger)
     def init_weights(m):
         if type(m) == nn.Linear or type(m) == nn.Conv2d:
             nn.init.xavier_uniform_(m.weight)
@@ -78,6 +52,13 @@ def train(model, train_loader, val_loader, lr, weight_decay, mask_ratio, num_epo
     model = nn.DataParallel(model, device_ids=devices).to(devices[0])
     optimizer = torch.optim.AdamW(model.parameters(), lr=lr, weight_decay=weight_decay)
     criterion1 = nn.CrossEntropyLoss()
+    if use_dynamic_weights != None:
+        if use_dynamic_weights == 'y1':
+            y1_weights = y1_weights.to(devices[0])
+            criterion1 = nn.CrossEntropyLoss(weight=y1_weights)
+        elif use_dynamic_weights == 'y1 + y2':
+            y1_y2_weights = y1_y2_weights.to(devices[0])
+            criterion1 = nn.CrossEntropyLoss(weight=y1_y2_weights)
     criterion2 = nn.MSELoss()
 
     min_val_loss1 = float('inf')

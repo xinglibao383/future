@@ -33,3 +33,4 @@ def get_class_weights(train_loader, val_loader, logger, num_classes=34):
     logger.record([f"y1 + y2 class weights: {y1_y2_weights}"])
 
     return y1_weights, y2_weights, y1_y2_weights
+

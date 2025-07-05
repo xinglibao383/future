@@ -8,8 +8,9 @@ class Logger:
             self.save_path = os.path.join(save_path, f'{timestamp}_{extend}.txt')
         os.makedirs(os.path.dirname(self.save_path), exist_ok=True)
 
-    def record(self, logs):
+    def record(self, logs, print_flag=True):
         with open(self.save_path, "a", encoding="utf-8") as log_file:
             for log in logs:
                 log_file.write(log + "\n")
-                print(log)
+                if print_flag:
+                    print(log)

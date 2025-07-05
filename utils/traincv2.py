@@ -1,16 +1,18 @@
 import os
 import torch
 import numpy as np
+import pandas as pd
 from torch import nn
 from utils.accumulator import Accumulator
 from utils.dataloader import *
-from sklearn.metrics import confusion_matrix
+# from sklearn.metrics import confusion_matrix
+from utils.confusion_matrix import compute_confusion_matrix
 
 
 def accuracy(y_hat, y):
     return (torch.argmax(y_hat, dim=1) == y).float().mean().item()
 
-
+"""
 def compute_confusion_matrix(model, dataloader):
     device = next(iter(model.parameters())).device
     all_identity_preds, all_identity_labels = [], []
@@ -36,7 +38,7 @@ def compute_confusion_matrix(model, dataloader):
         normalized_cm_activity = np.nan_to_num(cm_activity.astype('float') / cm_activity.sum(axis=1, keepdims=True))
 
     return np.round(normalized_cm_identity, 2), np.round(normalized_cm_activity, 2)
-
+"""
 
 def evaluate(model, dataloader, criterion1, criterion2):
     metric = Accumulator(7)
@@ -123,11 +125,15 @@ def train(model, train_loader, val_loader, lr, weight_decay, mask_ratio, num_epo
         train_acc2 = metric[5] / metric[6]
         print(f'Epoch: {epoch}, train loss: {train_loss:.4f}, train loss1: {train_loss1:.4f}, train loss2: {train_loss2:.4f}, train loss3: {train_loss3:.4f}, train acc1: {train_acc1:.4f}, train acc2: {train_acc2:.4f}')
         logger.record([f'Epoch: {epoch}, train loss: {train_loss:.4f}, train loss1: {train_loss1:.4f}, train loss2: {train_loss2:.4f}, train loss3: {train_loss3:.4f}, train acc1: {train_acc1:.4f}, train acc2: {train_acc2:.4f}'])
-        
+        train_confusion_matrix = compute_confusion_matrix(model, train_loader)
+        logger.record([f'Train confusion matrix:\n{pd.DataFrame(train_confusion_matrix[0])}'], print_flag=False)
+        logger.record([f'Train confusion matrix:\n{pd.DataFrame(train_confusion_matrix[1])}'], print_flag=False)
         val_loss, val_loss1, val_loss2, val_loss3, val_acc1, val_acc2 = evaluate(model, val_loader, criterion1, criterion2)
         print(f'Epoch: {epoch}, val loss: {val_loss:.4f}, val loss1: {val_loss1:.4f}, val loss2: {val_loss2:.4f}, val loss3: {val_loss3:.4f}, val acc1: {val_acc1:.4f}, val acc2: {val_acc2:.4f}')
         logger.record([f'Epoch: {epoch}, val loss: {val_loss:.4f}, val loss1: {val_loss1:.4f}, val loss2: {val_loss2:.4f}, val loss3: {val_loss3:.4f}, val acc1: {val_acc1:.4f}, val acc2: {val_acc2:.4f}'])
-
+        val_confusion_matrix = compute_confusion_matrix(model, val_loader)
+        logger.record([f'Val confusion matrix:\n{pd.DataFrame(val_confusion_matrix[0])}'], print_flag=False)
+        logger.record([f'Val confusion matrix:\n{pd.DataFrame(val_confusion_matrix[1])}'], print_flag=False)
         save_flag = False
         if val_loss1 < min_val_loss1:
             min_val_loss1 = val_loss1

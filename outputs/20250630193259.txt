@@ -1,0 +1,12 @@
+Comment: sota
+Params: hidden_dim = 128, num_layers = 2, dropout = 0.3, window_size = 250, stride = 25, batch_size = 512, mask_ratio = 0.15 lr = 0.001, weight_decay = 0.0001, num_epochs = 800 alpha = 10, beta = 0.001, gamma = 1 
+Epoch: 0, train loss: 27.6761, train loss1: 2.3484, train loss2: 774.6014, train loss3: 3.4174, train acc1: 0.3216, train acc2: 0.0669
+Epoch: 0, val loss: 768.4286, val loss1: 1.6460, val loss2: 763.4005, val loss3: 3.3821, val acc1: 0.4908, val acc2: 0.0809
+Epoch: 1, train loss: 18.9263, train loss1: 1.4776, train loss2: 774.7779, train loss3: 3.3757, train acc1: 0.5396, train acc2: 0.0760
+Epoch: 1, val loss: 768.0219, val loss1: 1.2151, val loss2: 763.4297, val loss3: 3.3771, val acc1: 0.6161, val acc2: 0.0809
+Epoch: 2, train loss: 15.5961, train loss1: 1.1456, train loss2: 774.7575, train loss3: 3.3654, train acc1: 0.6411, train acc2: 0.0782
+Epoch: 2, val loss: 767.7943, val loss1: 1.0179, val loss2: 763.4328, val loss3: 3.3436, val acc1: 0.6770, val acc2: 0.0809
+Epoch: 3, train loss: 13.6647, train loss1: 0.9532, train loss2: 774.7152, train loss3: 3.3580, train acc1: 0.7010, train acc2: 0.0784
+Epoch: 3, val loss: 767.6203, val loss1: 0.8783, val loss2: 763.4001, val loss3: 3.3418, val acc1: 0.7215, val acc2: 0.0809
+Epoch: 4, train loss: 12.2342, train loss1: 0.8102, train loss2: 774.7119, train loss3: 3.3579, train acc1: 0.7454, train acc2: 0.0778
+Epoch: 4, val loss: 767.4900, val loss1: 0.7579, val loss2: 763.3916, val loss3: 3.3405, val acc1: 0.7595, val acc2: 0.0809

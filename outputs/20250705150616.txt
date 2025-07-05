@@ -1,0 +1,10 @@
+Comment: sota, cross environment, train_environment_ids = [2, 3], val_environment_ids = [1]
+Params: hidden_dim = 128, num_layers = 2, dropout = 0.3, window_size = 250, stride = 25, batch_size = 512, mask_ratio = 0.15 lr = 0.001, weight_decay = 0.0001, num_epochs = 800 alpha = 10, beta = 0.001, gamma = 1 
+Epoch: 0, train loss: 25.2839, train loss1: 2.1217, train loss2: 807.7829, train loss3: 3.2587, train acc1: 0.3622, train acc2: 0.0664
+Epoch: 0, val loss: 681.1260, val loss1: 6.3150, val loss2: 670.6789, val loss3: 4.1321, val acc1: 0.2231, val acc2: 0.0824
+Epoch: 1, train loss: 16.6835, train loss1: 1.2695, train loss2: 808.0407, train loss3: 3.1805, train acc1: 0.5965, train acc2: 0.0742
+Epoch: 1, val loss: 683.2745, val loss1: 7.4111, val loss2: 671.0011, val loss3: 4.8623, val acc1: 0.2362, val acc2: 0.0824
+Epoch: 2, train loss: 13.1380, train loss1: 0.9498, train loss2: 808.4082, train loss3: 2.8318, train acc1: 0.6964, train acc2: 0.1523
+Epoch: 2, val loss: 685.9105, val loss1: 7.8181, val loss2: 671.8517, val loss3: 6.2407, val acc1: 0.2493, val acc2: 0.0947
+Epoch: 3, train loss: 10.2406, train loss1: 0.7635, train loss2: 808.7623, train loss3: 1.7973, train acc1: 0.7573, train acc2: 0.4416
+Epoch: 3, val loss: 686.8712, val loss1: 8.1440, val loss2: 671.9915, val loss3: 6.7357, val acc1: 0.2716, val acc2: 0.1615

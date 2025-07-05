@@ -18,3 +18,25 @@ y1 + y2 class weights: tensor([0.3228, 0.1968, 0.7061, 0.6447, 0.7061, 0.3363, 0
         0.4816, 1.0202, 1.4739, 0.2860, 1.4562, 3.3832, 9.2226])
 Epoch: 0, train loss: 26.1593, train loss1: 2.2163, train loss2: 781.0447, train loss3: 3.2156, train acc1: 0.3505, train acc2: 0.0914
 Epoch: 0, val loss: 652.2687, val loss1: 2.5084, val loss2: 646.6354, val loss3: 3.1250, val acc1: 0.3323, val acc2: 0.1071
+Epoch: 1, train loss: 17.0313, train loss1: 1.3703, train loss2: 781.1908, train loss3: 2.5467, train acc1: 0.5738, train acc2: 0.2169
+Epoch: 1, val loss: 652.7431, val loss1: 2.7548, val loss2: 646.7743, val loss3: 3.2140, val acc1: 0.3411, val acc2: 0.1584
+Epoch: 2, train loss: 13.5477, train loss1: 1.0493, train loss2: 781.2558, train loss3: 2.2735, train acc1: 0.6722, train acc2: 0.2906
+Epoch: 2, val loss: 652.7768, val loss1: 2.7354, val loss2: 646.7917, val loss3: 3.2498, val acc1: 0.3767, val acc2: 0.1737
+Epoch: 3, train loss: 11.3529, train loss1: 0.8522, train loss2: 781.2630, train loss3: 2.0496, train acc1: 0.7337, train acc2: 0.3659
+Epoch: 3, val loss: 652.6931, val loss1: 2.7187, val loss2: 646.8074, val loss3: 3.1670, val acc1: 0.3876, val acc2: 0.1936
+Epoch: 4, train loss: 9.8637, train loss1: 0.7176, train loss2: 781.2649, train loss3: 1.9066, train acc1: 0.7761, train acc2: 0.4109
+Epoch: 4, val loss: 653.3078, val loss1: 3.1175, val loss2: 646.8421, val loss3: 3.3482, val acc1: 0.3687, val acc2: 0.1822
+Epoch: 5, train loss: 9.1849, train loss1: 0.6562, train loss2: 781.2799, train loss3: 1.8418, train acc1: 0.7940, train acc2: 0.4362
+Epoch: 5, val loss: 654.7293, val loss1: 3.1445, val loss2: 646.9017, val loss3: 4.6832, val acc1: 0.3424, val acc2: 0.1378
+Epoch: 6, train loss: 9.8168, train loss1: 0.6567, train loss2: 781.3717, train loss3: 2.4686, train acc1: 0.7941, train acc2: 0.2204
+Epoch: 6, val loss: 653.4246, val loss1: 3.1820, val loss2: 646.8954, val loss3: 3.3472, val acc1: 0.3879, val acc2: 0.1425
+Epoch: 7, train loss: 8.7264, train loss1: 0.5652, train loss2: 781.4292, train loss3: 2.2935, train acc1: 0.8208, train acc2: 0.2470
+Epoch: 7, val loss: 653.9681, val loss1: 3.2692, val loss2: 646.9946, val loss3: 3.7043, val acc1: 0.3724, val acc2: 0.1425
+Epoch: 8, train loss: 8.0941, train loss1: 0.5103, train loss2: 781.5166, train loss3: 2.2091, train acc1: 0.8369, train acc2: 0.2653
+Epoch: 8, val loss: 653.5757, val loss1: 3.0965, val loss2: 646.9425, val loss3: 3.5367, val acc1: 0.4145, val acc2: 0.1435
+Epoch: 9, train loss: 7.6294, train loss1: 0.4690, train loss2: 781.4869, train loss3: 2.1580, train acc1: 0.8479, train acc2: 0.2825
+Epoch: 9, val loss: 653.7976, val loss1: 3.1595, val loss2: 646.9473, val loss3: 3.6908, val acc1: 0.4245, val acc2: 0.1491
+Epoch: 10, train loss: 7.2448, train loss1: 0.4357, train loss2: 781.4757, train loss3: 2.1067, train acc1: 0.8583, train acc2: 0.2939
+Epoch: 10, val loss: 654.3678, val loss1: 3.5558, val loss2: 646.9203, val loss3: 3.8917, val acc1: 0.4050, val acc2: 0.1437
+Epoch: 11, train loss: 6.9406, train loss1: 0.4116, train loss2: 781.4673, train loss3: 2.0432, train acc1: 0.8643, train acc2: 0.3150
+Epoch: 11, val loss: 654.0409, val loss1: 3.3201, val loss2: 646.9236, val loss3: 3.7973, val acc1: 0.4242, val acc2: 0.1549

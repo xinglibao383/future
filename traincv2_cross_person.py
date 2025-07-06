@@ -18,6 +18,7 @@ def run(val_person, num_total_persons=16):
     model = IMUPosev2(hidden_dim=hidden_dim, num_layers=num_layers, len_output=window_size/2/50, dropout=dropout)
     train_loader, val_loader = get_dataloaders_cross_person("/data/xinglibao/data/future/imu", window_size, stride, batch_size, train_person_ids, val_person_ids)
     devices = [torch.device('cuda:0'), torch.device('cuda:1'), torch.device('cuda:2'), torch.device('cuda:3')]
+    devices = [torch.device('cuda:1'), torch.device('cuda:2'), torch.device('cuda:3')]
     timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
     logger = Logger(save_path='/home/xinglibao/workspace/future/outputs', timestamp=timestamp)
     logger.record([f'Comment: sota, cross person, val_person_id = {val_person}'])

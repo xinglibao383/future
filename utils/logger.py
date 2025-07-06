@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 
 
 class Logger:
@@ -11,6 +12,7 @@ class Logger:
     def record(self, logs, print_flag=True):
         with open(self.save_path, "a", encoding="utf-8") as log_file:
             for log in logs:
+                log = datetime.now().strftime("[%Y-%m-%d %H:%M:%S] ") + log
                 log_file.write(log + "\n")
                 if print_flag:
                     print(log)

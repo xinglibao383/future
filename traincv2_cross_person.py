@@ -36,4 +36,4 @@ def run_16(num_total_persons=16):
         run(id)
 
 if __name__ == "__main__":
-    run_16()
+    run(9)

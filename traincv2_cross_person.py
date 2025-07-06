@@ -14,7 +14,7 @@ def run(val_person, num_total_persons=16):
     """
     Params: hidden_dim = 128, num_layers = 2, dropout = 0.3, window_size = 250, stride = 25, batch_size = 512, mask_ratio = 0.15 lr = 0.001, weight_decay = 0.0001, num_epochs = 800 alpha = 10, beta = 0.001, gamma = 1 
     """
-    hidden_dim, num_layers, dropout, window_size, stride, batch_size, mask_ratio, lr, weight_decay, num_epochs, alpha, beta, gamma = 128, 2, 0.3, 250, 25, 512, 0.15, 1e-3, 1e-4, 150, 10, 0.001, 1
+    hidden_dim, num_layers, dropout, window_size, stride, batch_size, mask_ratio, lr, weight_decay, num_epochs, alpha, beta, gamma = 128, 2, 0.3, 250, 25, 512, 0.15, 1e-3, 1e-4, 200, 10, 0.001, 1
     model = IMUPosev2(hidden_dim=hidden_dim, num_layers=num_layers, len_output=window_size/2/50, dropout=dropout)
     train_loader, val_loader = get_dataloaders_cross_person("/data/xinglibao/data/future/imu", window_size, stride, batch_size, train_person_ids, val_person_ids)
     devices = [torch.device('cuda:0'), torch.device('cuda:1'), torch.device('cuda:2'), torch.device('cuda:3')]

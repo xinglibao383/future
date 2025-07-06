@@ -28,11 +28,12 @@ def run(val_person, num_total_persons=16):
     train(model, train_loader, val_loader, lr, weight_decay, mask_ratio, num_epochs, devices, os.path.join('/data/xinglibao/outputs', timestamp), logger, alpha, beta, gamma)
 
 
-def run_16(num_total_persons=16):
-    person_ids = list(range(num_total_persons))
-    random.shuffle(person_ids)
-    for id in person_ids:
-        run(id)
+# def run_16(num_total_persons=16):
+#     person_ids = list(range(num_total_persons))
+#     random.shuffle(person_ids)
+#     for id in person_ids:
+#         run(id)
+
 
 if __name__ == "__main__":
     run(9)

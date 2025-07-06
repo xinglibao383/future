@@ -1,8 +1,0 @@
-Comment: sota
-Params: hidden_dim = 128, num_layers = 2, dropout = 0.3, window_size = 250, stride = 25, batch_size = 512, mask_ratio = 0.15 lr = 0.001, weight_decay = 0.0001, num_epochs = 800 alpha = 10, beta = 0.001, gamma = 1 
-Comment: sota
-Params: hidden_dim = 128, num_layers = 2, dropout = 0.3, window_size = 250, stride = 25, batch_size = 512, mask_ratio = 0.15 lr = 0.001, weight_decay = 0.0001, num_epochs = 800 alpha = 10, beta = 0.001, gamma = 1 
-Comment: sota
-Params: hidden_dim = 128, num_layers = 2, dropout = 0.3, window_size = 250, stride = 25, batch_size = 512, mask_ratio = 0.15 lr = 0.001, weight_decay = 0.0001, num_epochs = 800 alpha = 10, beta = 0.001, gamma = 1 
-Comment: sota
-Params: hidden_dim = 128, num_layers = 2, dropout = 0.3, window_size = 250, stride = 25, batch_size = 512, mask_ratio = 0.15 lr = 0.001, weight_decay = 0.0001, num_epochs = 800 alpha = 10, beta = 0.001, gamma = 1 

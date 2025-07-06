@@ -1,4 +1,0 @@
-Comment: sota
-Params: hidden_dim = 128, num_layers = 2, dropout = 0.3, window_size = 250, stride = 25, batch_size = 512, mask_ratio = 0.15 lr = 0.001, weight_decay = 0.0001, num_epochs = 800 alpha = 10, beta = 0.001, gamma = 1 
-Epoch: 0, train loss: 28.4286, train loss1: 2.4222, train loss2: 775.4980, train loss3: 3.4315, train acc1: 0.3071, train acc2: 0.0565
-Epoch: 0, val loss: 764.9269, val loss1: 1.7488, val loss2: 759.7718, val loss3: 3.4062, val acc1: 0.4700, val acc2: 0.0806

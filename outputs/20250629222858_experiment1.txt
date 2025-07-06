@@ -1,5 +1,0 @@
-=============================================================================================================================
-=============================================================================================================================
-Params: hidden_dim = 64, num_layers = 2, dropout = 0.1, window_size = 150, stride = 25, batch_size = 256, mask_ratio = 0.0 lr = 0.01, weight_decay = 0.0001, num_epochs = 250 alpha = 5, beta = 0.001, gamma = 1 
-Epoch: 0, train loss: 14.2189, train loss1: 2.0161, train loss2: 772.9191, train loss3: 3.3654, train acc1: 0.3996, train acc2: 0.0769
-Epoch: 0, val loss: 766.1263, val loss1: 1.5071, val loss2: 761.2674, val loss3: 3.3518, val acc1: 0.5254, val acc2: 0.0781

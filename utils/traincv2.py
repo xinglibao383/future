@@ -64,6 +64,10 @@ def train(model, train_loader, val_loader, lr, weight_decay, mask_ratio, num_epo
     min_val_loss1 = float('inf')
     min_val_loss2 = float('inf')
     min_val_loss3 = float('inf')
+    max_train_acc1 = 0
+    max_train_acc2 = 0
+    max_val_acc1 = 0
+    max_val_acc2 = 0
     invalid_num_epochs = 0
 
     for epoch in range(num_epochs):
@@ -108,13 +112,21 @@ def train(model, train_loader, val_loader, lr, weight_decay, mask_ratio, num_epo
         
         val_loss, val_loss1, val_loss2, val_loss3, val_acc1, val_acc2 = evaluate(model, val_loader, criterion1, criterion2)
         logger.record([f'Epoch: {epoch}, val loss: {val_loss:.4f}, val loss1: {val_loss1:.4f}, val loss2: {val_loss2:.4f}, val loss3: {val_loss3:.4f}, val acc1: {val_acc1:.4f}, val acc2: {val_acc2:.4f}'])
-        if train_acc1 > 0.8 and train_acc2 > 0.3:
+        if train_acc1 > 0.8 and train_acc2 > 0.3 and (train_acc1 > max_train_acc1 and train_acc2 > max_train_acc2 or val_acc1 > max_val_acc1 and val_acc2 > max_val_acc2):
             train_confusion_matrix = compute_confusion_matrix(model, train_loader)
             logger.record([f'Epoch: {epoch} train confusion matrix1:\n{pd.DataFrame(train_confusion_matrix[0])}'], print_flag=False)
             logger.record([f'Epoch: {epoch} train confusion matrix2:\n{pd.DataFrame(train_confusion_matrix[1])}'], print_flag=False)
             val_confusion_matrix = compute_confusion_matrix(model, val_loader)
             logger.record([f'Epoch: {epoch} val confusion matrix1:\n{pd.DataFrame(val_confusion_matrix[0])}'], print_flag=False)
             logger.record([f'Epoch: {epoch} val confusion matrix2:\n{pd.DataFrame(val_confusion_matrix[1])}'], print_flag=False)
+        if train_acc1 > max_train_acc1:
+            max_train_acc1 = train_acc1
+        if train_acc2 > max_train_acc2:
+            max_train_acc2 = train_acc2
+        if val_acc1 > max_val_acc1:
+            max_val_acc1 = val_acc1
+        if val_acc2 > max_val_acc2:
+            max_val_acc2 = val_acc2
         save_flag = False
         if val_loss1 < min_val_loss1:
             min_val_loss1 = val_loss1

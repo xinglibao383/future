@@ -18,3 +18,17 @@
         0.4732, 1.0096, 1.5516, 0.2798, 1.5175, 3.3605, 9.1607])
 [2025-07-06 13:04:44] Epoch: 0, train loss: 27.3467, train loss1: 2.3175, train loss2: 741.4381, train loss3: 3.4301, train acc1: 0.3293, train acc2: 0.0561
 [2025-07-06 13:04:58] Epoch: 0, val loss: 1234.6760, val loss1: 2.0847, val loss2: 1229.1692, val loss3: 3.4221, val acc1: 0.4068, val acc2: 0.0534
+[2025-07-06 13:09:30] Epoch: 1, train loss: 19.4262, train loss1: 1.5541, train loss2: 741.9392, train loss3: 3.1434, train acc1: 0.5181, train acc2: 0.1114
+[2025-07-06 13:09:43] Epoch: 1, val loss: 1234.0868, val loss1: 1.7322, val loss2: 1229.5815, val loss3: 2.7731, val acc1: 0.4787, val acc2: 0.1786
+[2025-07-06 13:14:04] Epoch: 2, train loss: 16.8300, train loss1: 1.3461, train loss2: 742.2531, train loss3: 2.6267, train acc1: 0.5822, train acc2: 0.2056
+[2025-07-06 13:14:16] Epoch: 2, val loss: 1233.7126, val loss1: 1.5803, val loss2: 1229.5680, val loss3: 2.5642, val acc1: 0.5366, val acc2: 0.2197
+[2025-07-06 13:18:30] Epoch: 3, train loss: 13.8846, train loss1: 1.0858, train loss2: 742.2462, train loss3: 2.2845, train acc1: 0.6594, train acc2: 0.2945
+[2025-07-06 13:18:42] Epoch: 3, val loss: 1233.4443, val loss1: 1.3801, val loss2: 1229.5896, val loss3: 2.4747, val acc1: 0.5884, val acc2: 0.2444
+[2025-07-06 13:22:48] Epoch: 4, train loss: 12.1069, train loss1: 0.9280, train loss2: 742.2076, train loss3: 2.0845, train acc1: 0.7076, train acc2: 0.3491
+[2025-07-06 13:23:01] Epoch: 4, val loss: 1233.1016, val loss1: 1.3393, val loss2: 1229.5057, val loss3: 2.2566, val acc1: 0.6128, val acc2: 0.3376
+[2025-07-06 13:27:23] Epoch: 5, train loss: 10.8229, train loss1: 0.8159, train loss2: 742.1909, train loss3: 1.9221, train acc1: 0.7428, train acc2: 0.4028
+[2025-07-06 13:27:36] Epoch: 5, val loss: 1232.9799, val loss1: 1.2699, val loss2: 1229.5060, val loss3: 2.2040, val acc1: 0.6374, val acc2: 0.3508
+[2025-07-06 13:31:58] Epoch: 6, train loss: 9.7249, train loss1: 0.7181, train loss2: 742.1691, train loss3: 1.8015, train acc1: 0.7747, train acc2: 0.4420
+[2025-07-06 13:32:10] Epoch: 6, val loss: 1232.7820, val loss1: 1.2459, val loss2: 1229.4731, val loss3: 2.0629, val acc1: 0.6443, val acc2: 0.3966
+[2025-07-06 13:36:31] Epoch: 7, train loss: 8.9836, train loss1: 0.6547, train loss2: 742.1711, train loss3: 1.6943, train acc1: 0.7938, train acc2: 0.4770
+[2025-07-06 13:36:44] Epoch: 7, val loss: 1232.7526, val loss1: 1.1814, val loss2: 1229.4480, val loss3: 2.1232, val acc1: 0.6569, val acc2: 0.3665

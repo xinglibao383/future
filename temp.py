@@ -1,26 +1,50 @@
-import os
+from pymilvus import *
 
-def analyze_npy_filenames(folder_path):
-    filenames = [f for f in os.listdir(folder_path) if f.endswith('.npy')]
-    split_numbers = []
+# 如果你在容器里用 --network=host 运行，host 就是 localhost
+connections.connect("default", host="localhost", port="19530")
 
-    for fname in filenames:
-        name_parts = fname[:-4].split('_')  # 去掉 .npy 后缀并按下划线分割
-        try:
-            nums = [int(part) for part in name_parts]  # 或者 float(part) 如果是小数
-            split_numbers.append(nums)
-        except ValueError:
-            print(f"跳过无法解析为数字的文件名: {fname}")
+# 测试是否连接成功
+print(connections.get_connection_addr("default"))
 
-    if not split_numbers:
-        print("没有有效的文件名可供分析。")
-        return
+# 定义字段
+fields = [
+    FieldSchema(name="id", dtype=DataType.INT64, is_primary=True, auto_id=False),
+    FieldSchema(name="embedding", dtype=DataType.FLOAT_VECTOR, dim=128)
+]
 
-    num_parts = len(split_numbers[0])
-    for i in range(num_parts):
-        ith_values = [parts[i] for parts in split_numbers if len(parts) > i]
-        print(f"第 {i+1} 段：min={min(ith_values)}, max={max(ith_values)}")
+# 创建 Collection Schema
+schema = CollectionSchema(fields, description="Example collection")
 
-# ✅ 使用示例
-folder_path = "/home/xinglibao/workspace/future/datac/imu/imu_150_25"  # ← 修改为你的文件夹路径
-analyze_npy_filenames(folder_path)
+# 创建 Collection
+collection = Collection(name="example_collection", schema=schema)
+
+# 插入数据
+import numpy as np
+
+ids = [i for i in range(100)]
+vectors = np.random.random((100, 128)).tolist()
+
+collection.insert([ids, vectors])
+
+# 创建索引
+collection.create_index(field_name="embedding", index_params={
+    "metric_type": "L2",
+    "index_type": "IVF_FLAT",
+    "params": {"nlist": 128}
+})
+
+# 加载 collection 到内存
+collection.load()
+
+# 搜索
+search_result = collection.search(
+    data=[vectors[0]], 
+    anns_field="embedding", 
+    param={"metric_type": "L2", "params": {"nprobe": 10}},
+    limit=5,
+    output_fields=["id"]
+)
+
+for hits in search_result:
+    for hit in hits:
+        print(f"id: {hit.id}, distance: {hit.distance}")

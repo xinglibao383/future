@@ -98,6 +98,6 @@ def resnet18(in_channel, *num_classes):
 
 if __name__ == "__main__":
     x = torch.randn(32, 30, 1000)
-    model = resnet18(30, 3, 34, 16)
+    model = resnet18(30, 3, 16, 34)
     for y in model(x):
         print(y.shape)

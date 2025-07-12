@@ -1,33 +1,27 @@
+import torchvision
+torchvision.disable_beta_transforms_warning()
+
+import warnings
+warnings.filterwarnings("ignore")
+
 from pymilvus import connections, FieldSchema, CollectionSchema, DataType, Collection
-from transformers import AutoTokenizer, AutoModel
+from sentence_transformers import SentenceTransformer
 import torch
-import torch.nn.functional as F
-import os
 
 # ========== 参数配置 ==========
 MILVUS_HOST = "localhost"
 MILVUS_PORT = "19530"
 COLLECTION_NAME = "doc_demo"
-EMBEDDING_MODEL = "BAAI/bge-large-zh"
 EMBEDDING_DIM = 1024  # bge-large-zh 维度
 
 # ========== 初始化向量模型 ==========
 device = "cuda" if torch.cuda.is_available() else "cpu"
-tokenizer = AutoTokenizer.from_pretrained(EMBEDDING_MODEL)
-model = AutoModel.from_pretrained(EMBEDDING_MODEL).to(device)
-
-def mean_pooling(model_output, attention_mask):
-    token_embeddings = model_output[0]
-    input_mask_expanded = attention_mask.unsqueeze(-1).expand(token_embeddings.size())
-    return (token_embeddings * input_mask_expanded).sum(1) / input_mask_expanded.sum(1)
+model = SentenceTransformer("/home/xinglibao/workspace/future/embedding/bge-large-zh-v1.5")
 
 def embed_text(text):
     text = "为这个句子生成表示以用于检索: " + text
-    encoded_input = tokenizer(text, return_tensors='pt', truncation=True, padding=True).to(device)
-    with torch.no_grad():
-        model_output = model(**encoded_input)
-    embedding = mean_pooling(model_output, encoded_input['attention_mask'])
-    return F.normalize(embedding, p=2, dim=1)[0].cpu().numpy()
+    embedding = model.encode(text, normalize_embeddings=True)
+    return embedding
 
 # ========== 连接 Milvus ==========
 connections.connect("default", host=MILVUS_HOST, port=MILVUS_PORT)
@@ -48,6 +42,7 @@ docs = [
     "注册会计师考试包括《会计》《审计》《税法》《财务成本管理》《经济法》《公司战略与风险管理》六门科目。",
     "考试时间一般安排在每年的十月。",
     "考生需要通过所有科目才能获得全科合格证书。",
+    "一般程序员喜欢吃火锅",
 ]
 
 embeddings = [embed_text(d) for d in docs]

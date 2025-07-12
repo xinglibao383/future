@@ -17,7 +17,7 @@ def run(train_environment_ids, val_environment_ids):
     devices = [torch.device('cuda:0'), torch.device('cuda:1'), torch.device('cuda:2'), torch.device('cuda:3')]
     timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
     logger = Logger(save_path='/home/xinglibao/workspace/future/outputs', timestamp=timestamp)
-    logger.record([f'Comment: sota, cross environment, train_environment_ids = {train_environment_ids}, val_environment_ids = {val_environment_ids}'])
+    logger.record([f'Comment: multi classify'])
     logger.record([f'Params: hidden_dim = {hidden_dim}, num_layers = {num_layers}, dropout = {dropout}, '
                 f'window_size = {window_size}, stride = {stride}, batch_size = {batch_size}, mask_ratio = {mask_ratio} '
                 f'lr = {lr}, weight_decay = {weight_decay}, num_epochs = {num_epochs} '

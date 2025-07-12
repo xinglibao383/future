@@ -6,7 +6,7 @@ from utils.dataloaderc_v2 import *
 from utils.traincv3 import train as train
 from models.resnet_mh import resnet18
 
-
+# /home/xinglibao/anaconda3/envs/future/bin/python /home/xinglibao/workspace/future/traincv3.py
 if __name__ == "__main__":
     window_size, stride, batch_size, mask_ratio, lr, weight_decay, num_epochs, alpha, beta, gamma = 250, 25, 512, 0.15, 1e-3, 1e-4, 800, 1, 1, 1
     model = resnet18(30, 3, 16, 34)

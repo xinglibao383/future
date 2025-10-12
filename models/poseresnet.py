@@ -40,7 +40,7 @@ class BasicBlock(nn.Module):
 
 
 class PoseResNet(nn.Module):
-    def __init__(self, block, layers, in_channel, num_keypoints=25, output_dim=2):
+    def __init__(self, block, layers, in_channel, num_poses, num_keypoints=25, output_dim=2):
         super(PoseResNet, self).__init__()
         self.inplanes = 128
         self.conv1 = nn.Conv1d(in_channel, 128, kernel_size=7, stride=2, padding=3, bias=False, groups=1)
@@ -58,8 +58,9 @@ class PoseResNet(nn.Module):
         self.layer4 = self._make_layer(block, 512, layers[3], stride=2, group=1)
         self.conv4 = conv3x3(512, 512, stride=2)
         self.avg_pool = nn.AdaptiveAvgPool1d(1)
-        self.fc = nn.Linear(512, num_keypoints * output_dim)
+        self.fc = nn.Linear(512, num_poses * num_keypoints * output_dim)
 
+        self.num_poses = num_poses
         self.num_keypoints = num_keypoints
         self.output_dim = output_dim
 
@@ -92,16 +93,16 @@ class PoseResNet(nn.Module):
         x = self.avg_pool(x)  # [B, 512, 1]
         x = x.view(x.size(0), -1)  # [B, 512]
         x = self.fc(x)  # [B, 25*2]
-        x = x.view(x.size(0), self.num_keypoints, self.output_dim)  # [B, 25, 2]
+        x = x.view(x.size(0), self.num_poses, self.num_keypoints, self.output_dim)  # [B, 25, 2]
         return x
 
 
-def poseresnet18(in_channel):
-    return PoseResNet(BasicBlock, [2, 2, 2, 2], in_channel)
+def poseresnet18(in_channel, num_poses):
+    return PoseResNet(BasicBlock, [2, 2, 2, 2], in_channel, num_poses=num_poses)
 
 
 if __name__ == "__main__":
     x = torch.randn(32, 30, 200)
-    model = poseresnet18(in_channel=30)
+    model = poseresnet18(in_channel=30, num_poses=15)
     y = model(x)
     print("Y shape:", y.shape)

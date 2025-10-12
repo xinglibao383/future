@@ -74,6 +74,7 @@ def train(model, train_loader, val_loader, lr, num_epochs, devices, checkpoint_s
         metric = Accumulator(2)  # [weighted_loss_sum, total_weight]
         model.train()
         for i, (x, y) in enumerate(train_loader):
+            print(x.shape, y.shape)
             optimizer.zero_grad()
             batch_size = x.shape[0]
 
@@ -95,7 +96,7 @@ def train(model, train_loader, val_loader, lr, num_epochs, devices, checkpoint_s
                 total_weight = weights.sum()
                 metric.add(weighted_loss.item(), total_weight.item())
 
-                if i % 100 == 0:
+                if i != 0 and i % 100 == 0:
                     train_loss = metric[0] / metric[1]
                     print(f'Epoch: {epoch}, iter: {i}, train loss: {train_loss:.4f}')
 

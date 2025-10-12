@@ -1,5 +1,5 @@
 import torch
-from torch import nn
+import torch.nn as nn
 
 
 def conv3x3(in_planes, out_planes, stride=1, group=1):
@@ -39,9 +39,9 @@ class BasicBlock(nn.Module):
         return out
 
 
-class ResNet(nn.Module):
-    def __init__(self, block, layers, in_channel):
-        super(ResNet, self).__init__()
+class PoseResNet(nn.Module):
+    def __init__(self, block, layers, in_channel, num_keypoints=25, output_dim=2):
+        super(PoseResNet, self).__init__()
         self.inplanes = 128
         self.conv1 = nn.Conv1d(in_channel, 128, kernel_size=7, stride=2, padding=3, bias=False, groups=1)
         self.bn1 = nn.BatchNorm1d(128)
@@ -58,6 +58,10 @@ class ResNet(nn.Module):
         self.layer4 = self._make_layer(block, 512, layers[3], stride=2, group=1)
         self.conv4 = conv3x3(512, 512, stride=2)
         self.avg_pool = nn.AdaptiveAvgPool1d(1)
+        self.fc = nn.Linear(512, num_keypoints * output_dim)
+
+        self.num_keypoints = num_keypoints
+        self.output_dim = output_dim
 
     def _make_layer(self, block, planes, blocks, stride=1, group=1):
         downsample = None
@@ -80,50 +84,24 @@ class ResNet(nn.Module):
         x = self.bn1(x)
         x = self.relu(x)
         x = self.maxpool(x)
-        c1 = self.layer1(x)
-        c2 = self.layer2(c1)
-        c3 = self.layer3(c2)
-        c4 = self.layer4(c3)
-        return c4
+        x = self.layer1(x)
+        x = self.layer2(x)
+        x = self.layer3(x)
+        x = self.layer4(x)
+
+        x = self.avg_pool(x)  # [B, 512, 1]
+        x = x.view(x.size(0), -1)  # [B, 512]
+        x = self.fc(x)  # [B, 25*2]
+        x = x.view(x.size(0), self.num_keypoints, self.output_dim)  # [B, 25, 2]
+        return x
 
 
-def resnet18(in_channel):
-    return ResNet(BasicBlock, [2, 2, 2, 2], in_channel)
-
-
-class PoseDETR(nn.Module):
-    def __init__(self, in_channels=3, num_keypoints=10, hidden_dim=256, nheads=8,
-                 num_encoder_layers=6, num_decoder_layers=6):
-        super().__init__()
-        self.backbone = resnet18(in_channel=in_channels)
-        self.conv = nn.Conv1d(512, hidden_dim, 1)
-        self.transformer = nn.Transformer(
-            d_model=hidden_dim, nhead=nheads,
-            num_encoder_layers=num_encoder_layers, num_decoder_layers=num_decoder_layers
-        )
-        self.pos_embed = nn.Parameter(torch.rand(500, hidden_dim))  # 序列位置编码
-        self.query_pos = nn.Parameter(torch.rand(num_keypoints, hidden_dim))  # 关键点查询向量
-        self.keypoint_head = nn.Linear(hidden_dim, 2)
-
-    def forward(self, inputs):
-        # inputs: [B, C, L]
-        x = self.backbone(inputs)
-        x = self.conv(x)  # [B, hidden_dim, L']
-        L = x.shape[-1]
-        src = x.permute(2, 0, 1) + self.pos_embed[:L].unsqueeze(1)  # [L, B, hidden_dim]
-        B = src.shape[1]
-        tgt = self.query_pos.unsqueeze(1).expand(-1, B, -1)  # [num_kp, B, hidden_dim]
-        hs = self.transformer(src, tgt)  # [num_kp, B, hidden_dim]
-        keypoints = self.keypoint_head(hs).sigmoid()  # [num_kp, B, 2]
-        keypoints = keypoints.permute(1, 0, 2)  # [B, num_kp, 2]
-        return keypoints
+def poseresnet18(in_channel):
+    return PoseResNet(BasicBlock, [2, 2, 2, 2], in_channel)
 
 
 if __name__ == "__main__":
-    model = PoseDETR(in_channels=30, num_keypoints=25)
-    model.eval()
-    inputs = torch.randn(32, 30, 800)  # (batch=1, channel=3, length=800)
-    with torch.no_grad():
-        keypoints = model(inputs)
-    print("输出形状:", keypoints.shape)  # [1, 10, 1]
-    print("前5个关键点位置:", keypoints[0, :])
+    x = torch.randn(32, 30, 200)
+    model = poseresnet18(in_channel=30)
+    y = model(x)
+    print("Y shape:", y.shape)

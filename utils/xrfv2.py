@@ -9,7 +9,7 @@ class XRFV2(Dataset):
         super().__init__()
         self.root_path = root_path
         filenames = os.listdir(os.path.join(self.root_path, "imu"))
-        filenames = [filename for filename in filenames if filename.startswith("15_1")]
+        # filenames = [filename for filename in filenames if filename.startswith("15_")]
         self.imu_filepaths = []
         self.pose_filepaths = []
         for filename in filenames:

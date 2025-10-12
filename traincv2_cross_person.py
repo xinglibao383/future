@@ -3,7 +3,7 @@ import random
 import datetime
 import torch
 from utils.logger import Logger
-from utils.dataloaderc import get_dataloaders_cross_person
+from utils.dataloader import get_dataloaders_cross_person
 from utils.traincv2 import train as train
 from models.mycnetv2 import IMUPose as IMUPosev2
 

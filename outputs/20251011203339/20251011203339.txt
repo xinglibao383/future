@@ -1,0 +1,1 @@
+[2025-10-11 20:33:39] Params: len_input = 60, len_predict = 15, hidden_size = 512, num_layers = 3, lr = 0.001, num_epochs = 400

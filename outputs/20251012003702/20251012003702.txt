@@ -1,0 +1,2 @@
+[2025-10-12 00:37:27] Epoch: 0, train loss: 396148.2069, val loss: nan, val mpjpe: nan
+[2025-10-12 00:37:38] Epoch: 1, train loss: 396137.6054, val loss: nan, val mpjpe: nan

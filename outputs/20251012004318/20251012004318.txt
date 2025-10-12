@@ -1,0 +1,4 @@
+[2025-10-12 00:43:39] Epoch: 0, train loss: 395290.0145, val loss: 393741.3476, val mpjpe: 821.8259
+[2025-10-12 00:43:51] Epoch: 1, train loss: 395285.1774, val loss: 393741.3476, val mpjpe: 821.8259
+[2025-10-12 00:44:02] Epoch: 2, train loss: 395285.1804, val loss: 393741.3476, val mpjpe: 821.8259
+[2025-10-12 00:44:14] Epoch: 3, train loss: 395285.1791, val loss: 393741.3476, val mpjpe: 821.8259

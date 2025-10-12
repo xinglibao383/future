@@ -16,7 +16,7 @@ devices = [torch.device('cuda:2'), torch.device('cuda:3')]
 
 # /home/xinglibao/anaconda3/envs/future/bin/python /home/xinglibao/workspace/future/train2.py
 if __name__ == "__main__":
-    mask_ratio, batch_size, lr, num_epochs = 0.5, 256, 1e-2, 800
+    mask_ratio, batch_size, lr, num_epochs = 0.25, 128, 1e-2, 800
     use_len, compute_len, predict_len, stride_len = 30, 15, 5, 15
     # model = PoseLSTM(input_size=30, hidden_size=512, num_layers=4, num_keypoints=25, output_size=2)
     # model = PoseLSTM(input_size=30, hidden_size=256, num_layers=2, num_keypoints=25, output_size=2)

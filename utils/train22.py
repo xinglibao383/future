@@ -22,17 +22,12 @@ def evaluate_loss_mpjpe(model, dataloader):
             loss = criterion(y_hat, y)
             error = torch.norm(y_hat - y, dim=-1)
 
-            metric.add(loss.item() * x.shape[0], x.shape[0], error.sum().item(), error.numel())  # 按 batch 累加
+            metric.add(loss.item() * x.shape[0], x.shape[0], error.sum().item(), error.numel())
 
     return metric[0] / metric[1], metric[2] / metric[3]
 
 
 def train(model, train_loader, val_loader, mask_ratio, lr, num_epochs, devices, checkpoint_save_path, logger):
-    def init_weights(m):
-        if isinstance(m, (nn.Linear, nn.Conv1d, nn.Conv2d)):
-            nn.init.xavier_uniform_(m.weight)
-    model.apply(init_weights)
-
     model = nn.DataParallel(model, device_ids=devices).to(devices[0])
     optimizer = torch.optim.AdamW(model.parameters(), lr=lr)
     criterion = nn.MSELoss()
@@ -40,10 +35,10 @@ def train(model, train_loader, val_loader, mask_ratio, lr, num_epochs, devices, 
     min_val_loss, min_val_mpjpe = float('inf'), float('inf')
     best_val_epoch = 0
     for epoch in range(num_epochs):
-        metric = Accumulator(2)  # [sum_loss, total_samples]
+        metric = Accumulator(2)
         model.train()
         for i, (x, y) in enumerate(train_loader):
-            mean = x.mean(dim=(0, 2), keepdim=True)   # 按 batch 和时间轴求均值
+            mean = x.mean(dim=(0, 2), keepdim=True)
             std = x.std(dim=(0, 2), keepdim=True) + 1e-6  # 防止除以0
             x = (x - mean) / std
 

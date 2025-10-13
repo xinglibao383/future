@@ -1,129 +1,80 @@
 import torch
 from torch import nn
+import math
 
-
-def conv3x3(in_planes, out_planes, stride=1, group=1):
-    return nn.Conv1d(in_planes, out_planes, kernel_size=3, stride=stride, padding=1, bias=False, groups=group)
-
-
-def conv1x1(in_planes, out_planes, stride=1, group=1):
-    return nn.Conv1d(in_planes, out_planes, kernel_size=1, stride=stride, bias=False, groups=group)
-
-
-class BasicBlock(nn.Module):
-    expansion = 1
-
-    def __init__(self, inplanes, planes, stride=1, group=1, downsample=None):
-        super(BasicBlock, self).__init__()
-        self.conv1 = conv3x3(inplanes, planes, stride, group=group)
-        self.bn1 = nn.BatchNorm1d(planes)
-        self.relu = nn.ReLU(inplace=True)
-        self.conv2 = conv3x3(planes, planes, group=group)
-        self.bn2 = nn.BatchNorm1d(planes)
-        self.downsample = downsample
-        self.stride = stride
-
-    def forward(self, x):
-        identity = x
-        out = self.conv1(x)
-        out = self.bn1(out)
-        out = self.relu(out)
-        out = self.conv2(out)
-        out = self.bn2(out)
-
-        if self.downsample is not None:
-            identity = self.downsample(x)
-
-        out += identity
-        out = self.relu(out)
-        return out
-
-
-class ResNet(nn.Module):
-    def __init__(self, block, layers, in_channel):
-        super(ResNet, self).__init__()
-        self.inplanes = 128
-        self.conv1 = nn.Conv1d(in_channel, 128, kernel_size=7, stride=2, padding=3, bias=False, groups=1)
-        self.bn1 = nn.BatchNorm1d(128)
-        self.conv2 = nn.Conv1d(128, 128, kernel_size=7, stride=2, padding=3, bias=False)
-        self.bn2 = nn.BatchNorm1d(128)
-        self.conv3 = nn.Conv1d(128, 128, kernel_size=7, stride=2, padding=3, bias=False)
-        self.bn3 = nn.BatchNorm1d(128)
-        self.relu = nn.ReLU(inplace=True)
-        self.maxpool = nn.MaxPool1d(kernel_size=3, stride=2, padding=1)
-
-        self.layer1 = self._make_layer(block, 128, layers[0], stride=1, group=1)
-        self.layer2 = self._make_layer(block, 128, layers[1], stride=2, group=1)
-        self.layer3 = self._make_layer(block, 256, layers[2], stride=2, group=1)
-        self.layer4 = self._make_layer(block, 512, layers[3], stride=2, group=1)
-        self.conv4 = conv3x3(512, 512, stride=2)
-        self.avg_pool = nn.AdaptiveAvgPool1d(1)
-
-    def _make_layer(self, block, planes, blocks, stride=1, group=1):
-        downsample = None
-        if stride != 1 or self.inplanes != planes * block.expansion:
-            downsample = nn.Sequential(
-                conv1x1(self.inplanes, planes * block.expansion, stride),
-                nn.BatchNorm1d(planes * block.expansion),
-            )
-
-        layers = []
-        layers.append(block(self.inplanes, planes, stride, group, downsample))
-        self.inplanes = planes * block.expansion
-        for _ in range(1, blocks):
-            layers.append(block(self.inplanes, planes, group=group))
-
-        return nn.Sequential(*layers)
-
-    def forward(self, x):
-        x = self.conv1(x)
-        x = self.bn1(x)
-        x = self.relu(x)
-        x = self.maxpool(x)
-        c1 = self.layer1(x)
-        c2 = self.layer2(c1)
-        c3 = self.layer3(c2)
-        c4 = self.layer4(c3)
-        return c4
-
-
-def resnet18(in_channel):
-    return ResNet(BasicBlock, [2, 2, 2, 2], in_channel)
-
-
-class PoseDETR(nn.Module):
-    def __init__(self, in_channels=3, num_keypoints=10, hidden_dim=256, nheads=8,
-                 num_encoder_layers=6, num_decoder_layers=6):
+class DETR(nn.Module):
+    def __init__(self, num_queries, num_keypoints=25, dim_keypoint=2, input_channels=6, 
+                 lstm_layers=2, hidden_dim=256, nheads=8, num_encoder_layers=3, num_decoder_layers=3,
+                 max_seq_len=300):
         super().__init__()
-        self.backbone = resnet18(in_channel=in_channels)
-        self.conv = nn.Conv1d(512, hidden_dim, 1)
-        self.transformer = nn.Transformer(
-            d_model=hidden_dim, nhead=nheads,
-            num_encoder_layers=num_encoder_layers, num_decoder_layers=num_decoder_layers
-        )
-        self.pos_embed = nn.Parameter(torch.rand(500, hidden_dim))  # 序列位置编码
-        self.query_pos = nn.Parameter(torch.rand(num_keypoints, hidden_dim))  # 关键点查询向量
-        self.keypoint_head = nn.Linear(hidden_dim, 2)
+        self.num_queries = num_queries
+        self.num_keypoints = num_keypoints
+        self.dim_keypoint = dim_keypoint
+        self.hidden_dim = hidden_dim
+        self.max_seq_len = max_seq_len
 
-    def forward(self, inputs):
-        # inputs: [B, C, L]
-        x = self.backbone(inputs)
-        x = self.conv(x)  # [B, hidden_dim, L']
-        L = x.shape[-1]
-        src = x.permute(2, 0, 1) + self.pos_embed[:L].unsqueeze(1)  # [L, B, hidden_dim]
-        B = src.shape[1]
-        tgt = self.query_pos.unsqueeze(1).expand(-1, B, -1)  # [num_kp, B, hidden_dim]
-        hs = self.transformer(src, tgt)  # [num_kp, B, hidden_dim]
-        keypoints = self.keypoint_head(hs).sigmoid()  # [num_kp, B, 2]
-        keypoints = keypoints.permute(1, 0, 2)  # [B, num_kp, 2]
-        return keypoints
+        # LSTM Backbone
+        self.backbone = nn.LSTM(input_size=input_channels, hidden_size=hidden_dim//2, 
+                                num_layers=lstm_layers, batch_first=True, bidirectional=True)
+
+        # Transformer
+        self.transformer = nn.Transformer(d_model=hidden_dim, nhead=nheads,
+                                          num_encoder_layers=num_encoder_layers,
+                                          num_decoder_layers=num_decoder_layers)
+
+        # Learnable query embeddings
+        self.query_pos = nn.Parameter(torch.rand(num_queries, hidden_dim))
+
+        # Linear output
+        self.linear_keypoints = nn.Linear(hidden_dim, num_keypoints * dim_keypoint)
+
+        # Sinusoidal positional encoding
+        self.register_buffer('pos_encoding', self._build_sinusoidal_position_encoding(max_seq_len, hidden_dim))
+
+    def _build_sinusoidal_position_encoding(self, max_len, d_model):
+        """生成正弦/余弦位置编码 [max_len, d_model]"""
+        pe = torch.zeros(max_len, d_model)
+        position = torch.arange(0, max_len, dtype=torch.float).unsqueeze(1)
+        div_term = torch.exp(torch.arange(0, d_model, 2).float() * (-math.log(10000.0) / d_model))
+        pe[:, 0::2] = torch.sin(position * div_term)
+        pe[:, 1::2] = torch.cos(position * div_term)
+        return pe  # [max_len, d_model]
+
+    def forward(self, x):
+        batch_size, channels, seq_len = x.shape
+        x = x.permute(0, 2, 1)  # [batch, seq_len, channels]
+
+        # LSTM backbone
+        y, _ = self.backbone(x)  # [batch, seq_len, hidden_dim]
+        y = y.permute(1, 0, 2)   # [seq_len, batch, hidden_dim]
+
+        # Add sinusoidal position encoding
+        if seq_len > self.max_seq_len:
+            raise ValueError(f"seq_len ({seq_len}) exceeds max_seq_len ({self.max_seq_len})")
+        pos_encoding = self.pos_encoding[:seq_len, :].unsqueeze(1).repeat(1, batch_size, 1)
+        y = y + pos_encoding
+
+        # Decoder queries
+        queries = self.query_pos.unsqueeze(1).repeat(1, batch_size, 1)  # [num_queries, batch, hidden_dim]
+
+        # Transformer
+        out = self.transformer(y, queries)  # [num_queries, batch, hidden_dim]
+
+        # Output
+        out = out.permute(1, 0, 2)  # [batch, num_queries, hidden_dim]
+        return self.linear_keypoints(out).view(batch_size, self.num_queries, self.num_keypoints, 2)
 
 
 if __name__ == "__main__":
-    model = PoseDETR(in_channels=30, num_keypoints=25)
+    batch_size = 2
+    channels = 6
+    time_len = 100
+    num_queries = 3
+    num_keypoints = 25
+
+    model = DETR(num_queries, num_keypoints=25, dim_keypoint=2, input_channels=6, lstm_layers=2, hidden_dim=256, nheads=8, num_encoder_layers=3, num_decoder_layers=3)
     model.eval()
-    inputs = torch.randn(32, 30, 800)  # (batch=1, channel=3, length=800)
-    with torch.no_grad():
-        keypoints = model(inputs)
-    print("输出形状:", keypoints.shape)  # [1, 10, 1]
-    print("前5个关键点位置:", keypoints[0, :])
+
+    inputs = torch.randn(batch_size, channels, time_len)
+    keypoints = model(inputs)
+    print("keypoints shape:", keypoints.shape)  # [batch, num_queries, num_keypoints, 2]

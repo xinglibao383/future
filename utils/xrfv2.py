@@ -9,7 +9,7 @@ class XRFV2(Dataset):
         super().__init__()
         self.root_path = root_path
         filenames = os.listdir(os.path.join(self.root_path, "imu", f"{use_len}_{compute_len}_{predict_len}_{stride_len}"))
-        filenames = [filename for filename in filenames if len(filename.split('_')) > 1 and filename.split('_')[1] == "2"]
+        # filenames = [filename for filename in filenames if len(filename.split('_')) > 1 and filename.split('_')[1] == "2"]
         self.imu_filepaths = []
         self.pose_filepaths = []
         for filename in filenames:

@@ -126,12 +126,13 @@ class PoseNet(nn.Module):
 
         future_x = torch.cat(preds, dim=1).permute(0, 2, 1)  # [batch, imu_dim, target_time]
 
-        future_features = self.resnet(torch.cat([x, future_x], dim=2))  # [batch, 512]
+        future_features = self.resnet(torch.cat([x[:, :, self.target_time:], future_x], dim=2))  # [batch, 512]
         future_features = future_features.unsqueeze(1)  # [batch, 1, 512]
         future_pose = self.fc3(future_features)  # [B, 25*2]
         future_pose = future_pose.view(future_pose.size(0), self.target_poses, self.num_keypoints, self.output_dim)
 
-        return now_pose, future_x, future_pose
+        # return now_pose, future_x, future_pose
+        return torch.tanh(now_pose), future_x, torch.tanh(future_pose)
 
 
 if __name__ == "__main__":

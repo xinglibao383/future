@@ -8,8 +8,8 @@ from utils.train3 import train as train3
 from models.posenet import *
 
 
-devices = [torch.device('cuda:0'), torch.device('cuda:1'), torch.device('cuda:2'), torch.device('cuda:3')]
-# devices = [torch.device('cuda:1'), torch.device('cuda:2'), torch.device('cuda:3')]
+# devices = [torch.device('cuda:0'), torch.device('cuda:1'), torch.device('cuda:2'), torch.device('cuda:3')]
+devices = [torch.device('cuda:1'), torch.device('cuda:2'), torch.device('cuda:3')]
 # devices = [torch.device('cuda:2'), torch.device('cuda:3')]
 timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
 output_save_path = '/data/xinglibao/outputs'

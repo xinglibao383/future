@@ -39,7 +39,8 @@ def plot_poses(data, output_save_path, timestamp):
     shutil.rmtree(img_save_path)
     os.makedirs(img_save_path, exist_ok=True)
     poses = data.clone().cpu().reshape(-1, 25, 2)
-    poses = 0.5 * torch.log((1 + poses) / (1 - poses))
+    poses = poses.clamp(min=-0.999999, max=0.999999)
+    poses = torch.atanh(poses)
     idxs = torch.randperm(poses.shape[0])[:10]
     for idx in idxs:
         if torch.isfinite(poses[idx]).all():
@@ -52,18 +53,28 @@ def evaluate_loss_mpjpe(model, dataloader, criterion, need_normalize, timestamp,
     model.eval()
     iterIdx = random.randint(0, len(dataloader))
     with torch.no_grad():
-        for i, (x1, y1, x2, y2) in enumerate(dataloader):
+        for i, (x1, y1, z1, x2, y2, z2) in enumerate(dataloader):
             batch_size = x1.shape[0]
             if need_normalize:
                 x1, x2 = normalize(x1), normalize(x2)
-            x1, y1, x2, y2 = x1.to(device), y1.to(device), x2.to(device), y2.to(device)
+            x1, y1, z1, x2, y2, z2 = x1.to(device), y1.to(device), z1.to(device), x2.to(device), y2.to(device), z2.to(device)
             y1_hat, x2_hat, y2_hat = model(x1)
 
-            error1, error2 = torch.norm(y1_hat - y1, dim=-1).mean(), torch.norm(y2_hat - y2, dim=-1).mean()
+            if i == iterIdx: plot_poses(y1_hat, output_save_path, timestamp)
+
             loss1, loss2, loss3 = criterion(y1_hat, y1), criterion(x2_hat, x2), criterion(y2_hat, y2)
+
+            y1_hat, y1 = y1_hat.clamp(min=-0.999999, max=0.999999), y1.clamp(min=-0.999999, max=0.999999)
+            y2_hat, y2 = y2_hat.clamp(min=-0.999999, max=0.999999), y2.clamp(min=-0.999999, max=0.999999)
+            y1_hat, y1 = torch.atanh(y1_hat), torch.atanh(y1)
+            y2_hat, y2 = torch.atanh(y2_hat), torch.atanh(y2)
+            y1_hat, y1 = y1_hat * z1, y1 * z1
+            y2_hat, y2 = y2_hat * z2, y2 * z2
+            error1, error2 = torch.norm(y1_hat - y1, dim=-1).mean(), torch.norm(y2_hat - y2, dim=-1).mean()
+            
             metric.add(loss1.item() * batch_size, loss2.item() * batch_size, loss3.item() * batch_size, batch_size, error1.sum().item(), error1.numel(), error2.sum().item(), error2.numel())
 
-            if i == iterIdx: plot_poses(y1_hat, output_save_path, timestamp)
+            
     
     return metric[0] / metric[3], metric[1] / metric[3], metric[2] / metric[3], metric[4] / metric[5], metric[6] / metric[7]
 
@@ -81,7 +92,7 @@ def train(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_norma
     for epoch in range(num_epochs):
         metric = Accumulator(8)
         model.train()
-        for i, (x1, y1, x2, y2) in enumerate(train_loader):
+        for i, (x1, y1, z1, x2, y2, z2) in enumerate(train_loader):
             optimizer.zero_grad()
 
             batch_size = x1.shape[0]
@@ -89,14 +100,21 @@ def train(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_norma
                 x1, x2 = normalize(x1), normalize(x2)
             mask = torch.rand_like(x1) >= mask_ratio
             x1 = x1 * mask.float()
-            x1, y1, x2, y2 = x1.to(devices[0]), y1.to(devices[0]), x2.to(devices[0]), y2.to(devices[0])
+            x1, y1, z1, x2, y2, z2 = x1.to(devices[0]), y1.to(devices[0]), z1.to(devices[0]), x2.to(devices[0]), y2.to(devices[0]), z2.to(devices[0])
             y1_hat, x2_hat, y2_hat = model(x1)
 
-            error1, error2 = torch.norm(y1_hat - y1, dim=-1).mean(), torch.norm(y2_hat - y2, dim=-1).mean()
             loss1, loss2, loss3 = criterion(y1_hat, y1), criterion(x2_hat, x2), criterion(y2_hat, y2)
             loss = alpha * loss1 + beta * loss2 + gamma * loss3
             loss.backward()
             optimizer.step()
+
+            y1_hat, y1 = y1_hat.clamp(min=-0.999999, max=0.999999), y1.clamp(min=-0.999999, max=0.999999)
+            y2_hat, y2 = y2_hat.clamp(min=-0.999999, max=0.999999), y2.clamp(min=-0.999999, max=0.999999)
+            y1_hat, y1 = torch.atanh(y1_hat), torch.atanh(y1)
+            y2_hat, y2 = torch.atanh(y2_hat), torch.atanh(y2)
+            y1_hat, y1 = y1_hat * z1, y1 * z1
+            y2_hat, y2 = y2_hat * z2, y2 * z2
+            error1, error2 = torch.norm(y1_hat - y1, dim=-1).mean(), torch.norm(y2_hat - y2, dim=-1).mean()
 
             metric.add(loss1.item() * batch_size, loss2.item() * batch_size, loss3.item() * batch_size, batch_size, error1.sum().item(), error1.numel(), error2.sum().item(), error2.numel())
 

@@ -27,9 +27,11 @@ class XRFV22(Dataset):
         if imu.shape[1] == 0:
             imu = torch.zeros((30, int((self.use_len + self.predict_len) / 15 * 50)))
         pose = torch.tensor(np.load(self.pose_filepaths[idx]), dtype=torch.float32)
-        normalized_pose = self.fill_missing_keypoints(self.normalize_pose(pose))
+        normalized_pose = self.fill_missing_keypoints(pose)
+        normalized_pose, shoulder_width = self.normalize_pose(pose)
         # return imu[:, :int(self.use_len / 15 * 50)], pose[:self.compute_len, :, :2], imu[:, int(self.use_len / 15 * 50):], pose[self.compute_len:, :, :2]
-        return imu[:, :int(self.use_len / 15 * 50)], normalized_pose[:self.compute_len, :, :2], imu[:, int(self.use_len / 15 * 50):], normalized_pose[self.compute_len:, :, :2]
+        return (imu[:, :int(self.use_len / 15 * 50)], normalized_pose[:self.compute_len, :, :2], shoulder_width[:self.compute_len], 
+                imu[:, int(self.use_len / 15 * 50):], normalized_pose[self.compute_len:, :, :2], shoulder_width[self.compute_len:])
 
     def normalize_pose(self, keypoints_tensor, center_idx=8, left_shoulder_idx=5, right_shoulder_idx=2):
         center = keypoints_tensor[:, center_idx, :2].unsqueeze(1)  # (num_poses, 1, 2)
@@ -38,12 +40,11 @@ class XRFV22(Dataset):
         l_shoulder = keypoints_centered[:, left_shoulder_idx, :2]  # (num_poses, 2)
         r_shoulder = keypoints_centered[:, right_shoulder_idx, :2]
         shoulder_width = torch.norm(l_shoulder - r_shoulder, dim=1).unsqueeze(1).unsqueeze(2)  # (num_poses,1,1)
-        shoulder_width = torch.clamp(shoulder_width, min=1e-6)  # 防止除零
-        keypoints_centered[:, :, :2] /= shoulder_width
-        # 新加的
+        shoulder_width_clamped = torch.clamp(shoulder_width, min=1e-6)  # 防止除零
+        keypoints_centered[:, :, :2] /= shoulder_width_clamped
         keypoints_centered[:, :, :2] = torch.tanh(keypoints_centered[:, :, :2])
         # print(f"最大值: {keypoints_centered.max().item()}, 最小值: {keypoints_centered.min().item()}")
-        return keypoints_centered
+        return keypoints_centered, shoulder_width
 
     def fill_missing_keypoints(self, poses, num_keypoints=25):
         num_poses = poses.shape[0]

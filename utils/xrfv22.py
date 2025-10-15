@@ -2,22 +2,23 @@ import os
 import torch
 import numpy as np
 from torch.utils.data import Dataset
+from utils.data_process4 import process as process_raw_data
 
 
 class XRFV22(Dataset):
     def __init__(self, root_path, use_len, compute_len, predict_len, stride_len):
         super().__init__()
-        self.root_path = root_path
+        self.imu_root_path = os.path.join(root_path, "imu", f"{use_len}_{compute_len}_{predict_len}_{stride_len}")
+        self.pose_root_path = os.path.join(root_path, "pose", f"{use_len}_{compute_len}_{predict_len}_{stride_len}")
         self.use_len = use_len
         self.compute_len = compute_len
         self.predict_len = predict_len
-        filenames = os.listdir(os.path.join(self.root_path, "imu", f"{use_len}_{compute_len}_{predict_len}_{stride_len}"))
-        filenames = [filename for filename in filenames if len(filename.split('_')) > 1 and filename.split('_')[1] == "2"]
-        self.imu_filepaths = []
-        self.pose_filepaths = []
-        for filename in filenames:
-            self.imu_filepaths.append(os.path.join(self.root_path, "imu", f"{use_len}_{compute_len}_{predict_len}_{stride_len}", filename))
-            self.pose_filepaths.append(os.path.join(self.root_path, "pose", f"{use_len}_{compute_len}_{predict_len}_{stride_len}", filename))
+        if not os.path.exists(self.imu_root_path):
+            process_raw_data("/data/xinglibao/xrfv2", "/home/xinglibao/workspace/future/mydata", use_len=use_len, compute_len=compute_len, predict_len=predict_len, stride_len=stride_len)
+        filenames = os.listdir(self.imu_root_path)
+        # filenames = [filename for filename in filenames if len(filename.split('_')) > 1 and filename.split('_')[1] == "2"]
+        self.imu_filepaths = [os.path.join(self.imu_root_path, f) for f in filenames]
+        self.pose_filepaths = [os.path.join(self.pose_root_path, f) for f in filenames]
 
     def __len__(self):
         return len(self.imu_filepaths)

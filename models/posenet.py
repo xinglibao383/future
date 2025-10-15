@@ -11,6 +11,39 @@ def conv1x1(in_planes, out_planes, stride=1, group=1):
     return nn.Conv1d(in_planes, out_planes, kernel_size=1, stride=stride, bias=False, groups=group)
 
 
+class Bottleneck(nn.Module):
+    expansion = 4
+    
+    def __init__(self, inplanes, planes, stride=1, group=1, downsample=None):
+        super(Bottleneck, self).__init__()
+        self.conv1 = conv1x1(inplanes, planes)
+        self.bn1 = nn.BatchNorm1d(planes)
+        self.conv2 = conv3x3(planes, planes, stride, group=group)
+        self.bn2 = nn.BatchNorm1d(planes)
+        self.conv3 = conv1x1(planes, planes * self.expansion)
+        self.bn3 = nn.BatchNorm1d(planes * self.expansion)
+        self.relu = nn.ReLU(inplace=True)
+        self.downsample = downsample
+
+    def forward(self, x):
+        identity = x
+        out = self.conv1(x)
+        out = self.bn1(out)
+        out = self.relu(out)
+        out = self.conv2(out)
+        out = self.bn2(out)
+        out = self.relu(out)
+        out = self.conv3(out)
+        out = self.bn3(out)
+
+        if self.downsample is not None:
+            identity = self.downsample(x)
+
+        out += identity
+        out = self.relu(out)
+        return out
+
+
 class BasicBlock(nn.Module):
     expansion = 1
 
@@ -91,11 +124,24 @@ class ResNet(nn.Module):
         return x
 
 
+def resnet(version, input_channels):
+    if version == "resnet18":
+        return ResNet(BasicBlock, [2, 2, 2, 2], input_channels)
+    elif version == "resnet34":
+        return ResNet(BasicBlock, [3, 4, 6, 3], input_channels)
+    elif version == "resnet50":
+        return ResNet(Bottleneck, [3, 4, 6, 3], input_channels)
+    return None
+
+
 class PoseNet(nn.Module):
-    def __init__(self, input_channels, lstm_hidden, lstm_layers, target_time, target_poses, num_poses, num_keypoints=25, output_dim=2):
+    def __init__(self, input_channels, resnet_verson, lstm_hidden, lstm_layers, lstm_dropout, target_time, target_poses, num_poses, num_keypoints=25, output_dim=2):
         super().__init__()
-        self.resnet = ResNet(BasicBlock, [2, 2, 2, 2], input_channels)
-        self.lstm = nn.LSTM(input_channels + 512, lstm_hidden, lstm_layers, batch_first=True)
+        self.resnet = resnet(resnet_verson, input_channels)
+        if resnet_verson == "resnet18" or resnet_verson == "resnet34":
+            self.lstm = nn.LSTM(input_channels + 512, lstm_hidden, lstm_layers, dropout=lstm_dropout, batch_first=True)
+        elif resnet_verson == "resnet50":
+            self.lstm = nn.LSTM(input_channels + 2048, lstm_hidden, lstm_layers, dropout=lstm_dropout, batch_first=True)
         self.fc1 = nn.Linear(lstm_hidden, input_channels)
         self.fc2 = nn.Linear(512, num_poses * num_keypoints * output_dim)
         self.fc3 = nn.Linear(512, target_poses * num_keypoints * output_dim)

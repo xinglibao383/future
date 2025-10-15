@@ -9,7 +9,8 @@ from utils.train3 import train as train3
 from models.posenet import *
 
 
-def clean_outputs(root_dir="/data/xinglibao/outputs", min_lines=100):
+def clean_outputs(root_dir="/data/xinglibao/outputs", min_epoch=15):
+    min_lines = 2 + 2 * min_epoch
     for folder_name in os.listdir(root_dir):
         folder_path = os.path.join(root_dir, folder_name)
         txt_file_path = os.path.join(folder_path, f"{folder_name}.txt")

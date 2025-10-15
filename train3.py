@@ -8,7 +8,7 @@ from utils.train3 import train as train3
 from models.posenet import *
 
 
-devices = [torch.device('cuda:2'), torch.device('cuda:1'), torch.device('cuda:3'), torch.device('cuda:0')]
+devices = [torch.device('cuda:1'), torch.device('cuda:2'), torch.device('cuda:3'), torch.device('cuda:0')]
 # devices = [torch.device('cuda:1'), torch.device('cuda:2'), torch.device('cuda:3')]
 # devices = [torch.device('cuda:2'), torch.device('cuda:3')]
 timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
@@ -17,9 +17,9 @@ logger = Logger(save_path=output_save_path, timestamp=timestamp)
 
 
 def train():
-    logger.record([f'备注: 使用全量数据, 并且对imu和pose进行归一化'])
+    logger.record([f'备注: 看看哪个场景的数据比较差, 使用场景1数据, 并且对imu和pose进行归一化'])
     mask_ratio, batch_size, lr, num_epochs, loss_func = 0.25, 128, 1e-2, 800, "l1"
-    resnet_verson, lstm_hidden, lstm_layers, lstm_dropout = "resnet34", 256, 3, 0.2
+    resnet_verson, lstm_hidden, lstm_layers, lstm_dropout = "resnet18", 128, 2, 0
     use_len, compute_len, predict_len, stride_len = 45, 15, 15, 15
     need_normalize, alpha, beta, gamma = True, 1, 1, 1
     params = {

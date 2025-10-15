@@ -3,10 +3,11 @@ import torch.nn as nn
 import torch.nn.functional as F
 from models.backbone.resnet import *
 from models.generator.lstm import *
+from models.generator.transformer import *
 
 
 class PoseNet(nn.Module):
-    def __init__(self, input_channels, resnet_verson, lstm_hidden, lstm_layers, lstm_dropout, target_time, target_poses, num_poses, num_keypoints=25, output_dim=2):
+    def __init__(self, input_channels, resnet_verson, imu_generator, imu_generator_params, target_time, target_poses, num_poses, num_keypoints=25, output_dim=2):
         super().__init__()
         self.resnet = resnet(resnet_verson, input_channels)
         if resnet_verson == "resnet18" or resnet_verson == "resnet34":
@@ -14,14 +15,27 @@ class PoseNet(nn.Module):
         elif resnet_verson == "resnet50":
             resent_feature_dim = 2048
         
-        self.imu_predictor = LSTMGenerator(
-            input_dim=resent_feature_dim, 
-            hidden_dim=lstm_hidden, 
-            output_dim=input_channels, 
-            target_len=target_time, 
-            num_layers=lstm_layers,
-            dropout=lstm_dropout
-        )
+        if imu_generator == "lstm":
+            lstm_hidden, lstm_layers, lstm_dropout = imu_generator_params
+            self.imu_predictor = LSTMGenerator(
+                input_dim=resent_feature_dim, 
+                hidden_dim=lstm_hidden, 
+                output_dim=input_channels, 
+                target_len=target_time, 
+                num_layers=lstm_layers,
+                dropout=lstm_dropout
+            )
+        elif imu_generator == "transformer":
+            transformer_hidden, transformer_layers, transformer_nhead, transformer_dropout = imu_generator_params
+            self.imu_predictor = TransformerGenerator(
+                input_dim=resent_feature_dim, 
+                hidden_dim=transformer_hidden, 
+                output_dim=input_channels, 
+                num_layers=transformer_layers, 
+                nhead=transformer_nhead, 
+                dropout=transformer_dropout, 
+                target_len=target_time
+            )
 
         self.fc1 = nn.Linear(resent_feature_dim, num_poses * num_keypoints * output_dim)
         self.fc2 = nn.Linear(resent_feature_dim, target_poses * num_keypoints * output_dim)

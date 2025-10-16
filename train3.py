@@ -23,7 +23,7 @@ def clean_outputs(root_dir="/data/xinglibao/outputs", min_epoch=15):
 
 # devices = [torch.device('cuda:0'), torch.device('cuda:2'), torch.device('cuda:1'), torch.device('cuda:3')]
 # devices = [torch.device('cuda:1'), torch.device('cuda:2'), torch.device('cuda:3')]
-devices = [torch.device('cuda:2'), torch.device('cuda:3')]
+devices = [torch.device('cuda:0'), torch.device('cuda:1')]
 timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
 output_save_path = '/data/xinglibao/outputs'
 logger = Logger(save_path=output_save_path, timestamp=timestamp)
@@ -32,7 +32,7 @@ logger = Logger(save_path=output_save_path, timestamp=timestamp)
 def train():
     logger.record([f'备注: 看看哪个场景的数据比较差, 使用场景1、场景2和场景3数据, 并且对imu和pose进行归一化'])
     mask_ratio, batch_size, lr, num_epochs, loss_func = 0.25, 128, 1e-2, 300, "l1"
-    resnet_verson, imu_generator = "resnet18", "transformer"
+    resnet_verson, imu_generator = "resnet18", "lstm"
     lstm_hidden, lstm_layers, lstm_dropout = 128, 2, 0
     gru_hidden, gru_layers, gru_dropout = 128, 2, 0
     transformer_hidden, transformer_layers, transformer_nhead, transformer_dropout = 128, 2, 4, 0

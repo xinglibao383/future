@@ -5,4 +5,5 @@
 /embedding/
 /now/data/
 **/__pycache__/
-/outputsnew/
+/outputsnew/**/checkpoints/
+/outputsnew/**/imgs/

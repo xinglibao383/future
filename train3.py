@@ -9,7 +9,7 @@ from utils.train3 import train as train3
 from models.posenet import *
 
 
-def clean_outputs(root_dir="/data/xinglibao/outputs", min_epoch=15):
+def clean_outputs(root_dir="/mnt/mydata/yh/liming/workspace/future/outputsnew", min_epoch=15):
     min_lines = 2 + 2 * min_epoch
     for folder_name in os.listdir(root_dir):
         folder_path = os.path.join(root_dir, folder_name)
@@ -21,17 +21,18 @@ def clean_outputs(root_dir="/data/xinglibao/outputs", min_epoch=15):
             shutil.rmtree(folder_path)
 
 
-# devices = [torch.device('cuda:0'), torch.device('cuda:2'), torch.device('cuda:1'), torch.device('cuda:3')]
-# devices = [torch.device('cuda:1'), torch.device('cuda:2'), torch.device('cuda:3')]
-devices = [torch.device('cuda:0'), torch.device('cuda:1')]
+devices = [torch.device('cuda:0'), torch.device('cuda:2'), torch.device('cuda:1'), torch.device('cuda:3')]
 timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
-output_save_path = '/data/xinglibao/outputs'
+# output_save_path = '/data/xinglibao/outputs'
+# data_root_path = '/home/xinglibao/workspace/future/mydata'
+output_save_path = '/mnt/mydata/yh/liming/workspace/future/outputsnew'
+data_root_path = '/mnt/mydata/yh/liming/workspace/future/mydata'
 logger = Logger(save_path=output_save_path, timestamp=timestamp)
 
 
 def train():
     logger.record([f'备注: 看看哪个场景的数据比较差, 使用场景1、场景2和场景3数据, 并且对imu和pose进行归一化'])
-    mask_ratio, batch_size, lr, num_epochs, loss_func = 0.25, 128, 1e-2, 300, "l1"
+    mask_ratio, batch_size, lr, num_epochs, loss_func = 0.25, 512, 1e-2, 300, "l1"
     resnet_verson, imu_generator = "resnet18", "lstm"
     lstm_hidden, lstm_layers, lstm_dropout = 128, 2, 0
     gru_hidden, gru_layers, gru_dropout = 128, 2, 0
@@ -57,10 +58,10 @@ def train():
         imu_generator_params = (gru_hidden, gru_layers, gru_dropout)
 
     model = PoseNet(input_channels=30, resnet_verson=resnet_verson, imu_generator=imu_generator, imu_generator_params=imu_generator_params, target_time=int(predict_len / 15 * 50), target_poses=predict_len, num_poses=compute_len, num_keypoints=25, output_dim=2)
-    train_loader, val_loader = get_dataloaders_v3('/home/xinglibao/workspace/future/mydata', use_len, compute_len, predict_len, stride_len, batch_size, 0.8)
+    train_loader, val_loader = get_dataloaders_v3(data_root_path, use_len, compute_len, predict_len, stride_len, batch_size, 0.8)
     train3(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_normalize, alpha, beta, gamma, num_epochs, devices, output_save_path, logger, timestamp)
 
-
+# /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/train3.py
 # /home/xinglibao/anaconda3/envs/future/bin/python /home/xinglibao/workspace/future/train3.py
 if __name__ == "__main__":
     train()

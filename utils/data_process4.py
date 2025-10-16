@@ -52,4 +52,4 @@ def process(source_dir, target_dir, use_len, compute_len, predict_len, stride_le
             
 
 if __name__ == "__main__":
-    process("/data/xinglibao/xrfv2", "/home/xinglibao/workspace/future/mydata", use_len=45, compute_len=15, predict_len=15, stride_len=15)
+    process("/mnt/mydata/yh/liming/data/xrfv2", "/mnt/mydata/yh/liming/workspace/future/mydata", use_len=45, compute_len=15, predict_len=15, stride_len=15)

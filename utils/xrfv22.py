@@ -14,7 +14,7 @@ class XRFV22(Dataset):
         self.compute_len = compute_len
         self.predict_len = predict_len
         if not os.path.exists(self.imu_root_path):
-            process_raw_data("/data/xinglibao/xrfv2", "/home/xinglibao/workspace/future/mydata", use_len=use_len, compute_len=compute_len, predict_len=predict_len, stride_len=stride_len)
+            process_raw_data("/mnt/mydata/yh/liming/data/xrfv2", "/mnt/mydata/yh/liming/workspace/future/mydata", use_len=use_len, compute_len=compute_len, predict_len=predict_len, stride_len=stride_len)
         filenames = os.listdir(self.imu_root_path)
         # filenames = [filename for filename in filenames if len(filename.split('_')) > 1 and filename.split('_')[1] == "1"]
         self.imu_filepaths = [os.path.join(self.imu_root_path, f) for f in filenames]

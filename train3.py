@@ -21,26 +21,28 @@ def clean_outputs(root_dir="/data/xinglibao/outputs", min_epoch=15):
             shutil.rmtree(folder_path)
 
 
-devices = [torch.device('cuda:1'), torch.device('cuda:2'), torch.device('cuda:3'), torch.device('cuda:0')]
+# devices = [torch.device('cuda:0'), torch.device('cuda:2'), torch.device('cuda:1'), torch.device('cuda:3')]
 # devices = [torch.device('cuda:1'), torch.device('cuda:2'), torch.device('cuda:3')]
-# devices = [torch.device('cuda:2'), torch.device('cuda:3')]
+devices = [torch.device('cuda:2'), torch.device('cuda:3')]
 timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
 output_save_path = '/data/xinglibao/outputs'
 logger = Logger(save_path=output_save_path, timestamp=timestamp)
 
 
 def train():
-    logger.record([f'备注: 看看哪个场景的数据比较差, 使用场景1数据, 并且对imu和pose进行归一化'])
-    mask_ratio, batch_size, lr, num_epochs, loss_func = 0.25, 128, 1e-2, 800, "l1"
+    logger.record([f'备注: 看看哪个场景的数据比较差, 使用场景1、场景2和场景3数据, 并且对imu和pose进行归一化'])
+    mask_ratio, batch_size, lr, num_epochs, loss_func = 0.25, 128, 1e-2, 300, "l1"
     resnet_verson, imu_generator = "resnet18", "transformer"
     lstm_hidden, lstm_layers, lstm_dropout = 128, 2, 0
+    gru_hidden, gru_layers, gru_dropout = 128, 2, 0
     transformer_hidden, transformer_layers, transformer_nhead, transformer_dropout = 128, 2, 4, 0
     use_len, compute_len, predict_len, stride_len = 45, 15, 15, 15
     need_normalize, alpha, beta, gamma = True, 1, 1, 1
     params = {
         "mask_ratio": mask_ratio, "batch_size": batch_size, "lr": lr, "epochs": num_epochs, "loss_func": loss_func,
-        "resnet_verson": resnet_verson, 
+        "resnet_verson": resnet_verson, "imu_generator": imu_generator, 
         "lstm_hidden": lstm_hidden, "lstm_layers": lstm_layers, "lstm_dropout": lstm_dropout,
+        "gru_hidden": gru_hidden, "gru_layers": gru_layers, "gru_dropout": gru_dropout,
         "transformer_hidden": transformer_hidden, "transformer_layers": transformer_layers, "transformer_nhead": transformer_nhead, "transformer_dropout": transformer_dropout, 
         "use_len": use_len, "compute_len": compute_len, "predict_len": predict_len, "stride_len": stride_len,
         "need_normalize": need_normalize, "alpha": alpha, "beta": beta, "gamma": gamma,
@@ -51,6 +53,8 @@ def train():
         imu_generator_params = (lstm_hidden, lstm_layers, lstm_dropout)
     elif imu_generator == "transformer":
         imu_generator_params = (transformer_hidden, transformer_layers, transformer_nhead, transformer_dropout)
+    elif imu_generator == "gru":
+        imu_generator_params = (gru_hidden, gru_layers, gru_dropout)
 
     model = PoseNet(input_channels=30, resnet_verson=resnet_verson, imu_generator=imu_generator, imu_generator_params=imu_generator_params, target_time=int(predict_len / 15 * 50), target_poses=predict_len, num_poses=compute_len, num_keypoints=25, output_dim=2)
     train_loader, val_loader = get_dataloaders_v3('/home/xinglibao/workspace/future/mydata', use_len, compute_len, predict_len, stride_len, batch_size, 0.8)

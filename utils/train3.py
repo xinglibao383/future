@@ -39,7 +39,7 @@ def plot_poses(data, output_save_path, timestamp):
     shutil.rmtree(img_save_path)
     os.makedirs(img_save_path, exist_ok=True)
     poses = data.clone().cpu().reshape(-1, 25, 2)
-    poses = poses.clamp(min=-0.999999, max=0.999999)
+    poses = poses.clamp(min=-0.9999, max=0.9999)
     poses = torch.atanh(poses)
     idxs = torch.randperm(poses.shape[0])[:10]
     for idx in idxs:
@@ -64,8 +64,8 @@ def evaluate_loss_mpjpe(model, dataloader, criterion, need_normalize, timestamp,
 
             loss1, loss2, loss3 = criterion(y1_hat, y1), criterion(x2_hat, x2), criterion(y2_hat, y2)
 
-            y1_hat, y1 = y1_hat.clamp(min=-0.999999, max=0.999999), y1.clamp(min=-0.999999, max=0.999999)
-            y2_hat, y2 = y2_hat.clamp(min=-0.999999, max=0.999999), y2.clamp(min=-0.999999, max=0.999999)
+            y1_hat, y1 = y1_hat.clamp(min=-0.9999, max=0.9999), y1.clamp(min=-0.9999, max=0.9999)
+            y2_hat, y2 = y2_hat.clamp(min=-0.9999, max=0.9999), y2.clamp(min=-0.9999, max=0.9999)
             y1_hat, y1 = torch.atanh(y1_hat), torch.atanh(y1)
             y2_hat, y2 = torch.atanh(y2_hat), torch.atanh(y2)
             y1_hat, y1 = y1_hat * z1, y1 * z1
@@ -73,8 +73,6 @@ def evaluate_loss_mpjpe(model, dataloader, criterion, need_normalize, timestamp,
             error1, error2 = torch.norm(y1_hat - y1, dim=-1).mean(), torch.norm(y2_hat - y2, dim=-1).mean()
             
             metric.add(loss1.item() * batch_size, loss2.item() * batch_size, loss3.item() * batch_size, batch_size, error1.sum().item(), error1.numel(), error2.sum().item(), error2.numel())
-
-            
     
     return metric[0] / metric[3], metric[1] / metric[3], metric[2] / metric[3], metric[4] / metric[5], metric[6] / metric[7]
 
@@ -108,8 +106,8 @@ def train(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_norma
             loss.backward()
             optimizer.step()
 
-            y1_hat, y1 = y1_hat.clamp(min=-0.999999, max=0.999999), y1.clamp(min=-0.999999, max=0.999999)
-            y2_hat, y2 = y2_hat.clamp(min=-0.999999, max=0.999999), y2.clamp(min=-0.999999, max=0.999999)
+            y1_hat, y1 = y1_hat.clamp(min=-0.9999, max=0.9999), y1.clamp(min=-0.9999, max=0.9999)
+            y2_hat, y2 = y2_hat.clamp(min=-0.9999, max=0.9999), y2.clamp(min=-0.9999, max=0.9999)
             y1_hat, y1 = torch.atanh(y1_hat), torch.atanh(y1)
             y2_hat, y2 = torch.atanh(y2_hat), torch.atanh(y2)
             y1_hat, y1 = y1_hat * z1, y1 * z1

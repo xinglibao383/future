@@ -4,6 +4,7 @@ import torch.nn.functional as F
 from models.backbone.resnet import *
 from models.generator.lstm import *
 from models.generator.transformer import *
+from models.generator.gru import *
 
 
 class PoseNet(nn.Module):
@@ -24,6 +25,16 @@ class PoseNet(nn.Module):
                 target_len=target_time, 
                 num_layers=lstm_layers,
                 dropout=lstm_dropout
+            )
+        elif imu_generator == "gru":
+            gru_hidden, gru_layers, gru_dropout = imu_generator_params
+            self.imu_predictor = GRUGenerator(
+                input_dim=resent_feature_dim, 
+                hidden_dim=gru_hidden, 
+                output_dim=input_channels, 
+                target_len=target_time, 
+                num_layers=gru_layers,
+                dropout=gru_dropout
             )
         elif imu_generator == "transformer":
             transformer_hidden, transformer_layers, transformer_nhead, transformer_dropout = imu_generator_params

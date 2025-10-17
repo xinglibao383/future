@@ -51,5 +51,6 @@ def process(source_dir, target_dir, use_len, compute_len, predict_len, stride_le
                 np.save(os.path.join(pose_target_dir, '_'.join(name_parts) + '.npy'), np.array(pose_sub_data, dtype=np.float32))
             
 
+# /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/utils/data_process4.py
 if __name__ == "__main__":
-    process("/mnt/mydata/yh/liming/data/xrfv2", "/mnt/mydata/yh/liming/workspace/future/mydata", use_len=45, compute_len=15, predict_len=15, stride_len=15)
+    process("/mnt/mydata/yh/liming/data/xrfv2", "/mnt/mydata/yh/liming/workspace/future/mydata", use_len=90, compute_len=15, predict_len=15, stride_len=15)

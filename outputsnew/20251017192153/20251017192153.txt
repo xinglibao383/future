@@ -1,0 +1,4 @@
+[2025-10-17 19:21:53] 备注: 使用场景1、场景2、场景3数据, 对transformer调参
+[2025-10-17 19:21:53] mask_ratio=0.25, batch_size=256, lr=0.001, epochs=300, loss_func=l1, resnet_verson=resnet18, imu_generator=transformer, lstm_hidden=128, lstm_layers=2, lstm_dropout=0.1, gru_hidden=128, gru_layers=2, gru_dropout=0.1, transformer_hidden=128, transformer_layers=2, transformer_nhead=4, transformer_dropout=0.1, use_len=90, compute_len=15, predict_len=15, stride_len=15, need_normalize=True, alpha=1, beta=1, gamma=1
+[2025-10-17 19:27:43] [20251017192153] Epoch: 0, train loss1: 0.2474, train loss2: 0.5990, train loss3: 0.2556, train mpjpe1: 121.4274, train mpjpe2: 127.6906
+[2025-10-17 19:27:43] [20251017192153] Epoch: 0,   val loss1: 0.2112,   val loss2: 0.5205,   val loss3: 0.2144,   val mpjpe1: 105.0047,   val mpjpe2: 110.0110

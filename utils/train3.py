@@ -87,6 +87,8 @@ def train(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_norma
     optimizer = torch.optim.AdamW(model.parameters(), lr=lr)
     criterion = nn.MSELoss() if loss_func == "mse" else nn.L1Loss()
 
+    min_val_mpjpe, best_epoch = float('inf'), 0
+
     for epoch in range(num_epochs):
         metric = Accumulator(8)
         model.train()
@@ -122,7 +124,14 @@ def train(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_norma
 
         train_loss1, train_loss2, train_loss3, train_mpjpe1, train_mpjpe2 = metric[0] / metric[3], metric[1] / metric[3], metric[2] / metric[3], metric[4] / metric[5], metric[6] / metric[7]
         val_loss1, val_loss2, val_loss3, val_mpjpe1, val_mpjpe2 = evaluate_loss_mpjpe(model, val_loader, criterion, need_normalize, timestamp, output_save_path)
-        logger.record([f'Epoch: {epoch}, train loss1: {train_loss1:.4f}, train loss2: {train_loss2:.4f}, train loss3: {train_loss3:.4f}, train mpjpe1: {train_mpjpe1:.4f}, train mpjpe2: {train_mpjpe2:.4f}'])
-        logger.record([f'Epoch: {epoch},   val loss1: {val_loss1:.4f},   val loss2: {val_loss2:.4f},   val loss3: {val_loss3:.4f},   val mpjpe1: {val_mpjpe1:.4f},   val mpjpe2: {val_mpjpe2:.4f}'])
+        logger.record([f'[{timestamp}] Epoch: {epoch}, train loss1: {train_loss1:.4f}, train loss2: {train_loss2:.4f}, train loss3: {train_loss3:.4f}, train mpjpe1: {train_mpjpe1:.4f}, train mpjpe2: {train_mpjpe2:.4f}'])
+        logger.record([f'[{timestamp}] Epoch: {epoch},   val loss1: {val_loss1:.4f},   val loss2: {val_loss2:.4f},   val loss3: {val_loss3:.4f},   val mpjpe1: {val_mpjpe1:.4f},   val mpjpe2: {val_mpjpe2:.4f}'])
 
-        torch.save(model.state_dict(), os.path.join(output_save_path, timestamp, "checkpoints", f"epoch_{epoch}.pth"))
+        if val_mpjpe1 + val_mpjpe2 < min_val_mpjpe:
+            min_val_mpjpe = val_mpjpe1 + val_mpjpe2
+            best_epoch = epoch
+            torch.save(model.state_dict(), os.path.join(output_save_path, timestamp, "checkpoints", f"epoch_{epoch}.pth"))
+        if epoch - best_epoch >= 20:
+            break
+    
+    logger.record([f'[{timestamp}] The best mpjpe occurred in epoch {epoch}'])

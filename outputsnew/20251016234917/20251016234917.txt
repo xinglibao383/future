@@ -1,0 +1,14 @@
+[2025-10-16 23:49:17] 备注: 使用场景1、场景2、场景3数据, 对transformer调参
+[2025-10-16 23:49:17] mask_ratio=0.25, batch_size=256, lr=0.01, epochs=300, loss_func=l1, resnet_verson=resnet18, imu_generator=transformer, lstm_hidden=128, lstm_layers=2, lstm_dropout=0.1, gru_hidden=128, gru_layers=2, gru_dropout=0.1, transformer_hidden=256, transformer_layers=4, transformer_nhead=8, transformer_dropout=0.2, use_len=45, compute_len=15, predict_len=15, stride_len=15, need_normalize=True, alpha=1, beta=1, gamma=1
+[2025-10-16 23:53:24] Epoch: 0, train loss1: 0.2779, train loss2: 0.7051, train loss3: 0.2861, train mpjpe1: 130.8000, train mpjpe2: 136.3039
+[2025-10-16 23:53:24] Epoch: 0,   val loss1: 0.3146,   val loss2: nan,   val loss3: nan,   val mpjpe1: 196.6654,   val mpjpe2: nan
+[2025-10-16 23:57:36] Epoch: 1, train loss1: 0.2374, train loss2: 0.6308, train loss3: 0.2444, train mpjpe1: 115.9759, train mpjpe2: 121.3516
+[2025-10-16 23:57:36] Epoch: 1,   val loss1: 0.2184,   val loss2: nan,   val loss3: nan,   val mpjpe1: 125.4645,   val mpjpe2: nan
+[2025-10-17 00:01:49] Epoch: 2, train loss1: 0.2178, train loss2: 0.6296, train loss3: 0.2244, train mpjpe1: 109.4825, train mpjpe2: 113.9276
+[2025-10-17 00:01:49] Epoch: 2,   val loss1: 0.2080,   val loss2: nan,   val loss3: nan,   val mpjpe1: 112.5094,   val mpjpe2: nan
+[2025-10-17 00:06:04] Epoch: 3, train loss1: 0.2050, train loss2: 0.6292, train loss3: 0.2131, train mpjpe1: 103.3545, train mpjpe2: 108.4052
+[2025-10-17 00:06:04] Epoch: 3,   val loss1: 0.2052,   val loss2: nan,   val loss3: nan,   val mpjpe1: 118.0276,   val mpjpe2: nan
+[2025-10-17 00:10:14] Epoch: 4, train loss1: 0.1980, train loss2: 0.6289, train loss3: 0.2064, train mpjpe1: 101.3245, train mpjpe2: 106.4040
+[2025-10-17 00:10:14] Epoch: 4,   val loss1: 0.1912,   val loss2: nan,   val loss3: nan,   val mpjpe1: 105.1108,   val mpjpe2: nan
+[2025-10-17 00:14:27] Epoch: 5, train loss1: 0.1914, train loss2: 0.6289, train loss3: 0.2008, train mpjpe1: 98.2836, train mpjpe2: 104.0022
+[2025-10-17 00:14:27] Epoch: 5,   val loss1: 0.1921,   val loss2: nan,   val loss3: nan,   val mpjpe1: 107.3586,   val mpjpe2: nan

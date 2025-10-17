@@ -1,0 +1,16 @@
+[2025-10-16 23:48:07] 备注: 使用场景1、场景2、场景3数据, 对transformer调参
+[2025-10-16 23:48:07] mask_ratio=0.25, batch_size=256, lr=0.01, epochs=300, loss_func=l1, resnet_verson=resnet18, imu_generator=transformer, lstm_hidden=128, lstm_layers=2, lstm_dropout=0.1, gru_hidden=128, gru_layers=2, gru_dropout=0.1, transformer_hidden=256, transformer_layers=4, transformer_nhead=8, transformer_dropout=0.2, use_len=45, compute_len=15, predict_len=15, stride_len=15, need_normalize=True, alpha=1, beta=1, gamma=1
+[2025-10-16 23:51:58] Epoch: 0, train loss1: 0.2745, train loss2: 0.7154, train loss3: 0.2823, train mpjpe1: 125.8589, train mpjpe2: 131.0999
+[2025-10-16 23:51:58] Epoch: 0,   val loss1: 0.3107,   val loss2: nan,   val loss3: nan,   val mpjpe1: 201.3028,   val mpjpe2: nan
+[2025-10-16 23:55:55] Epoch: 1, train loss1: 0.2377, train loss2: 0.6322, train loss3: 0.2431, train mpjpe1: 114.2413, train mpjpe2: 119.5105
+[2025-10-16 23:55:55] Epoch: 1,   val loss1: 0.2532,   val loss2: nan,   val loss3: nan,   val mpjpe1: 148.5443,   val mpjpe2: nan
+[2025-10-16 23:59:53] Epoch: 2, train loss1: 0.2202, train loss2: 0.6301, train loss3: 0.2270, train mpjpe1: 108.5352, train mpjpe2: 113.7289
+[2025-10-16 23:59:53] Epoch: 2,   val loss1: 0.2379,   val loss2: nan,   val loss3: nan,   val mpjpe1: 138.9979,   val mpjpe2: nan
+[2025-10-17 00:03:53] Epoch: 3, train loss1: 0.2085, train loss2: 0.6299, train loss3: 0.2152, train mpjpe1: 104.1726, train mpjpe2: 108.7758
+[2025-10-17 00:03:53] Epoch: 3,   val loss1: 0.2120,   val loss2: 0.6289,   val loss3: 0.2162,   val mpjpe1: 120.1479,   val mpjpe2: 117.8619
+[2025-10-17 00:07:51] Epoch: 4, train loss1: 0.2062, train loss2: 0.6294, train loss3: 0.2137, train mpjpe1: 103.9678, train mpjpe2: 108.7575
+[2025-10-17 00:07:51] Epoch: 4,   val loss1: 0.2242,   val loss2: 0.6287,   val loss3: 0.2275,   val mpjpe1: 135.0283,   val mpjpe2: 137.0564
+[2025-10-17 00:11:49] Epoch: 5, train loss1: 0.1975, train loss2: 0.6294, train loss3: 0.2060, train mpjpe1: 100.4588, train mpjpe2: 105.4379
+[2025-10-17 00:11:49] Epoch: 5,   val loss1: 0.1947,   val loss2: 0.6286,   val loss3: 0.1996,   val mpjpe1: 109.0695,   val mpjpe2: 110.1881
+[2025-10-17 00:15:47] Epoch: 6, train loss1: 0.1906, train loss2: 0.6293, train loss3: 0.1997, train mpjpe1: 97.7625, train mpjpe2: 102.6777
+[2025-10-17 00:15:47] Epoch: 6,   val loss1: 0.1935,   val loss2: nan,   val loss3: nan,   val mpjpe1: 105.7384,   val mpjpe2: nan

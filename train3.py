@@ -21,7 +21,8 @@ def clean_outputs(root_dir="/mnt/mydata/yh/liming/workspace/future/outputsnew", 
             shutil.rmtree(folder_path)
 
 
-devices = [torch.device('cuda:0'), torch.device('cuda:2'), torch.device('cuda:1'), torch.device('cuda:3')]
+# devices = [torch.device('cuda:0'), torch.device('cuda:2'), torch.device('cuda:1'), torch.device('cuda:3')]
+devices = [torch.device('cuda:0'), torch.device('cuda:1')]
 timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
 # output_save_path = '/data/xinglibao/outputs'
 # data_root_path = '/home/xinglibao/workspace/future/mydata'
@@ -31,12 +32,14 @@ logger = Logger(save_path=output_save_path, timestamp=timestamp)
 
 
 def train():
-    logger.record([f'备注: 看看哪个场景的数据比较差, 使用场景1、场景2和场景3数据, 并且对imu和pose进行归一化'])
-    mask_ratio, batch_size, lr, num_epochs, loss_func = 0.25, 512, 1e-2, 300, "l1"
-    resnet_verson, imu_generator = "resnet18", "lstm"
-    lstm_hidden, lstm_layers, lstm_dropout = 128, 2, 0
-    gru_hidden, gru_layers, gru_dropout = 128, 2, 0
-    transformer_hidden, transformer_layers, transformer_nhead, transformer_dropout = 128, 2, 4, 0
+    logger.record([f'备注: 使用场景1、场景2、场景3数据, 对transformer调参'])
+    mask_ratio, batch_size, lr, num_epochs, loss_func = 0.25, 256, 1e-3, 300, "l1"
+    resnet_verson, imu_generator = "resnet18", "transformer"
+    lstm_hidden, lstm_layers, lstm_dropout = 128, 2, 0.1
+    gru_hidden, gru_layers, gru_dropout = 128, 2, 0.1
+    transformer_hidden, transformer_layers, transformer_nhead, transformer_dropout = 128, 2, 4, 0.1
+    # transformer_hidden, transformer_layers, transformer_nhead, transformer_dropout = 256, 4, 8, 0.2
+    # transformer_hidden, transformer_layers, transformer_nhead, transformer_dropout = 512, 6, 8, 0.3
     use_len, compute_len, predict_len, stride_len = 45, 15, 15, 15
     need_normalize, alpha, beta, gamma = True, 1, 1, 1
     params = {

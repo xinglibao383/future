@@ -1,2 +1,0 @@
-[2025-10-16 22:08:03] 备注: 看看哪个场景的数据比较差, 使用场景1、场景2和场景3数据, 并且对imu和pose进行归一化
-[2025-10-16 22:08:03] mask_ratio=0.25, batch_size=512, lr=0.01, epochs=300, loss_func=l1, resnet_verson=resnet18, imu_generator=lstm, lstm_hidden=128, lstm_layers=2, lstm_dropout=0, gru_hidden=128, gru_layers=2, gru_dropout=0, transformer_hidden=128, transformer_layers=2, transformer_nhead=4, transformer_dropout=0, use_len=45, compute_len=15, predict_len=15, stride_len=15, need_normalize=True, alpha=1, beta=1, gamma=1

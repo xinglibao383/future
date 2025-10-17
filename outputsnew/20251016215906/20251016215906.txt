@@ -1,6 +1,0 @@
-[2025-10-16 21:59:06] 备注: 看看哪个场景的数据比较差, 使用场景1、场景2和场景3数据, 并且对imu和pose进行归一化
-[2025-10-16 21:59:06] mask_ratio=0.25, batch_size=512, lr=0.01, epochs=300, loss_func=l1, resnet_verson=resnet18, imu_generator=lstm, lstm_hidden=128, lstm_layers=2, lstm_dropout=0, gru_hidden=128, gru_layers=2, gru_dropout=0, transformer_hidden=128, transformer_layers=2, transformer_nhead=4, transformer_dropout=0, use_len=45, compute_len=15, predict_len=15, stride_len=15, need_normalize=True, alpha=1, beta=1, gamma=1
-[2025-10-16 22:03:01] Epoch: 0, train loss1: 0.3282, train loss2: 0.6741, train loss3: 0.3342, train mpjpe1: 144.3168, train mpjpe2: 149.3814
-[2025-10-16 22:03:01] Epoch: 0,   val loss1: 0.2610,   val loss2: 0.6279,   val loss3: 0.2661,   val mpjpe1: 121.0892,   val mpjpe2: 125.9617
-[2025-10-16 22:06:53] Epoch: 1, train loss1: 0.2468, train loss2: 0.6284, train loss3: 0.2540, train mpjpe1: 118.6722, train mpjpe2: 124.2157
-[2025-10-16 22:06:53] Epoch: 1,   val loss1: 0.2359,   val loss2: 0.6296,   val loss3: 0.2398,   val mpjpe1: 126.2728,   val mpjpe2: 124.5660

@@ -16,7 +16,7 @@ class XRFV22(Dataset):
         if not os.path.exists(self.imu_root_path):
             process_raw_data("/mnt/mydata/yh/liming/data/xrfv2", "/mnt/mydata/yh/liming/workspace/future/mydata", use_len=use_len, compute_len=compute_len, predict_len=predict_len, stride_len=stride_len)
         filenames = os.listdir(self.imu_root_path)
-        # filenames = [filename for filename in filenames if len(filename.split('_')) > 1 and filename.split('_')[1] == "1"]
+        #filenames = [filename for filename in filenames if len(filename.split('_')) > 1 and filename.split('_')[1] == "3"]
         self.imu_filepaths = [os.path.join(self.imu_root_path, f) for f in filenames]
         self.pose_filepaths = [os.path.join(self.pose_root_path, f) for f in filenames]
 

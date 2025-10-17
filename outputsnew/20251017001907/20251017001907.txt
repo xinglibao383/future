@@ -1,0 +1,10 @@
+[2025-10-17 00:19:07] 备注: 使用场景1、场景2、场景3数据, 对transformer调参
+[2025-10-17 00:19:07] mask_ratio=0.25, batch_size=256, lr=0.01, epochs=300, loss_func=l1, resnet_verson=resnet50, imu_generator=transformer, lstm_hidden=128, lstm_layers=2, lstm_dropout=0.1, gru_hidden=128, gru_layers=2, gru_dropout=0.1, transformer_hidden=512, transformer_layers=6, transformer_nhead=8, transformer_dropout=0.3, use_len=45, compute_len=15, predict_len=15, stride_len=15, need_normalize=True, alpha=1, beta=1, gamma=1
+[2025-10-17 00:23:01] Epoch: 0, train loss1: 0.6072, train loss2: 0.7439, train loss3: 0.6168, train mpjpe1: 460.7461, train mpjpe2: 463.7582
+[2025-10-17 00:23:01] Epoch: 0,   val loss1: 0.6040,   val loss2: 0.6543,   val loss3: 0.6166,   val mpjpe1: 464.0095,   val mpjpe2: 473.8804
+[2025-10-17 00:26:52] Epoch: 1, train loss1: 0.3287, train loss2: 0.6357, train loss3: 0.3376, train mpjpe1: 170.3754, train mpjpe2: 176.0877
+[2025-10-17 00:26:52] Epoch: 1,   val loss1: 0.2919,   val loss2: nan,   val loss3: nan,   val mpjpe1: 197.8185,   val mpjpe2: nan
+[2025-10-17 00:30:44] Epoch: 2, train loss1: 0.2332, train loss2: 0.6302, train loss3: 0.2400, train mpjpe1: 116.3527, train mpjpe2: 120.7468
+[2025-10-17 00:30:44] Epoch: 2,   val loss1: 0.2383,   val loss2: nan,   val loss3: nan,   val mpjpe1: 132.6103,   val mpjpe2: nan
+[2025-10-17 00:34:34] Epoch: 3, train loss1: 0.2139, train loss2: 0.6297, train loss3: 0.2207, train mpjpe1: 108.1943, train mpjpe2: 112.9773
+[2025-10-17 00:34:34] Epoch: 3,   val loss1: 0.2174,   val loss2: nan,   val loss3: nan,   val mpjpe1: 118.2193,   val mpjpe2: nan

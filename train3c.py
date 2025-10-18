@@ -5,7 +5,8 @@ import torch.nn as nn
 from datetime import datetime
 from utils.logger import Logger
 from classify.utils.xrfv22c import get_dataloaders as get_dataloaders_c
-from classify.utils.train_rebuild import train as train_rebuild
+# from classify.utils.train_rebuild import train as train_rebuild
+from classify.utils.train_rebuild_v2 import train as train_rebuild
 from classify.models.mamba import *
 
 
@@ -19,7 +20,7 @@ positive_labels = [2, 11, 17, 19, 21, 22]
 
 def train():
     logger.record([f'备注: 使用mamba测试对指定类别的重构效果'])
-    mask_ratio, batch_size, lr, weight_decay, num_epochs, loss_func = 0.25, 256, 1e-4, 1e-4, 200, "l1"
+    mask_ratio, batch_size, lr, weight_decay, num_epochs, loss_func = 0.25, 256, 1e-4, 1e-4, 200, "mse"
     mamba_d_state, mamba_d_conv, mamba_expand = 16, 4, 2
     window_size, stride = 30, 15
     params = {

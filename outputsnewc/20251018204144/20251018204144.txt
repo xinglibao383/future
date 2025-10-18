@@ -13,3 +13,4 @@
 [2025-10-18 21:00:01] [20251018204144] Epoch: 10, train loss positive: 3.7082, val loss positive: 3.3214, val loss negative: 17.8516
 [2025-10-18 21:01:26] [20251018204144] Epoch: 11, train loss positive: 3.4333, val loss positive: 3.0330, val loss negative: 21.3573
 [2025-10-18 21:02:54] [20251018204144] Epoch: 12, train loss positive: 3.1795, val loss positive: 2.7579, val loss negative: 22.4040
+[2025-10-18 21:04:24] [20251018204144] Epoch: 13, train loss positive: 2.9349, val loss positive: 2.4653, val loss negative: 22.5884

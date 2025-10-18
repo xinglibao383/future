@@ -1,0 +1,29 @@
+[2025-10-18 22:51:00] 备注: 使用mamba测试对指定类别的重构效果
+[2025-10-18 22:51:00] mask_ratio=0.25, batch_size=256, lr=0.0001, weight_decay=0.0001, epochs=200, loss_func=l1, mamba_d_state=16, mamba_d_conv=4, mamba_expand=2, window_size=30, stride=15
+[2025-10-18 22:56:00] [20251018225100] Epoch: 0, train loss positive: 18.6707, train loss negative: 1771.7188, val acc: 0.2713
+[2025-10-18 23:00:38] [20251018225100] Epoch: 1, train loss positive: 9.3096, train loss negative: 613.7746, val acc: 0.2838
+[2025-10-18 23:05:20] [20251018225100] Epoch: 2, train loss positive: 7.2196, train loss negative: 292.8782, val acc: 0.2943
+[2025-10-18 23:10:05] [20251018225100] Epoch: 3, train loss positive: 6.2025, train loss negative: 143.1785, val acc: 0.3044
+[2025-10-18 23:14:45] [20251018225100] Epoch: 4, train loss positive: 5.6752, train loss negative: 90.0459, val acc: 0.3145
+[2025-10-18 23:19:26] [20251018225100] Epoch: 5, train loss positive: 5.3513, train loss negative: 60.6455, val acc: 0.3234
+[2025-10-18 23:24:09] [20251018225100] Epoch: 6, train loss positive: 5.0382, train loss negative: 42.1842, val acc: 0.3349
+[2025-10-18 23:28:49] [20251018225100] Epoch: 7, train loss positive: 4.7571, train loss negative: 34.2970, val acc: 0.3456
+[2025-10-18 23:33:29] [20251018225100] Epoch: 8, train loss positive: 4.5044, train loss negative: 25.2613, val acc: 0.3506
+[2025-10-18 23:38:10] [20251018225100] Epoch: 9, train loss positive: 4.2781, train loss negative: 20.9562, val acc: 0.3550
+[2025-10-18 23:42:46] [20251018225100] Epoch: 10, train loss positive: 4.0883, train loss negative: 18.2585, val acc: 0.3599
+[2025-10-18 23:47:11] [20251018225100] Epoch: 11, train loss positive: 3.9335, train loss negative: 16.5636, val acc: 0.3662
+[2025-10-18 23:51:42] [20251018225100] Epoch: 12, train loss positive: 3.7748, train loss negative: 15.9956, val acc: 0.3692
+[2025-10-18 23:56:17] [20251018225100] Epoch: 13, train loss positive: 3.6090, train loss negative: 14.6175, val acc: 0.3678
+[2025-10-19 00:00:40] [20251018225100] Epoch: 14, train loss positive: 3.4337, train loss negative: 14.7346, val acc: 0.3763
+[2025-10-19 00:05:10] [20251018225100] Epoch: 15, train loss positive: 3.2602, train loss negative: 14.6253, val acc: 0.3743
+[2025-10-19 00:09:30] [20251018225100] Epoch: 16, train loss positive: 3.0885, train loss negative: 13.8265, val acc: 0.3779
+[2025-10-19 00:13:52] [20251018225100] Epoch: 17, train loss positive: 2.9254, train loss negative: 13.9112, val acc: 0.3775
+[2025-10-19 00:18:06] [20251018225100] Epoch: 18, train loss positive: 2.7734, train loss negative: 12.1617, val acc: 0.3811
+[2025-10-19 00:22:09] [20251018225100] Epoch: 19, train loss positive: 2.6266, train loss negative: 10.4559, val acc: 0.3796
+[2025-10-19 00:26:18] [20251018225100] Epoch: 20, train loss positive: 2.4899, train loss negative: 8.9908, val acc: 0.3814
+[2025-10-19 00:30:35] [20251018225100] Epoch: 21, train loss positive: 2.3722, train loss negative: 7.8761, val acc: 0.3873
+[2025-10-19 00:34:42] [20251018225100] Epoch: 22, train loss positive: 2.2749, train loss negative: 7.3472, val acc: 0.3851
+[2025-10-19 00:38:42] [20251018225100] Epoch: 23, train loss positive: 2.1909, train loss negative: 6.9285, val acc: 0.3904
+[2025-10-19 00:42:49] [20251018225100] Epoch: 24, train loss positive: 2.1251, train loss negative: 6.5496, val acc: 0.3914
+[2025-10-19 00:48:04] [20251018225100] Epoch: 25, train loss positive: 2.0647, train loss negative: 5.9489, val acc: 0.3955
+[2025-10-19 00:53:20] [20251018225100] Epoch: 26, train loss positive: 2.0091, train loss negative: 5.7258, val acc: 0.3953

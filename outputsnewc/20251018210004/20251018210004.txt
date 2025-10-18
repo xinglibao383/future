@@ -1,3 +1,13 @@
 [2025-10-18 21:00:04] 备注: 使用mamba测试对指定类别的重构效果
 [2025-10-18 21:00:04] mask_ratio=0.25, batch_size=256, lr=0.0001, weight_decay=0.0001, epochs=200, loss_func=l1, mamba_d_state=16, mamba_d_conv=4, mamba_expand=2, window_size=30, stride=15
 [2025-10-18 21:03:26] [20251018210004] Epoch: 0, train loss positive: 19.1655, val loss positive: 14.4735, train loss negative: 1348.8301, val loss negative: 525.3304
+[2025-10-18 21:06:17] [20251018210004] Epoch: 1, train loss positive: 9.7347, val loss positive: 8.9216, train loss negative: 374.7065, val loss negative: 261.0718
+[2025-10-18 21:09:07] [20251018210004] Epoch: 2, train loss positive: 7.5327, val loss positive: 7.1216, train loss negative: 166.9031, val loss negative: 117.3887
+[2025-10-18 21:11:46] [20251018210004] Epoch: 3, train loss positive: 6.3969, val loss positive: 6.1220, train loss negative: 101.1034, val loss negative: 74.0921
+[2025-10-18 21:14:20] [20251018210004] Epoch: 4, train loss positive: 5.7636, val loss positive: 5.5755, train loss negative: 71.2337, val loss negative: 50.2111
+[2025-10-18 21:17:04] [20251018210004] Epoch: 5, train loss positive: 5.4205, val loss positive: 5.1400, train loss negative: 46.6768, val loss negative: 35.3487
+[2025-10-18 21:19:38] [20251018210004] Epoch: 6, train loss positive: 5.0742, val loss positive: 4.8127, train loss negative: 35.3728, val loss negative: 26.8565
+[2025-10-18 21:22:09] [20251018210004] Epoch: 7, train loss positive: 4.8153, val loss positive: 4.4862, train loss negative: 24.9794, val loss negative: 21.3130
+[2025-10-18 21:25:20] [20251018210004] Epoch: 8, train loss positive: 4.5720, val loss positive: 4.2069, train loss negative: 19.7124, val loss negative: 17.5369
+[2025-10-18 21:28:48] [20251018210004] Epoch: 9, train loss positive: 4.3636, val loss positive: 3.9670, train loss negative: 16.8773, val loss negative: 15.9554
+[2025-10-18 21:32:08] [20251018210004] Epoch: 10, train loss positive: 4.1979, val loss positive: 3.7785, train loss negative: 14.8571, val loss negative: 14.7425

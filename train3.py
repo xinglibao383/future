@@ -40,7 +40,7 @@ def train():
     transformer_hidden, transformer_layers, transformer_nhead, transformer_dropout = 128, 2, 4, 0.1
     # transformer_hidden, transformer_layers, transformer_nhead, transformer_dropout = 256, 4, 8, 0.2
     # transformer_hidden, transformer_layers, transformer_nhead, transformer_dropout = 512, 6, 8, 0.3
-    use_len, compute_len, predict_len, stride_len = 90, 15, 15, 15
+    use_len, compute_len, predict_len, stride_len = 120, 15, 15, 15
     need_normalize, alpha, beta, gamma = True, 1, 1, 1
     params = {
         "mask_ratio": mask_ratio, "batch_size": batch_size, "lr": lr, "epochs": num_epochs, "loss_func": loss_func,

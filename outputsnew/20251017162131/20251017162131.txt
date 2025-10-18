@@ -372,3 +372,5 @@
 [2025-10-18 15:23:15] [20251017162131] Epoch: 184,   val loss1: 0.0879,   val loss2: 0.3125,   val loss3: 0.0995,   val mpjpe1: 51.3401,   val mpjpe2: 57.0306
 [2025-10-18 15:32:30] [20251017162131] Epoch: 185, train loss1: 0.0598, train loss2: 0.2645, train loss3: 0.0647, train mpjpe1: 38.9097, train mpjpe2: 43.0341
 [2025-10-18 15:32:30] [20251017162131] Epoch: 185,   val loss1: 0.0869,   val loss2: 0.3113,   val loss3: 0.0984,   val mpjpe1: 50.6084,   val mpjpe2: 56.5757
+[2025-10-18 15:41:59] [20251017162131] Epoch: 186, train loss1: 0.0594, train loss2: 0.2642, train loss3: 0.0644, train mpjpe1: 38.6419, train mpjpe2: 42.7029
+[2025-10-18 15:41:59] [20251017162131] Epoch: 186,   val loss1: 0.0874,   val loss2: 0.3137,   val loss3: 0.0988,   val mpjpe1: 51.4877,   val mpjpe2: 57.1319

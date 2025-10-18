@@ -134,4 +134,4 @@ def train(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_norma
         if epoch - best_epoch >= 20:
             break
     
-    logger.record([f'[{timestamp}] The best mpjpe occurred in epoch {epoch}'])
+    logger.record([f'[{timestamp}] The best mpjpe occurred in epoch {best_epoch}'])

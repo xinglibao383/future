@@ -1,0 +1,14 @@
+[2025-10-18 13:16:13] 备注: 设备消融实验, exclude_device_idx = 1
+[2025-10-18 13:16:13] exclude_device_idx=1, mask_ratio=0.25, batch_size=256, lr=0.001, epochs=300, loss_func=l1, resnet_verson=resnet18, imu_generator=transformer, transformer_hidden=128, transformer_layers=2, transformer_nhead=4, transformer_dropout=0.1, use_len=60, compute_len=15, predict_len=15, stride_len=15, need_normalize=True, alpha=1, beta=1, gamma=1
+[2025-10-18 13:25:59] [20251018131613] Epoch: 0, train loss1: 0.2590, train loss2: 0.5901, train loss3: 0.2685, train mpjpe1: 119.8873, train mpjpe2: 126.3866
+[2025-10-18 13:25:59] [20251018131613] Epoch: 0,   val loss1: 0.2127,   val loss2: 0.4988,   val loss3: 0.2224,   val mpjpe1: 106.5708,   val mpjpe2: 113.6882
+[2025-10-18 13:35:36] [20251018131613] Epoch: 1, train loss1: 0.2054, train loss2: 0.4993, train loss3: 0.2149, train mpjpe1: 101.9966, train mpjpe2: 107.8078
+[2025-10-18 13:35:36] [20251018131613] Epoch: 1,   val loss1: 0.2004,   val loss2: 0.4726,   val loss3: 0.2137,   val mpjpe1: 105.8360,   val mpjpe2: 112.2702
+[2025-10-18 13:45:17] [20251018131613] Epoch: 2, train loss1: 0.1902, train loss2: 0.4684, train loss3: 0.2000, train mpjpe1: 97.2391, train mpjpe2: 102.8633
+[2025-10-18 13:45:17] [20251018131613] Epoch: 2,   val loss1: 0.1909,   val loss2: 0.4452,   val loss3: 0.2005,   val mpjpe1: 102.0244,   val mpjpe2: 108.1176
+[2025-10-18 13:54:53] [20251018131613] Epoch: 3, train loss1: 0.1808, train loss2: 0.4438, train loss3: 0.1912, train mpjpe1: 93.9480, train mpjpe2: 99.8710
+[2025-10-18 13:54:53] [20251018131613] Epoch: 3,   val loss1: 0.1831,   val loss2: 0.4234,   val loss3: 0.1936,   val mpjpe1: 99.9045,   val mpjpe2: 106.0558
+[2025-10-18 14:04:27] [20251018131613] Epoch: 4, train loss1: 0.1758, train loss2: 0.4220, train loss3: 0.1870, train mpjpe1: 91.8164, train mpjpe2: 98.0625
+[2025-10-18 14:04:27] [20251018131613] Epoch: 4,   val loss1: 0.1734,   val loss2: 0.4019,   val loss3: 0.1838,   val mpjpe1: 98.9172,   val mpjpe2: 106.2360
+[2025-10-18 14:14:00] [20251018131613] Epoch: 5, train loss1: 0.1686, train loss2: 0.4022, train loss3: 0.1798, train mpjpe1: 89.4661, train mpjpe2: 95.8977
+[2025-10-18 14:14:00] [20251018131613] Epoch: 5,   val loss1: 0.1670,   val loss2: 0.3864,   val loss3: 0.1771,   val mpjpe1: 89.8334,   val mpjpe2: 96.9186

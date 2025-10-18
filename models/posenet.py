@@ -5,6 +5,7 @@ from models.backbone.resnet import *
 from models.generator.lstm import *
 from models.generator.transformer import *
 from models.generator.gru import *
+from models.generator.mamba import *
 
 
 class PoseNet(nn.Module):
@@ -45,6 +46,16 @@ class PoseNet(nn.Module):
                 num_layers=transformer_layers, 
                 nhead=transformer_nhead, 
                 dropout=transformer_dropout, 
+                target_len=target_time
+            )
+        elif imu_generator == "mamba":
+            mamba_d_state, mamba_d_conv, mamba_expand = imu_generator_params
+            self.imu_predictor = MambaGenerator(
+                input_dim=resent_feature_dim, 
+                output_dim=input_channels, 
+                d_state=mamba_d_state, 
+                d_conv=mamba_d_conv, 
+                expand=mamba_expand, 
                 target_len=target_time
             )
 

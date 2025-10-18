@@ -70,4 +70,4 @@ def cross_environment_experiment():
 # /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/experiment3.py
 # /home/xinglibao/anaconda3/envs/future/bin/python /home/xinglibao/workspace/future/train3.py
 if __name__ == "__main__":
-    exclude_device_experiment(exclude_device_idx=1)
+    exclude_device_experiment(exclude_device_idx=2)

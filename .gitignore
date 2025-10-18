@@ -8,3 +8,5 @@
 **/__pycache__/
 /outputsnew/**/checkpoints/
 /outputsnew/**/imgs/
+/outputsnewc/**/checkpoints/
+/outputsnewc/**/imgs/

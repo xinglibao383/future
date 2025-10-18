@@ -1,0 +1,15 @@
+[2025-10-18 20:41:44] 备注: 使用mamba测试对指定类别的重构效果
+[2025-10-18 20:41:44] mask_ratio=0.25, batch_size=256, lr=0.0001, weight_decay=0.0001, epochs=200, loss_func=l1, mamba_d_state=16, mamba_d_conv=4, mamba_expand=2, window_size=30, stride=15, need_normalize=False
+[2025-10-18 20:43:29] [20251018204144] Epoch: 0, train loss positive: 10.1823, val loss positive: 9.0195, val loss negative: 417.2191
+[2025-10-18 20:45:18] [20251018204144] Epoch: 1, train loss positive: 6.8922, val loss positive: 6.7606, val loss negative: 185.3005
+[2025-10-18 20:47:00] [20251018204144] Epoch: 2, train loss positive: 5.9128, val loss positive: 5.8354, val loss negative: 79.2186
+[2025-10-18 20:48:46] [20251018204144] Epoch: 3, train loss positive: 5.4214, val loss positive: 5.3230, val loss negative: 44.3774
+[2025-10-18 20:50:29] [20251018204144] Epoch: 4, train loss positive: 5.1203, val loss positive: 5.0387, val loss negative: 27.6928
+[2025-10-18 20:52:10] [20251018204144] Epoch: 5, train loss positive: 4.9254, val loss positive: 4.8038, val loss negative: 18.8523
+[2025-10-18 20:53:48] [20251018204144] Epoch: 6, train loss positive: 4.7199, val loss positive: 4.5452, val loss negative: 15.5699
+[2025-10-18 20:55:25] [20251018204144] Epoch: 7, train loss positive: 4.5085, val loss positive: 4.2821, val loss negative: 14.9724
+[2025-10-18 20:57:02] [20251018204144] Epoch: 8, train loss positive: 4.2590, val loss positive: 3.9776, val loss negative: 15.2329
+[2025-10-18 20:58:32] [20251018204144] Epoch: 9, train loss positive: 3.9917, val loss positive: 3.6491, val loss negative: 15.7700
+[2025-10-18 21:00:01] [20251018204144] Epoch: 10, train loss positive: 3.7082, val loss positive: 3.3214, val loss negative: 17.8516
+[2025-10-18 21:01:26] [20251018204144] Epoch: 11, train loss positive: 3.4333, val loss positive: 3.0330, val loss negative: 21.3573
+[2025-10-18 21:02:54] [20251018204144] Epoch: 12, train loss positive: 3.1795, val loss positive: 2.7579, val loss negative: 22.4040

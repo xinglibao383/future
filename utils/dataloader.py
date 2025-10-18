@@ -31,6 +31,13 @@ def get_dataloaders_v3(root_path, use_len, compute_len, predict_len, stride_len,
             DataLoader(val_dataset, batch_size=batch_size, shuffle=False, num_workers=4, prefetch_factor=16, persistent_workers=True))
 
 
+def get_dataloaders_v3_cross_experiment(root_path, use_len, compute_len, predict_len, stride_len, batch_size, cross, cross_idx):
+    train_dataset= XRFV22(root_path, use_len, compute_len, predict_len, stride_len, cross=cross, cross_idx=cross_idx, mode="train")
+    val_dataset= XRFV22(root_path, use_len, compute_len, predict_len, stride_len, cross=cross, cross_idx=cross_idx, mode="val")
+    return (DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=4, prefetch_factor=16, persistent_workers=True), 
+            DataLoader(val_dataset, batch_size=batch_size, shuffle=False, num_workers=4, prefetch_factor=16, persistent_workers=True))
+
+
 if __name__ == "__main__":
     train_dataloader, val_dataloader = get_dataloaders("/home/xinglibao/workspace/future/data", 60, 15, 32, 0.8)
     for i, (x, y) in enumerate(train_dataloader):

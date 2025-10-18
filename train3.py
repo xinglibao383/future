@@ -33,7 +33,7 @@ logger = Logger(save_path=output_save_path, timestamp=timestamp)
 
 def train():
     logger.record([f'备注: 使用场景1、场景2、场景3数据, 对transformer调参'])
-    mask_ratio, batch_size, lr, num_epochs, loss_func = 0.25, 256, 1e-3, 300, "l1"
+    mask_ratio, batch_size, lr, num_epochs, loss_func = 0.25, 256, 1e-3, 200, "l1"
     resnet_verson, imu_generator = "resnet18", "transformer"
     mamba_d_state, mamba_d_conv, mamba_expand = 192, 8, 3
     lstm_hidden, lstm_layers, lstm_dropout = 128, 2, 0.1

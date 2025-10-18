@@ -46,6 +46,6 @@ if __name__ == "__main__":
     process_raw_imu_data(
         data_path="/mnt/mydata/yh/liming/data/xrfv2/imu", 
         save_path="/mnt/mydata/yh/liming/workspace/future/mydatac/imu", 
-        window_size=45, 
+        window_size=15, 
         stride=15
     )

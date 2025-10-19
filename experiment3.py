@@ -10,7 +10,7 @@ from models.posenet import *
 
 
 # devices = [torch.device('cuda:0'), torch.device('cuda:2'), torch.device('cuda:1'), torch.device('cuda:3')]
-devices = [torch.device('cuda:2'), torch.device('cuda:3')]
+devices = [torch.device('cuda:0'), torch.device('cuda:1'), torch.device('cuda:3')]
 timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
 # output_save_path = '/data/xinglibao/outputs'
 # data_root_path = '/home/xinglibao/workspace/future/mydata'
@@ -49,7 +49,7 @@ def cross_environment_experiment(cross, cross_idx):
     output_save_path = os.path.join(output_save_path, cross)
     logger = Logger(save_path=output_save_path, timestamp=timestamp)
     logger.record([f'备注: 跨域实验, cross={cross}, cross_idx={cross_idx}'])
-    mask_ratio, batch_size, lr, num_epochs, loss_func = 0.25, 256, 1e-3, 300, "l1"
+    mask_ratio, batch_size, lr, num_epochs, loss_func = 0.25, 256, 1e-3, 200, "l1"
     resnet_verson, imu_generator = "resnet18", "transformer"
     transformer_hidden, transformer_layers, transformer_nhead, transformer_dropout = 128, 2, 4, 0.1
     use_len, compute_len, predict_len, stride_len = 60, 15, 15, 15
@@ -72,4 +72,5 @@ def cross_environment_experiment(cross, cross_idx):
 # /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/experiment3.py
 if __name__ == "__main__":
     # exclude_device_experiment(exclude_device_idx=2)
-    cross_environment_experiment(cross="cross_environment", cross_idx=2)
+    # cross_environment_experiment(cross="cross_environment", cross_idx=2)
+    cross_environment_experiment(cross="cross_person", cross_idx=9)

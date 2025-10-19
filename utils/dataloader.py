@@ -22,7 +22,8 @@ def get_dataloaders_v2(root_path, use_len, compute_len, predict_len, stride_len,
             DataLoader(val_dataset, batch_size=batch_size, shuffle=False, num_workers=4, prefetch_factor=16, persistent_workers=True))
 
 
-def get_dataloaders_v3(root_path, use_len, compute_len, predict_len, stride_len, batch_size, train_ratio, exclude_device_idx=None, cross=None, cross_idx=None, mode=None):
+def get_dataloaders_v3(root_path, use_len, compute_len, predict_len, stride_len, batch_size, train_ratio, exclude_device_idx=None, cross=None, cross_idx=None, mode=None, random_seed=None):
+    if random_seed != None: torch.manual_seed(random_seed)
     dataset= XRFV22(root_path, use_len, compute_len, predict_len, stride_len, exclude_device_idx, cross, cross_idx, mode)
     train_size = int(train_ratio * len(dataset))
     val_size = len(dataset) - train_size

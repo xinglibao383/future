@@ -1,0 +1,4 @@
+[2025-10-19 22:33:30] 备注: 最大预测长度实验
+[2025-10-19 22:33:30] mask_ratio=0.25, batch_size=256, lr=0.001, epochs=300, loss_func=l1, resnet_verson=resnet18, imu_generator=transformer, transformer_hidden=128, transformer_layers=2, transformer_nhead=4, transformer_dropout=0.1, use_len=60, compute_len=15, predict_len=15, stride_len=15, need_normalize=True, alpha=1, beta=1, gamma=1
+[2025-10-19 23:41:42] [20251019223330] Epoch: 0, train loss1: 0.2506, train loss2: 0.6106, train loss3: 0.2569, train mpjpe1: 109.2810, train mpjpe2: 111.1631
+[2025-10-19 23:41:42] [20251019223330] Epoch: 0,   val loss1: 0.2146,   val loss2: 0.5123,   val loss3: 0.2187,   val mpjpe1: 103.7867,   val mpjpe2: 105.0472

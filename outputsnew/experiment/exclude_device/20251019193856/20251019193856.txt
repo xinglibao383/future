@@ -1,2 +1,8 @@
 [2025-10-19 19:38:56] 备注: 设备消融实验, exclude_device_idx = [2, 4]
 [2025-10-19 19:38:56] exclude_device_idx=[2, 4], mask_ratio=0.25, batch_size=256, lr=0.001, epochs=300, loss_func=l1, resnet_verson=resnet18, imu_generator=transformer, transformer_hidden=128, transformer_layers=2, transformer_nhead=4, transformer_dropout=0.1, use_len=60, compute_len=15, predict_len=15, stride_len=15, need_normalize=True, alpha=1, beta=1, gamma=1
+[2025-10-19 19:45:12] [20251019193856] Epoch: 0, train loss1: 0.2613, train loss2: 0.5945, train loss3: 0.2712, train mpjpe1: 128.6535, train mpjpe2: 136.4490
+[2025-10-19 19:45:12] [20251019193856] Epoch: 0,   val loss1: 0.2197,   val loss2: 0.5026,   val loss3: 0.2311,   val mpjpe1: 111.1741,   val mpjpe2: 119.6579
+[2025-10-19 19:50:12] [20251019193856] Epoch: 1, train loss1: 0.2141, train loss2: 0.4873, train loss3: 0.2241, train mpjpe1: 105.3477, train mpjpe2: 111.9842
+[2025-10-19 19:50:12] [20251019193856] Epoch: 1,   val loss1: 0.2023,   val loss2: 0.4439,   val loss3: 0.2139,   val mpjpe1: 102.1666,   val mpjpe2: 108.1999
+[2025-10-19 19:55:06] [20251019193856] Epoch: 2, train loss1: 0.2012, train loss2: 0.4361, train loss3: 0.2117, train mpjpe1: 101.0582, train mpjpe2: 107.4966
+[2025-10-19 19:55:06] [20251019193856] Epoch: 2,   val loss1: 0.1996,   val loss2: 0.4192,   val loss3: 0.2092,   val mpjpe1: 103.1567,   val mpjpe2: 110.7687

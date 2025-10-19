@@ -56,3 +56,8 @@
 [2025-10-19 19:30:40] [20251019164016] Epoch: 26,   val loss1: 0.2080,   val loss2: 0.3686,   val loss3: 0.2179,   val mpjpe1: 110.6937,   val mpjpe2: 117.7216
 [2025-10-19 19:35:17] [20251019164016] Epoch: 27, train loss1: 0.1226, train loss2: 0.3411, train loss3: 0.1328, train mpjpe1: 69.3027, train mpjpe2: 75.5514
 [2025-10-19 19:35:17] [20251019164016] Epoch: 27,   val loss1: 0.2126,   val loss2: 0.3801,   val loss3: 0.2226,   val mpjpe1: 114.1413,   val mpjpe2: 119.4397
+[2025-10-19 19:41:33] [20251019164016] Epoch: 28, train loss1: 0.1242, train loss2: 0.3449, train loss3: 0.1350, train mpjpe1: 70.0323, train mpjpe2: 76.4388
+[2025-10-19 19:41:33] [20251019164016] Epoch: 28,   val loss1: 0.2033,   val loss2: 0.3678,   val loss3: 0.2135,   val mpjpe1: 105.9690,   val mpjpe2: 111.8589
+[2025-10-19 19:47:15] [20251019164016] Epoch: 29, train loss1: 0.1207, train loss2: 0.3393, train loss3: 0.1307, train mpjpe1: 68.2561, train mpjpe2: 74.3863
+[2025-10-19 19:47:15] [20251019164016] Epoch: 29,   val loss1: 0.2136,   val loss2: 0.3695,   val loss3: 0.2225,   val mpjpe1: 107.6359,   val mpjpe2: 113.0919
+[2025-10-19 19:47:15] [20251019164016] The best mpjpe occurred in epoch 9

@@ -292,3 +292,13 @@
 [2025-10-19 13:26:30] [20251018175245] Epoch: 144,   val loss1: 0.0941,   val loss2: 0.3375,   val loss3: 0.1053,   val mpjpe1: 54.7364,   val mpjpe2: 60.7978
 [2025-10-19 13:31:14] [20251018175245] Epoch: 145, train loss1: 0.0648, train loss2: 0.2784, train loss3: 0.0700, train mpjpe1: 41.4408, train mpjpe2: 45.3908
 [2025-10-19 13:31:14] [20251018175245] Epoch: 145,   val loss1: 0.0930,   val loss2: 0.3322,   val loss3: 0.1044,   val mpjpe1: 53.8247,   val mpjpe2: 59.6483
+[2025-10-19 13:36:03] [20251018175245] Epoch: 146, train loss1: 0.0641, train loss2: 0.2771, train loss3: 0.0695, train mpjpe1: 41.1562, train mpjpe2: 45.1496
+[2025-10-19 13:36:03] [20251018175245] Epoch: 146,   val loss1: 0.0938,   val loss2: 0.3338,   val loss3: 0.1049,   val mpjpe1: 54.2446,   val mpjpe2: 59.9621
+[2025-10-19 13:40:43] [20251018175245] Epoch: 147, train loss1: 0.0644, train loss2: 0.2771, train loss3: 0.0697, train mpjpe1: 41.2220, train mpjpe2: 45.3229
+[2025-10-19 13:40:43] [20251018175245] Epoch: 147,   val loss1: 0.0933,   val loss2: 0.3329,   val loss3: 0.1048,   val mpjpe1: 53.5303,   val mpjpe2: 59.7297
+[2025-10-19 13:45:25] [20251018175245] Epoch: 148, train loss1: 0.0636, train loss2: 0.2769, train loss3: 0.0689, train mpjpe1: 40.9593, train mpjpe2: 44.7790
+[2025-10-19 13:45:25] [20251018175245] Epoch: 148,   val loss1: 0.0934,   val loss2: 0.3338,   val loss3: 0.1047,   val mpjpe1: 54.1538,   val mpjpe2: 60.3578
+[2025-10-19 13:50:09] [20251018175245] Epoch: 149, train loss1: 0.0636, train loss2: 0.2764, train loss3: 0.0688, train mpjpe1: 40.8825, train mpjpe2: 44.8308
+[2025-10-19 13:50:09] [20251018175245] Epoch: 149,   val loss1: 0.0927,   val loss2: 0.3341,   val loss3: 0.1040,   val mpjpe1: 53.5991,   val mpjpe2: 59.7294
+[2025-10-19 13:54:52] [20251018175245] Epoch: 150, train loss1: 0.0637, train loss2: 0.2763, train loss3: 0.0688, train mpjpe1: 40.8917, train mpjpe2: 44.7678
+[2025-10-19 13:54:52] [20251018175245] Epoch: 150,   val loss1: 0.0929,   val loss2: 0.3354,   val loss3: 0.1044,   val mpjpe1: 53.6876,   val mpjpe2: 59.8895

@@ -75,7 +75,18 @@ class XRFV22(Dataset):
         filenames = [filename for filename in filenames if len(filename.split('_')) >= 3 and (filename.split('_')[filename_part_idx] == str(cross_idx)) == should_equal]
         return filenames
 
+    """
     def exclude_device_data(self, data):
         if self.exclude_device_idx == 0: return data[6:, :]
         elif self.exclude_device_idx == 4: return data[:24, :]
         else: return torch.cat([data[:6*self.exclude_device_idx, :], data[6*(self.exclude_device_idx+1):, :]], dim=0)
+    """
+
+    def exclude_device_data(self, data):
+        indices_to_remove = []
+        for device_idx in self.exclude_device_idx:
+            start, end = device_idx * 6, (device_idx + 1) * 6
+            indices_to_remove.extend(range(start, end))
+        mask = torch.ones(data.shape[0], dtype=torch.bool)
+        mask[indices_to_remove] = False
+        return data[mask]

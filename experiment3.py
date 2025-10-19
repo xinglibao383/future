@@ -39,7 +39,7 @@ def exclude_device_experiment(exclude_device_idx=None):
     logger.record([", ".join([f"{k}={v}" for k, v in params.items()])])
 
     imu_generator_params = (transformer_hidden, transformer_layers, transformer_nhead, transformer_dropout)
-    model = PoseNet(input_channels=24, resnet_verson=resnet_verson, imu_generator=imu_generator, imu_generator_params=imu_generator_params, target_time=int(predict_len / 15 * 50), target_poses=predict_len, num_poses=compute_len, num_keypoints=25, output_dim=2)
+    model = PoseNet(input_channels=30-6*len(exclude_device_idx), resnet_verson=resnet_verson, imu_generator=imu_generator, imu_generator_params=imu_generator_params, target_time=int(predict_len / 15 * 50), target_poses=predict_len, num_poses=compute_len, num_keypoints=25, output_dim=2)
     train_loader, val_loader = get_dataloaders_v3(data_root_path, use_len, compute_len, predict_len, stride_len, batch_size, 0.8, exclude_device_idx=exclude_device_idx)
     train3(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_normalize, alpha, beta, gamma, num_epochs, devices, output_save_path, logger, timestamp)
 
@@ -71,6 +71,6 @@ def cross_environment_experiment(cross, cross_idx):
 
 # /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/experiment3.py
 if __name__ == "__main__":
-    # exclude_device_experiment(exclude_device_idx=2)
+    exclude_device_experiment(exclude_device_idx=[2, 4])
     # cross_environment_experiment(cross="cross_environment", cross_idx=2)
-    cross_environment_experiment(cross="cross_person", cross_idx=9)
+    # cross_environment_experiment(cross="cross_person", cross_idx=9)

@@ -1,0 +1,4 @@
+[2025-10-20 01:27:51] 备注: 验证pose标准化效果, 不进行pose标准化
+[2025-10-20 01:27:51] mask_ratio=0.25, batch_size=256, lr=0.001, epochs=200, loss_func=l1, resnet_verson=resnet18, imu_generator=transformer, mamba_d_state=192, mamba_d_conv=8, mamba_expand=3, lstm_hidden=128, lstm_layers=2, lstm_dropout=0.1, gru_hidden=128, gru_layers=2, gru_dropout=0.1, transformer_hidden=128, transformer_layers=2, transformer_nhead=4, transformer_dropout=0.1, use_len=60, compute_len=15, predict_len=15, stride_len=15, need_normalize=True, alpha=1, beta=1, gamma=1
+[2025-10-20 01:31:50] [20251020012751] Epoch: 0, train loss1: 0.2941, train loss2: 0.6332, train loss3: 0.3041, train mpjpe1: 39.8613, train mpjpe2: 41.3864
+[2025-10-20 01:31:50] [20251020012751] Epoch: 0,   val loss1: 0.2400,   val loss2: 0.5368,   val loss3: 0.2374,   val mpjpe1: 32.9578,   val mpjpe2: 34.2400

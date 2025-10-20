@@ -32,7 +32,7 @@ logger = Logger(save_path=output_save_path, timestamp=timestamp)
 
 
 def train():
-    logger.record([f'备注: 使用场景1、场景2、场景3数据, 对transformer调参'])
+    logger.record([f'备注: 验证pose标准化效果, 不进行pose标准化'])
     mask_ratio, batch_size, lr, num_epochs, loss_func = 0.25, 256, 1e-3, 200, "l1"
     resnet_verson, imu_generator = "resnet18", "transformer"
     mamba_d_state, mamba_d_conv, mamba_expand = 192, 8, 3
@@ -41,7 +41,7 @@ def train():
     transformer_hidden, transformer_layers, transformer_nhead, transformer_dropout = 128, 2, 4, 0.1
     # transformer_hidden, transformer_layers, transformer_nhead, transformer_dropout = 256, 4, 8, 0.2
     # transformer_hidden, transformer_layers, transformer_nhead, transformer_dropout = 512, 6, 8, 0.3
-    use_len, compute_len, predict_len, stride_len = 120, 15, 15, 15
+    use_len, compute_len, predict_len, stride_len = 60, 15, 15, 15
     need_normalize, alpha, beta, gamma = True, 1, 1, 1
     params = {
         "mask_ratio": mask_ratio, "batch_size": batch_size, "lr": lr, "epochs": num_epochs, "loss_func": loss_func,

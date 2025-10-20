@@ -6,8 +6,8 @@ import torch.nn as nn
 from utils.logger import Logger
 from utils.dataloader import *
 from utils.train3 import train as train3
-from utils.train3_for_experiment import train as train3_for_experiment
 from models.posenet import *
+from utils.predict_max_predict_len import *
 
 
 # devices = [torch.device('cuda:0'), torch.device('cuda:2'), torch.device('cuda:1'), torch.device('cuda:3')]
@@ -71,12 +71,12 @@ def cross_environment_experiment(cross, cross_idx):
     train3(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_normalize, alpha, beta, gamma, num_epochs, devices, output_save_path, logger, timestamp)
 
 
-def max_predict_len():
+def max_predict_len(checkpoint_filepath=None):
     global output_save_path
     output_save_path = os.path.join(output_save_path, "max_predict_len")
     logger = Logger(save_path=output_save_path, timestamp=timestamp)
     logger.record([f'备注: 最大预测长度实验'])
-    mask_ratio, batch_size, lr, num_epochs, loss_func = 0.25, 256, 1e-3, 300, "l1"
+    mask_ratio, batch_size, lr, num_epochs, loss_func = 0.25, 256, 1e-3, 200, "l1"
     resnet_verson, imu_generator = "resnet18", "transformer"
     transformer_hidden, transformer_layers, transformer_nhead, transformer_dropout = 128, 2, 4, 0.1
     use_len, compute_len, predict_len, stride_len = 60, 15, 15, 15
@@ -91,14 +91,18 @@ def max_predict_len():
     logger.record([", ".join([f"{k}={v}" for k, v in params.items()])])
 
     imu_generator_params = (transformer_hidden, transformer_layers, transformer_nhead, transformer_dropout)
-    model = PoseNet(input_channels=30, resnet_verson=resnet_verson, imu_generator=imu_generator, imu_generator_params=imu_generator_params, target_time=int(predict_len / 15 * 50), target_poses=predict_len, num_poses=compute_len, num_keypoints=25, output_dim=2)
-    train_loader, val_loader = get_dataloaders_v3(data_root_path, use_len, compute_len, 150, stride_len, batch_size, 0.8, random_seed=3407)
-    train3_for_experiment(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_normalize, alpha, beta, gamma, num_epochs, devices, output_save_path, logger, timestamp)
-
+    model = PoseNet(input_channels=30, resnet_verson=resnet_verson, imu_generator=imu_generator, imu_generator_params=imu_generator_params, target_time=50, target_poses=15, num_poses=compute_len, num_keypoints=25, output_dim=2)
+    if checkpoint_filepath is not None:
+        _, val_loader = get_dataloaders_v3(data_root_path, use_len, compute_len, 150, stride_len, batch_size, 0.8, random_seed=3407)
+        val_loss_mpjpe(model, checkpoint_filepath, devices[0], val_loader, logger)
+    else:
+        train_loader, val_loader = get_dataloaders_v3_max_predict_len(data_root_path, use_len, compute_len, 150, stride_len, batch_size, 0.8)
+        train3(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_normalize, alpha, beta, gamma, num_epochs, devices, output_save_path, logger, timestamp)
+    
 
 # /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/experiment3.py
 if __name__ == "__main__":
     # exclude_device_experiment(exclude_device_idx=[2, 4])
     # cross_environment_experiment(cross="cross_environment", cross_idx=2)
     # cross_environment_experiment(cross="cross_person", cross_idx=6)
-    max_predict_len()
+    max_predict_len(checkpoint_filepath='/mnt/mydata/yh/liming/workspace/future/outputsnew/experiment/max_predict_len/20251020132739/checkpoints/epoch_18.pth')

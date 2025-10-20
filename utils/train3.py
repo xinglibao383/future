@@ -63,12 +63,10 @@ def evaluate_loss_mpjpe(model, dataloader, criterion, need_normalize, timestamp,
             if i == iterIdx: plot_poses(y1_hat, output_save_path, timestamp)
 
             loss1, loss2, loss3 = criterion(y1_hat, y1), criterion(x2_hat, x2), criterion(y2_hat, y2)
-            """
             y1_hat, y1 = y1_hat.clamp(min=-0.9999, max=0.9999), y1.clamp(min=-0.9999, max=0.9999)
             y2_hat, y2 = y2_hat.clamp(min=-0.9999, max=0.9999), y2.clamp(min=-0.9999, max=0.9999)
             y1_hat, y1 = torch.atanh(y1_hat), torch.atanh(y1)
             y2_hat, y2 = torch.atanh(y2_hat), torch.atanh(y2)
-            """
             y1_hat, y1 = y1_hat * z1, y1 * z1
             y2_hat, y2 = y2_hat * z2, y2 * z2
             error1, error2 = torch.norm(y1_hat - y1, dim=-1).mean(), torch.norm(y2_hat - y2, dim=-1).mean()
@@ -108,12 +106,10 @@ def train(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_norma
             loss = alpha * loss1 + beta * loss2 + gamma * loss3
             loss.backward()
             optimizer.step()
-            """
             y1_hat, y1 = y1_hat.clamp(min=-0.9999, max=0.9999), y1.clamp(min=-0.9999, max=0.9999)
             y2_hat, y2 = y2_hat.clamp(min=-0.9999, max=0.9999), y2.clamp(min=-0.9999, max=0.9999)
             y1_hat, y1 = torch.atanh(y1_hat), torch.atanh(y1)
             y2_hat, y2 = torch.atanh(y2_hat), torch.atanh(y2)
-            """
             y1_hat, y1 = y1_hat * z1, y1 * z1
             y2_hat, y2 = y2_hat * z2, y2 * z2
             error1, error2 = torch.norm(y1_hat - y1, dim=-1).mean(), torch.norm(y2_hat - y2, dim=-1).mean()
@@ -137,3 +133,4 @@ def train(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_norma
             break
     
     logger.record([f'[{timestamp}] The best mpjpe occurred in epoch {best_epoch}'])
+    return os.path.join(output_save_path, timestamp, "checkpoints", f"epoch_{epoch}.pth")

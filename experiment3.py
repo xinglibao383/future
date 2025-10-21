@@ -6,7 +6,9 @@ import torch.nn as nn
 from utils.logger import Logger
 from utils.dataloader import *
 from utils.train3 import train as train3
+from utils.train3_select_best_solution import train as train3_select_best_solution
 from models.posenet import *
+from models.posenetsimple import *
 from utils.predict_max_predict_len import *
 
 
@@ -98,6 +100,27 @@ def max_predict_len(checkpoint_filepath=None):
     else:
         train_loader, val_loader = get_dataloaders_v3_max_predict_len(data_root_path, use_len, compute_len, 150, stride_len, batch_size, 0.8)
         train3(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_normalize, alpha, beta, gamma, num_epochs, devices, output_save_path, logger, timestamp)
+
+
+def select_best_solution():
+    global output_save_path
+    output_save_path = os.path.join(output_save_path, "select_best_solution")
+    logger = Logger(save_path=output_save_path, timestamp=timestamp)
+    logger.record([f'备注: 方案选择'])
+    mask_ratio, batch_size, lr, num_epochs, loss_func = 0.25, 256, 1e-3, 300, "l1"
+    use_len, compute_len, predict_len, stride_len = 60, 15, 30, 15
+    need_normalize, alpha, beta, gamma = True, 1, 1, 1
+    params = {
+        "mask_ratio": mask_ratio, "batch_size": batch_size, "lr": lr, "epochs": num_epochs, "loss_func": loss_func,
+        "resnet_verson": "resnet18", 
+        "use_len": use_len, "compute_len": compute_len, "predict_len": predict_len, "stride_len": stride_len,
+        "need_normalize": need_normalize, "alpha": alpha, "beta": beta, "gamma": gamma,
+    }
+    logger.record([", ".join([f"{k}={v}" for k, v in params.items()])])
+
+    model = PoseNetSimple(target_poses=(compute_len + predict_len))
+    train_loader, val_loader = get_dataloaders_v3_select_best_solution(data_root_path, use_len, compute_len, predict_len, stride_len, batch_size, 0.8)
+    train3_select_best_solution(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_normalize, alpha, beta, gamma, num_epochs, devices, output_save_path, logger, timestamp)
     
 
 # /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/experiment3.py
@@ -105,4 +128,5 @@ if __name__ == "__main__":
     # exclude_device_experiment(exclude_device_idx=[2, 4])
     # cross_environment_experiment(cross="cross_environment", cross_idx=2)
     # cross_environment_experiment(cross="cross_person", cross_idx=6)
-    max_predict_len(checkpoint_filepath='/mnt/mydata/yh/liming/workspace/future/outputsnew/experiment/max_predict_len/20251020132739/checkpoints/epoch_18.pth')
+    # max_predict_len()
+    select_best_solution()

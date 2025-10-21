@@ -25,8 +25,8 @@ def evaluate(model, dataloader, loss_func, logger):
             losses.extend(loss.cpu().numpy())
             labels.extend(y1.cpu().numpy())
     # threshold = np.percentile(losses, (positive_count / (positive_count + negative_count) * 100))
-    positive_losses = np.array([l for l, label in zip(losses, labels) if label==1])
-    threshold = np.percentile(positive_losses, 95)  # 95% 的正样本重构误差低于阈值
+    # threshold = np.percentile(np.array([l for l, label in zip(losses, labels) if label==0]), 2)
+    threshold = np.percentile(np.array([l for l, label in zip(losses, labels) if label==1]), 98)
     losses, labels = np.array(losses), np.array(labels)
     return ((losses <= threshold) == (labels == 1)).sum() / (positive_count + negative_count)
 

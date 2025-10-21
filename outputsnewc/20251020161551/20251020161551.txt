@@ -1,0 +1,2 @@
+[2025-10-20 16:15:51] 备注: 使用mamba测试对指定类别的重构效果
+[2025-10-20 16:15:51] mask_ratio=0.25, batch_size=256, lr=1e-05, weight_decay=0.0001, epochs=200, loss_func=mse, hidden_dim1=64, hidden_dim2=128, mamba_d_state=64, mamba_d_conv=4, mamba_expand=2, window_size=30, stride=15

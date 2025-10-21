@@ -83,8 +83,7 @@ class PoseNet(nn.Module):
         future_pose = self.fc2(future_features)  # [B, 25*2]
         future_pose = future_pose.view(future_pose.size(0), self.target_poses, self.num_keypoints, self.output_dim)
 
-        return now_pose, future_x, future_pose
-        # return torch.tanh(now_pose), future_x, torch.tanh(future_pose)
+        return torch.tanh(now_pose), future_x, torch.tanh(future_pose)
 
 
 if __name__ == "__main__":

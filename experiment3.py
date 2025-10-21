@@ -109,7 +109,7 @@ def select_best_solution(solution_idx, use_len=60, compute_len=15, predict_len=1
         output_save_path = os.path.join(output_save_path, "select_best_solution", "solution1")
         logger = Logger(save_path=output_save_path, timestamp=timestamp)
         logger.record([f'备注: 方案选择, 使用方案一'])
-        mask_ratio, batch_size, lr, num_epochs, loss_func = 0.25, 256, 1e-3, 300, "l1"
+        mask_ratio, batch_size, lr, num_epochs, loss_func = 0.25, 256, 1e-3, 200, "l1"
         need_normalize, alpha, beta, gamma = True, 1, 1, 1
         params = {
             "mask_ratio": mask_ratio, "batch_size": batch_size, "lr": lr, "epochs": num_epochs, "loss_func": loss_func,
@@ -126,7 +126,7 @@ def select_best_solution(solution_idx, use_len=60, compute_len=15, predict_len=1
         output_save_path = os.path.join(output_save_path, "select_best_solution", "solution2")
         logger = Logger(save_path=output_save_path, timestamp=timestamp)
         logger.record([f'备注: 方案选择, 使用方案二'])
-        mask_ratio, batch_size, lr, num_epochs, loss_func = 0.25, 256, 1e-3, 300, "l1"
+        mask_ratio, batch_size, lr, num_epochs, loss_func = 0.25, 256, 1e-3, 200, "l1"
         resnet_verson, imu_generator = "resnet18", "transformer"
         transformer_hidden, transformer_layers, transformer_nhead, transformer_dropout = 128, 2, 4, 0.1
         need_normalize, alpha, beta, gamma = True, 1, 1, 1

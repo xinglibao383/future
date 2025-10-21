@@ -1,0 +1,6 @@
+[2025-10-21 14:18:19] 备注: 方案选择, 使用方案一
+[2025-10-21 14:18:19] mask_ratio=0.25, batch_size=256, lr=0.001, epochs=300, loss_func=l1, resnet_verson=resnet18, use_len=60, compute_len=15, predict_len=45, stride_len=15, need_normalize=True, alpha=1, beta=1, gamma=1
+[2025-10-21 14:29:28] [20251021141819] Epoch: 0, train loss1: 0.2222, train loss2: 0.2364, train mpjpe1: 106.9844, train mpjpe2: 116.6049
+[2025-10-21 14:29:28] [20251021141819] Epoch: 0,   val loss1: 0.1850,   val loss2: 0.1949,   val mpjpe1: 95.8933,   val mpjpe2: 104.0723
+[2025-10-21 14:41:34] [20251021141819] Epoch: 1, train loss1: 0.1753, train loss2: 0.1850, train mpjpe1: 90.2553, train mpjpe2: 97.5069
+[2025-10-21 14:41:34] [20251021141819] Epoch: 1,   val loss1: 0.1670,   val loss2: 0.1749,   val mpjpe1: 90.0615,   val mpjpe2: 96.1389

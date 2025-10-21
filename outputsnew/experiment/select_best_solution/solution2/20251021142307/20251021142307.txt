@@ -1,0 +1,6 @@
+[2025-10-21 14:23:07] 备注: 方案选择, 使用方案二
+[2025-10-21 14:23:07] mask_ratio=0.25, batch_size=256, lr=0.001, epochs=300, loss_func=l1, resnet_verson=resnet18, imu_generator=transformer, transformer_hidden=128, transformer_layers=2, transformer_nhead=4, transformer_dropout=0.1, use_len=60, compute_len=15, predict_len=30, stride_len=15, need_normalize=True, alpha=1, beta=1, gamma=1
+[2025-10-21 14:30:38] [20251021142307] Epoch: 0, train loss1: 0.2567, train loss2: 0.6019, train loss3: 0.2716, train mpjpe1: 125.1123, train mpjpe2: 134.7752
+[2025-10-21 14:30:38] [20251021142307] Epoch: 0,   val loss1: 0.2158,   val loss2: 0.5330,   val loss3: 0.2299,   val mpjpe1: 109.2246,   val mpjpe2: 115.0060
+[2025-10-21 14:38:45] [20251021142307] Epoch: 1, train loss1: 0.2060, train loss2: 0.5242, train loss3: 0.2192, train mpjpe1: 101.7808, train mpjpe2: 109.1700
+[2025-10-21 14:38:45] [20251021142307] Epoch: 1,   val loss1: 0.1959,   val loss2: 0.4972,   val loss3: 0.2120,   val mpjpe1: 103.0203,   val mpjpe2: 109.6495

@@ -2,3 +2,5 @@
 [2025-10-21 14:19:32] mask_ratio=0.25, batch_size=256, lr=0.001, epochs=300, loss_func=l1, resnet_verson=resnet18, use_len=60, compute_len=15, predict_len=60, stride_len=15, need_normalize=True, alpha=1, beta=1, gamma=1
 [2025-10-21 14:35:53] [20251021141932] Epoch: 0, train loss1: 0.2164, train loss2: 0.2327, train mpjpe1: 105.9019, train mpjpe2: 117.0501
 [2025-10-21 14:35:53] [20251021141932] Epoch: 0,   val loss1: 0.1786,   val loss2: 0.1895,   val mpjpe1: 92.5393,   val mpjpe2: 102.0964
+[2025-10-21 14:53:15] [20251021141932] Epoch: 1, train loss1: 0.1703, train loss2: 0.1812, train mpjpe1: 88.8621, train mpjpe2: 96.7074
+[2025-10-21 14:53:15] [20251021141932] Epoch: 1,   val loss1: 0.1682,   val loss2: 0.1747,   val mpjpe1: 85.5595,   val mpjpe2: 92.5986

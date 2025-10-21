@@ -1,7 +1,0 @@
-[2025-10-21 15:17:37] 备注: 使用mamba测试对指定类别的重构效果
-[2025-10-21 15:17:37] mask_ratio=0.25, batch_size=256, lr=1e-05, weight_decay=0.0001, epochs=200, loss_func=mse, hidden_dim1=64, hidden_dim2=128, mamba_d_state=64, mamba_d_conv=4, mamba_expand=2, window_size=30, stride=15
-[2025-10-21 15:18:15] [20251021151737] Epoch: 0, train loss positive: 334.7785, train loss negative: 28329.5684, val acc: 0.8376, negative_0_0.1824941784143448
-[2025-10-21 15:19:00] [20251021151737] Epoch: 1, train loss positive: 309.8626, train loss negative: 19411.7045, val acc: 0.8376, negative_0_0.18092255294322968
-[2025-10-21 15:21:41] [20251021151737] Epoch: 2, train loss positive: 276.2651, train loss negative: 29285.5616, val acc: 0.8376, negative_0_0.17908281087875366
-[2025-10-21 15:26:52] [20251021151737] Epoch: 3, train loss positive: 243.9480, train loss negative: 56338.5948, val acc: 0.8376, negative_0_0.17703129351139069
-[2025-10-21 15:31:44] [20251021151737] Epoch: 4, train loss positive: 217.7376, train loss negative: 60257.1068, val acc: 0.8376, negative_0_0.17500141263008118

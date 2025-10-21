@@ -1,8 +1,0 @@
-[2025-10-21 14:26:22] 备注: 方案选择, 使用方案二
-[2025-10-21 14:26:22] mask_ratio=0.25, batch_size=256, lr=0.001, epochs=300, loss_func=l1, resnet_verson=resnet18, imu_generator=transformer, transformer_hidden=128, transformer_layers=2, transformer_nhead=4, transformer_dropout=0.1, use_len=60, compute_len=15, predict_len=30, stride_len=15, need_normalize=True, alpha=1, beta=1, gamma=1
-[2025-10-21 14:34:16] [20251021142622] Epoch: 0, train loss1: 0.2570, train loss2: 0.5974, train loss3: 0.2700, train mpjpe1: 123.3994, train mpjpe2: 130.3200
-[2025-10-21 14:34:16] [20251021142622] Epoch: 0,   val loss1: 0.2128,   val loss2: 0.5257,   val loss3: 0.2248,   val mpjpe1: 108.3067,   val mpjpe2: 110.5137
-[2025-10-21 14:42:23] [20251021142622] Epoch: 1, train loss1: 0.2060, train loss2: 0.5270, train loss3: 0.2187, train mpjpe1: 102.3456, train mpjpe2: 109.1231
-[2025-10-21 14:42:23] [20251021142622] Epoch: 1,   val loss1: 0.2064,   val loss2: 0.5139,   val loss3: 0.2190,   val mpjpe1: 108.8139,   val mpjpe2: 112.5692
-[2025-10-21 14:50:48] [20251021142622] Epoch: 2, train loss1: 0.1932, train loss2: 0.5074, train loss3: 0.2068, train mpjpe1: 98.6824, train mpjpe2: 105.9883
-[2025-10-21 14:50:48] [20251021142622] Epoch: 2,   val loss1: 0.1893,   val loss2: 0.4938,   val loss3: 0.1982,   val mpjpe1: 102.8438,   val mpjpe2: 106.0279

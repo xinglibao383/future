@@ -20,9 +20,9 @@ positive_labels = [2, 11, 17, 19, 21, 22]
 
 def train():
     logger.record([f'备注: 使用mamba测试对指定类别的重构效果'])
-    mask_ratio, batch_size, lr, weight_decay, num_epochs, loss_func = 0.25, 256, 1e-5, 1e-4, 200, "mse"
-    hidden_dim1, hidden_dim2, mamba_d_state, mamba_d_conv, mamba_expand = 64, 128, 64, 4, 2
-    window_size, stride = 30, 15
+    mask_ratio, batch_size, lr, weight_decay, num_epochs, loss_func = 0.75, 512, 1e-5, 1e-4, 200, "mse"
+    hidden_dim1, hidden_dim2, mamba_d_state, mamba_d_conv, mamba_expand = 128, 512, 64, 4, 2
+    window_size, stride = 15, 15
     params = {
         "mask_ratio": mask_ratio, "batch_size": batch_size, "lr": lr, "weight_decay": weight_decay, "epochs": num_epochs, "loss_func": loss_func,
         "hidden_dim1": hidden_dim1, "hidden_dim2": hidden_dim2, "mamba_d_state": mamba_d_state, "mamba_d_conv": mamba_d_conv, "mamba_expand": mamba_expand, 

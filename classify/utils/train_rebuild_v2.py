@@ -18,17 +18,49 @@ def evaluate(model, dataloader, loss_func, logger):
     with torch.no_grad():
         for i, (x, y1, y2) in enumerate(dataloader):
             x = x.to(device)
-            x_hat = model(x)
+            mask = torch.rand_like(x) >= 0.75
+            x_masked = x.clone() * mask.float()
+            x_hat = model(x_masked)
             loss = criterion(x_hat, x).mean(dim=(1, 2))
             positive_count += (y1 == 1).sum().item()
             negative_count += (y1 == 0).sum().item()
             losses.extend(loss.cpu().numpy())
             labels.extend(y1.cpu().numpy())
+
+    losses, labels = np.array(losses), np.array(labels)
+
+    best_acc, best_acc2, best_solution = 0, 0, ""
+    for i in range(101):
+        threshold = np.percentile(np.array([l for l, label in zip(losses, labels) if label==1]), i)
+        acc = (losses[labels == 1] <= threshold).sum() / positive_count
+        acc2 = (losses[labels == 0] > threshold).sum() / negative_count
+        if acc * negative_count + acc2 * positive_count > best_acc > best_acc:
+            best_acc = acc * negative_count + acc2 * positive_count > best_acc
+            
+            best_solution = f'positive_{i}_{threshold}_{acc}_{acc2}'
+
+        threshold = np.percentile(np.array([l for l, label in zip(losses, labels) if label==0]), i)
+        acc = (losses[labels == 1] <= threshold).sum() / positive_count
+        acc2 = (losses[labels == 0] > threshold).sum() / negative_count
+        if acc * negative_count + acc2 * positive_count > best_acc > best_acc:
+            best_acc = acc * negative_count + acc2 * positive_count > best_acc
+            best_solution = f'negative_{i}_{threshold}_{acc}_{acc2}'
+
+        threshold = np.percentile(losses, i)
+        acc = (losses[labels == 1] <= threshold).sum() / positive_count
+        acc2 = (losses[labels == 0] > threshold).sum() / negative_count
+        if acc * negative_count + acc2 * positive_count > best_acc:
+            best_acc = acc * negative_count + acc2 * positive_count > best_acc
+            best_solution = f'all_{i}_{threshold}_{acc}_{acc2}'
+
+    
+
     # threshold = np.percentile(losses, (positive_count / (positive_count + negative_count) * 100))
     # threshold = np.percentile(np.array([l for l, label in zip(losses, labels) if label==0]), 2)
-    threshold = np.percentile(np.array([l for l, label in zip(losses, labels) if label==1]), 98)
-    losses, labels = np.array(losses), np.array(labels)
-    return ((losses <= threshold) == (labels == 1)).sum() / (positive_count + negative_count)
+    # threshold = np.percentile(np.array([l for l, label in zip(losses, labels) if label==1]), 98)
+    # losses, labels = np.array(losses), np.array(labels)
+    # return ((losses <= threshold) == (labels == 1)).sum() / (positive_count + negative_count)
+    return best_acc, best_solution
 
 
 def train(model, train_loader, val_loader, loss_func, mask_ratio, lr, weight_decay, num_epochs, devices, output_save_path, logger, timestamp):
@@ -57,6 +89,6 @@ def train(model, train_loader, val_loader, loss_func, mask_ratio, lr, weight_dec
             metric.add(loss_positive.item() * x_positive.shape[0], x_positive.shape[0], loss_negative.item() * x_negative.shape[0], x_negative.shape[0])
             if i != 0 and i % 100 == 0:
                 print(f'Epoch: {epoch}, iter: {i}, train loss positive: {metric[0] / metric[1]:.4f}, train loss negative: {metric[2] / metric[3]:.4f}')
-        val_acc = evaluate(model, val_loader, loss_func, logger)
-        logger.record([f'[{timestamp}] Epoch: {epoch}, train loss positive: {metric[0] / metric[1]:.4f}, train loss negative: {metric[2] / metric[3]:.4f}, val acc: {val_acc:.4f}'])
+        val_acc, info = evaluate(model, val_loader, loss_func, logger)
+        logger.record([f'[{timestamp}] Epoch: {epoch}, train loss positive: {metric[0] / metric[1]:.4f}, train loss negative: {metric[2] / metric[3]:.4f}, val acc: {val_acc:.4f}, {info}'])
         

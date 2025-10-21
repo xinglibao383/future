@@ -1,0 +1,16 @@
+[2025-10-21 16:47:44] 备注: 使用mamba测试对指定类别的重构效果
+[2025-10-21 16:47:44] mask_ratio=0.75, batch_size=512, lr=1e-05, weight_decay=0.0001, epochs=200, loss_func=l1, hidden_dim1=32, hidden_dim2=64, mamba_d_state=16, mamba_d_conv=4, mamba_expand=2, window_size=15, stride=15
+[2025-10-21 16:47:55] [20251021164744] Epoch: 0, train loss positive: 4.7861, train loss negative: 9.7190, val acc: 0.8377, negative_0_0.2809763252735138
+[2025-10-21 16:48:05] [20251021164744] Epoch: 1, train loss positive: 4.7495, train loss negative: 9.6017, val acc: 0.8377, negative_0_0.2787332534790039
+[2025-10-21 16:48:14] [20251021164744] Epoch: 2, train loss positive: 4.7304, train loss negative: 9.5040, val acc: 0.8377, negative_0_0.2764246463775635
+[2025-10-21 16:48:24] [20251021164744] Epoch: 3, train loss positive: 4.7195, train loss negative: 9.4360, val acc: 0.8377, negative_0_0.27406951785087585
+[2025-10-21 16:48:33] [20251021164744] Epoch: 4, train loss positive: 4.7107, train loss negative: 9.3905, val acc: 0.8377, negative_0_0.2717287242412567
+[2025-10-21 16:48:42] [20251021164744] Epoch: 5, train loss positive: 4.7043, train loss negative: 9.3689, val acc: 0.8377, negative_0_0.26935553550720215
+[2025-10-21 16:48:51] [20251021164744] Epoch: 6, train loss positive: 4.6998, train loss negative: 9.3414, val acc: 0.8377, negative_0_0.26692071557044983
+[2025-10-21 16:49:01] [20251021164744] Epoch: 7, train loss positive: 4.6956, train loss negative: 9.3106, val acc: 0.8377, negative_0_0.26425307989120483
+[2025-10-21 16:49:10] [20251021164744] Epoch: 8, train loss positive: 4.6911, train loss negative: 9.3017, val acc: 0.8377, negative_0_0.2609046697616577
+[2025-10-21 16:49:20] [20251021164744] Epoch: 9, train loss positive: 4.6873, train loss negative: 9.2726, val acc: 0.8377, negative_0_0.25760751962661743
+[2025-10-21 16:49:30] [20251021164744] Epoch: 10, train loss positive: 4.6838, train loss negative: 9.2823, val acc: 0.8377, negative_0_0.2541096806526184
+[2025-10-21 16:49:39] [20251021164744] Epoch: 11, train loss positive: 4.6801, train loss negative: 9.2655, val acc: 0.8377, negative_0_0.2508586645126343
+[2025-10-21 16:49:49] [20251021164744] Epoch: 12, train loss positive: 4.6762, train loss negative: 9.2662, val acc: 0.8377, negative_0_0.24732659757137299
+[2025-10-21 16:49:58] [20251021164744] Epoch: 13, train loss positive: 4.6723, train loss negative: 9.2607, val acc: 0.8377, negative_0_0.24347802996635437

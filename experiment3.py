@@ -84,6 +84,7 @@ def max_predict_len(checkpoint_filepath=None):
     use_len, compute_len, predict_len, stride_len = 60, 15, 15, 15
     need_normalize, alpha, beta, gamma = True, 1, 1, 1
     params = {
+        "checkpoint_filepath": checkpoint_filepath,
         "mask_ratio": mask_ratio, "batch_size": batch_size, "lr": lr, "epochs": num_epochs, "loss_func": loss_func,
         "resnet_verson": resnet_verson, "imu_generator": imu_generator, 
         "transformer_hidden": transformer_hidden, "transformer_layers": transformer_layers, "transformer_nhead": transformer_nhead, "transformer_dropout": transformer_dropout, 
@@ -128,5 +129,5 @@ if __name__ == "__main__":
     # exclude_device_experiment(exclude_device_idx=[2, 4])
     # cross_environment_experiment(cross="cross_environment", cross_idx=2)
     # cross_environment_experiment(cross="cross_person", cross_idx=6)
-    # max_predict_len()
-    select_best_solution()
+    max_predict_len(checkpoint_filepath="/mnt/mydata/yh/liming/workspace/future/outputsnew/experiment/max_predict_len/20251020163457/checkpoints/epoch_199.pth")
+    # select_best_solution()

@@ -22,7 +22,7 @@ def clean_outputs(root_dir="/mnt/mydata/yh/liming/workspace/future/outputsnew", 
 
 
 # devices = [torch.device('cuda:0'), torch.device('cuda:2'), torch.device('cuda:1'), torch.device('cuda:3')]
-devices = [torch.device('cuda:0'), torch.device('cuda:1')]
+devices = [torch.device('cuda:0')]
 timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
 # output_save_path = '/data/xinglibao/outputs'
 # data_root_path = '/home/xinglibao/workspace/future/mydata'

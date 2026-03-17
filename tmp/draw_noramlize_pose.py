@@ -1,4 +1,5 @@
 import os
+import shutil
 import numpy as np
 import random
 import torch
@@ -8,6 +9,7 @@ import matplotlib.pyplot as plt
 class PoseNormalizationVisualizer:
     def __init__(self, save_dir):
         self.save_dir = save_dir
+        shutil.rmtree(save_dir)
         os.makedirs(save_dir, exist_ok=True)
 
         # ===== 完全使用你提供的骨架 =====
@@ -29,42 +31,34 @@ class PoseNormalizationVisualizer:
     # ========================
     # 数据处理（严格复现Dataset）
     # ========================
-    def fill_missing_keypoints(self, poses):
-        poses = poses.clone()
-        num_poses, num_keypoints = poses.shape[0], poses.shape[1]
-
+    def fill_missing_keypoints(self, poses, num_keypoints=25):
+        num_poses = poses.shape[0]
         for i in range(num_poses - 1):
             for j in range(num_keypoints):
-                if poses[i, j, 2] == 0:
+                if poses[i][j][2] == 0:
                     for k in range(i + 1, num_poses):
-                        if poses[k, j, 2] != 0:
-                            poses[i, j] = poses[k, j]
+                        if poses[k][j][2] != 0:
+                            poses[i][j] = poses[k][j]
                             break
-
         for j in range(num_keypoints):
-            if poses[num_poses - 1, j, 2] == 0:
+            if poses[num_poses - 1][j][2] == 0:
                 for k in range(num_poses - 2, -1, -1):
-                    if poses[k, j, 2] != 0:
-                        poses[num_poses - 1, j] = poses[k, j]
+                    if poses[k][j][2] != 0:
+                        poses[num_poses - 1][j] = poses[k][j]
                         break
-
         return poses
 
-    def normalize_pose(self, poses):
-        center = poses[:, self.center_idx, :2].unsqueeze(1)
-        poses_centered = poses.clone()
-        poses_centered[:, :, :2] -= center
-
-        l = poses_centered[:, self.left_shoulder_idx, :2]
-        r = poses_centered[:, self.right_shoulder_idx, :2]
-
-        shoulder_width = torch.norm(l - r, dim=1).view(-1, 1, 1)
-        shoulder_width = torch.clamp(shoulder_width, min=1e-6)
-
-        poses_centered[:, :, :2] /= shoulder_width
-        poses_centered[:, :, :2] = torch.tanh(poses_centered[:, :, :2])
-
-        return poses_centered
+    def normalize_pose(self, keypoints_tensor, center_idx=8, left_shoulder_idx=5, right_shoulder_idx=2):
+        center = keypoints_tensor[:, center_idx, :2].unsqueeze(1)  # (num_poses, 1, 2)
+        keypoints_centered = keypoints_tensor.clone()
+        keypoints_centered[:, :, :2] -= center
+        l_shoulder = keypoints_centered[:, left_shoulder_idx, :2]  # (num_poses, 2)
+        r_shoulder = keypoints_centered[:, right_shoulder_idx, :2]
+        shoulder_width = torch.norm(l_shoulder - r_shoulder, dim=1).unsqueeze(1).unsqueeze(2)  # (num_poses,1,1)
+        shoulder_width_clamped = torch.clamp(shoulder_width, min=1e-6)  # 防止除零
+        keypoints_centered[:, :, :2] /= shoulder_width_clamped
+        keypoints_centered[:, :, :2] = torch.tanh(keypoints_centered[:, :, :2])
+        return keypoints_centered
 
     # ========================
     # 画图（严格风格统一）
@@ -95,18 +89,13 @@ class PoseNormalizationVisualizer:
         # ===== Step2: 归一化 =====
         poses_norm = self.normalize_pose(poses_filled)
 
-        # ===== Step3: 可视化前恢复（关键！和你代码一致）=====
-        poses_vis = poses_norm.clone()
-        poses_vis = poses_vis.clamp(min=-0.9999, max=0.9999)
-        poses_vis = torch.atanh(poses_vis)
-
         num_frames = min(max_frames, poses.shape[0])
 
         fig, axes = plt.subplots(num_frames, 2, figsize=(6, 3 * num_frames))
 
         for i in range(num_frames):
             raw = poses_filled[i, :, :2]
-            norm = poses_vis[i, :, :2]
+            norm = poses_norm[i, :, :2]
 
             self._draw_pose(axes[i, 0], raw)
             axes[i, 0].set_title("Before")

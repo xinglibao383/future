@@ -1,5 +1,6 @@
 import os
 import numpy as np
+import random
 import torch
 import matplotlib.pyplot as plt
 
@@ -84,7 +85,7 @@ class PoseNormalizationVisualizer:
     # ========================
     # 核心函数
     # ========================
-    def visualize(self, npy_path):
+    def visualize(self, npy_path, max_frames=2):
         filename = os.path.basename(npy_path).replace(".npy", "")
         poses = torch.tensor(np.load(npy_path), dtype=torch.float32)
 
@@ -94,35 +95,32 @@ class PoseNormalizationVisualizer:
         # ===== Step2: 归一化 =====
         poses_norm = self.normalize_pose(poses_filled)
 
-        # ===== Step3: 可视化反变换 =====
+        # ===== Step3: 可视化前恢复（关键！和你代码一致）=====
         poses_vis = poses_norm.clone()
         poses_vis = poses_vis.clamp(min=-0.9999, max=0.9999)
         poses_vis = torch.atanh(poses_vis)
 
-        num_frames = poses.shape[0]
+        num_frames = min(max_frames, poses.shape[0])
+
+        fig, axes = plt.subplots(num_frames, 2, figsize=(6, 3 * num_frames))
 
         for i in range(num_frames):
             raw = poses_filled[i, :, :2]
             norm = poses_vis[i, :, :2]
 
-            # ===== 每帧单独画 =====
-            fig, axes = plt.subplots(1, 2, figsize=(6, 3))
+            self._draw_pose(axes[i, 0], raw)
+            axes[i, 0].set_title("Before")
 
-            self._draw_pose(axes[0], raw)
-            axes[0].set_title("Before")
+            self._draw_pose(axes[i, 1], norm)
+            axes[i, 1].set_title("After")
 
-            self._draw_pose(axes[1], norm)
-            axes[1].set_title("After")
+        plt.tight_layout()
 
-            plt.tight_layout()
+        save_path = os.path.join(self.save_dir, f"{filename}.png")
+        plt.savefig(save_path, dpi=600, bbox_inches='tight')
+        plt.close()
 
-            save_path = os.path.join(
-                self.save_dir, f"{filename}_frame_{i}.png"
-            )
-            plt.savefig(save_path, dpi=600, bbox_inches='tight')
-            plt.close()
-
-            print(f"[Saved] {save_path}")
+        print(f"[Saved] {save_path}")
 
 
 # ========================
@@ -135,6 +133,8 @@ if __name__ == "__main__":
     visualizer = PoseNormalizationVisualizer(save_dir)
 
     file_list = os.listdir(pose_dir)
+    random.shuffle(file_list)
+
     for v in file_list:
         target_file = os.path.join(pose_dir, v)
         visualizer.visualize(target_file)

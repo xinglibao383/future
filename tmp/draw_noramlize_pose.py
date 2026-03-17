@@ -79,7 +79,7 @@ class PoseNormalizationVisualizer:
     # ========================
     # 核心函数
     # ========================
-    def visualize(self, npy_path, max_frames=2):
+    def visualize(self, npy_path):
         filename = os.path.basename(npy_path).replace(".npy", "")
         poses = torch.tensor(np.load(npy_path), dtype=torch.float32)
 
@@ -89,27 +89,31 @@ class PoseNormalizationVisualizer:
         # ===== Step2: 归一化 =====
         poses_norm = self.normalize_pose(poses_filled)
 
-        num_frames = min(max_frames, poses.shape[0])
-
-        fig, axes = plt.subplots(num_frames, 2, figsize=(6, 3 * num_frames))
+        num_frames = poses.shape[0]
 
         for i in range(num_frames):
             raw = poses_filled[i, :, :2]
             norm = poses_norm[i, :, :2]
 
-            self._draw_pose(axes[i, 0], raw)
-            axes[i, 0].set_title("Before")
+            # ===== 每帧单独figure =====
+            fig, axes = plt.subplots(1, 2, figsize=(6, 3))
 
-            self._draw_pose(axes[i, 1], norm)
-            axes[i, 1].set_title("After")
+            self._draw_pose(axes[0], raw)
+            axes[0].set_title("Before")
 
-        plt.tight_layout()
+            self._draw_pose(axes[1], norm)
+            axes[1].set_title("After")
 
-        save_path = os.path.join(self.save_dir, f"{filename}.png")
-        plt.savefig(save_path, dpi=600, bbox_inches='tight')
-        plt.close()
+            plt.tight_layout()
 
-        print(f"[Saved] {save_path}")
+            save_path = os.path.join(
+                self.save_dir, f"{filename}_frame_{i}.png"
+            )
+
+            plt.savefig(save_path, dpi=600, bbox_inches='tight')
+            plt.close()
+
+        print(f"[Done] {filename}, total frames: {num_frames}")
 
 
 # ========================
@@ -125,5 +129,4 @@ if __name__ == "__main__":
     random.shuffle(file_list)
 
     for v in file_list:
-        target_file = os.path.join(pose_dir, v)
-        visualizer.visualize(target_file)
+        visualizer.visualize(os.path.join(pose_dir, v))

@@ -5,15 +5,18 @@ import numpy as np
 import random
 import torch
 import matplotlib.pyplot as plt
+from concurrent.futures import ProcessPoolExecutor, as_completed
 from datetime import datetime
+
+
+def process_one_file(npy_path, save_dir):
+    visualizer = PoseNormalizationVisualizer(save_dir)
+    visualizer.visualize(npy_path)
 
 
 class PoseNormalizationVisualizer:
     def __init__(self, save_dir):
         self.save_dir = save_dir
-
-        if os.path.exists(save_dir):
-            shutil.rmtree(save_dir)
         os.makedirs(save_dir, exist_ok=True)
 
         self.skeleton = [
@@ -139,16 +142,21 @@ class PoseNormalizationVisualizer:
             plt.close()
 
 
-# ========================
 if __name__ == "__main__":
     pose_dir = "/mnt/mydata/yh/liming/workspace/future/mydata/pose/60_15_15_15"
-    save_dir = f"/mnt/mydata/yh/liming/workspace/future/tmp/imgs"
-    # save_dir = f"/mnt/mydata/yh/liming/workspace/future/tmp/imgs/{datetime.now().strftime('%Y%m%d%H%M%S')}"
+    save_dir = "/mnt/mydata/yh/liming/workspace/future/tmp/imgs"
 
-    visualizer = PoseNormalizationVisualizer(save_dir)
+    if os.path.exists(save_dir):
+        shutil.rmtree(save_dir)
+    os.makedirs(save_dir, exist_ok=True)
 
     file_list = os.listdir(pose_dir)
-    # random.shuffle(file_list)
+    file_list = [os.path.join(pose_dir, v) for v in file_list]
 
-    for v in tqdm(file_list):
-        visualizer.visualize(os.path.join(pose_dir, v))
+    num_workers = 10  # ⭐这里控制并发数量
+
+    with ProcessPoolExecutor(max_workers=num_workers) as executor:
+        futures = [executor.submit(process_one_file, f, save_dir) for f in file_list]
+
+        for _ in tqdm(as_completed(futures), total=len(futures)):
+            pass

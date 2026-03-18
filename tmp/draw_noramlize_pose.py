@@ -1,9 +1,11 @@
 import os
 import shutil
+from tqdm import tqdm
 import numpy as np
 import random
 import torch
 import matplotlib.pyplot as plt
+from datetime import datetime
 
 
 class PoseNormalizationVisualizer:
@@ -71,17 +73,14 @@ class PoseNormalizationVisualizer:
     def compute_processed_range(self, pose):
         pts = pose.reshape(-1, 2)
         pts = pts[np.isfinite(pts).all(axis=1)]
-
         if len(pts) == 0:
-            return (-2, 2, -3, 3)
-
+            return (-3, 3, -3, 3)
         max_x = np.max(np.abs(pts[:, 0]))
         max_y = np.max(np.abs(pts[:, 1]))
-
-        max_x = max(max_x, 2.0)
-        max_y = max(max_y, 3.0)
-
-        return (-max_x*1.2, max_x*1.2, -max_y*1.2, max_y*1.2)
+        max_range = max(max_x, max_y)
+        max_range = max(max_range, 3.0)
+        max_range *= 1.2  # padding
+        return (-max_range, max_range, -max_range, max_range)
 
     # ========================
     def _draw_pose(self, ax, pose, coord_range, title):
@@ -117,6 +116,8 @@ class PoseNormalizationVisualizer:
         poses_vis = torch.atanh(poses_norm.clamp(-0.9999, 0.9999))
 
         for i in range(poses.shape[0]):
+            if i > 0:
+                break
             raw = poses_filled[i, :, :2]
             vis = poses_vis[i, :, :2]
 
@@ -137,12 +138,13 @@ class PoseNormalizationVisualizer:
 # ========================
 if __name__ == "__main__":
     pose_dir = "/mnt/mydata/yh/liming/workspace/future/mydata/pose/60_15_15_15"
-    save_dir = "/mnt/mydata/yh/liming/workspace/future/tmp/imgs"
+    timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
+    save_dir = f"/mnt/mydata/yh/liming/workspace/future/tmp/imgs/{timestamp}"
 
     visualizer = PoseNormalizationVisualizer(save_dir)
 
     file_list = os.listdir(pose_dir)
-    random.shuffle(file_list)
+    # random.shuffle(file_list)
 
-    for v in file_list[:10]:
+    for v in tqdm(file_list):
         visualizer.visualize(os.path.join(pose_dir, v))

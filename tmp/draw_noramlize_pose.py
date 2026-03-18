@@ -9,10 +9,11 @@ import matplotlib.pyplot as plt
 class PoseNormalizationVisualizer:
     def __init__(self, save_dir):
         self.save_dir = save_dir
-        shutil.rmtree(save_dir)
+
+        if os.path.exists(save_dir):
+            shutil.rmtree(save_dir)
         os.makedirs(save_dir, exist_ok=True)
 
-        # ===== 完全使用你提供的骨架 =====
         self.skeleton = [
             (0,1),(1,2),(2,3),(3,4),
             (1,5),(5,6),(6,7),
@@ -23,16 +24,14 @@ class PoseNormalizationVisualizer:
             (11,22),(22,23),(11,24)
         ]
 
-        # 与你Dataset一致
         self.center_idx = 8
         self.left_shoulder_idx = 5
         self.right_shoulder_idx = 2
 
     # ========================
-    # 数据处理（严格复现Dataset）
-    # ========================
     def fill_missing_keypoints(self, poses, num_keypoints=25):
         num_poses = poses.shape[0]
+
         for i in range(num_poses - 1):
             for j in range(num_keypoints):
                 if poses[i][j][2] == 0:
@@ -40,84 +39,101 @@ class PoseNormalizationVisualizer:
                         if poses[k][j][2] != 0:
                             poses[i][j] = poses[k][j]
                             break
+
         for j in range(num_keypoints):
-            if poses[num_poses - 1][j][2] == 0:
+            if poses[-1][j][2] == 0:
                 for k in range(num_poses - 2, -1, -1):
                     if poses[k][j][2] != 0:
-                        poses[num_poses - 1][j] = poses[k][j]
+                        poses[-1][j] = poses[k][j]
                         break
+
         return poses
 
-    def normalize_pose(self, keypoints_tensor, center_idx=8, left_shoulder_idx=5, right_shoulder_idx=2):
-        center = keypoints_tensor[:, center_idx, :2].unsqueeze(1)  # (num_poses, 1, 2)
-        keypoints_centered = keypoints_tensor.clone()
-        keypoints_centered[:, :, :2] -= center
-        l_shoulder = keypoints_centered[:, left_shoulder_idx, :2]  # (num_poses, 2)
-        r_shoulder = keypoints_centered[:, right_shoulder_idx, :2]
-        shoulder_width = torch.norm(l_shoulder - r_shoulder, dim=1).unsqueeze(1).unsqueeze(2)  # (num_poses,1,1)
-        shoulder_width_clamped = torch.clamp(shoulder_width, min=1e-6)  # 防止除零
-        keypoints_centered[:, :, :2] /= shoulder_width_clamped
-        keypoints_centered[:, :, :2] = torch.tanh(keypoints_centered[:, :, :2])
-        return keypoints_centered
+    # ========================
+    def normalize_pose(self, keypoints_tensor):
+        center = keypoints_tensor[:, self.center_idx, :2].unsqueeze(1)
+
+        centered = keypoints_tensor.clone()
+        centered[:, :, :2] -= center
+
+        l = centered[:, self.left_shoulder_idx, :2]
+        r = centered[:, self.right_shoulder_idx, :2]
+
+        shoulder_width = torch.norm(l - r, dim=1).view(-1,1,1)
+        shoulder_width = torch.clamp(shoulder_width, min=1e-3)  # ⭐防止爆炸
+
+        centered[:, :, :2] /= shoulder_width
+        centered[:, :, :2] = torch.tanh(centered[:, :, :2])
+
+        return centered
 
     # ========================
-    # 画图（严格风格统一）
+    def compute_processed_range(self, pose):
+        pts = pose.reshape(-1, 2)
+        pts = pts[np.isfinite(pts).all(axis=1)]
+
+        if len(pts) == 0:
+            return (-2, 2, -3, 3)
+
+        max_x = np.max(np.abs(pts[:, 0]))
+        max_y = np.max(np.abs(pts[:, 1]))
+
+        max_x = max(max_x, 2.0)
+        max_y = max(max_y, 3.0)
+
+        return (-max_x*1.2, max_x*1.2, -max_y*1.2, max_y*1.2)
+
     # ========================
-    def _draw_pose(self, ax, pose):
+    def _draw_pose(self, ax, pose, coord_range, title):
         x = pose[:, 0].numpy()
         y = pose[:, 1].numpy()
 
-        ax.scatter(x, y, c='red', s=20)
+        ax.scatter(x, y, s=20)
 
         for i, j in self.skeleton:
-            ax.plot([x[i], x[j]], [y[i], y[j]], 'g-', linewidth=2)
+            ax.plot([x[i], x[j]], [y[i], y[j]], linewidth=1.5)
 
-        ax.invert_yaxis()
-        ax.axis('equal')
-        ax.axis('off')
+        xmin, xmax, ymin, ymax = coord_range
 
-    # ========================
-    # 核心函数
+        ax.set_xlim(xmin, xmax)
+        ax.set_ylim(ymax, ymin)
+
+        ax.set_aspect('equal')
+        ax.set_title(title)
+        ax.set_xlabel("x")
+        ax.set_ylabel("y")
+
+        ax.grid(True, linestyle="--", alpha=0.3)
+
     # ========================
     def visualize(self, npy_path):
         filename = os.path.basename(npy_path).replace(".npy", "")
         poses = torch.tensor(np.load(npy_path), dtype=torch.float32)
 
-        # ===== Step1: 补点 =====
         poses_filled = self.fill_missing_keypoints(poses)
-
-        # ===== Step2: 归一化 =====
         poses_norm = self.normalize_pose(poses_filled)
 
-        num_frames = poses.shape[0]
+        # ⭐关键：atanh恢复结构
+        poses_vis = torch.atanh(poses_norm.clamp(-0.9999, 0.9999))
 
-        for i in range(num_frames):
+        for i in range(poses.shape[0]):
             raw = poses_filled[i, :, :2]
-            norm = poses_norm[i, :, :2]
+            vis = poses_vis[i, :, :2]
 
-            # ===== 每帧单独figure =====
-            fig, axes = plt.subplots(1, 2, figsize=(6, 3))
+            norm_range = self.compute_processed_range(vis.numpy())
 
-            self._draw_pose(axes[0], raw)
-            axes[0].set_title("Before")
+            fig, axes = plt.subplots(1, 2, figsize=(8, 4))
 
-            self._draw_pose(axes[1], norm)
-            axes[1].set_title("After")
+            self._draw_pose(axes[0], raw, (-1500, 1500, -1500, 1500), "Before")
+            self._draw_pose(axes[1], vis, norm_range, "After")
+
+            save_path = os.path.join(self.save_dir, f"{filename}_frame_{i}.png")
 
             plt.tight_layout()
-
-            save_path = os.path.join(
-                self.save_dir, f"{filename}_frame_{i}.png"
-            )
-
-            plt.savefig(save_path, dpi=600, bbox_inches='tight')
+            plt.savefig(save_path, dpi=300)
             plt.close()
 
-        print(f"[Done] {filename}, total frames: {num_frames}")
 
-
-# ========================
-# 使用方式
 # ========================
 if __name__ == "__main__":
     pose_dir = "/mnt/mydata/yh/liming/workspace/future/mydata/pose/60_15_15_15"
@@ -128,5 +144,5 @@ if __name__ == "__main__":
     file_list = os.listdir(pose_dir)
     random.shuffle(file_list)
 
-    for v in file_list:
+    for v in file_list[:10]:
         visualizer.visualize(os.path.join(pose_dir, v))

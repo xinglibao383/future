@@ -79,7 +79,7 @@ class PoseNormalizationVisualizer:
         max_y = np.max(np.abs(pts[:, 1]))
         max_range = max(max_x, max_y)
         max_range = max(max_range, 3.0)
-        max_range *= 1.2  # padding
+        max_range *= 1.1  # padding
         return (-max_range, max_range, -max_range, max_range)
 
     # ========================
@@ -87,7 +87,7 @@ class PoseNormalizationVisualizer:
         x = pose[:, 0].numpy()
         y = pose[:, 1].numpy()
 
-        ax.scatter(x, y, s=20)
+        ax.scatter(x, y, s=15)
 
         for i, j in self.skeleton:
             ax.plot([x[i], x[j]], [y[i], y[j]], linewidth=1.5)
@@ -98,11 +98,14 @@ class PoseNormalizationVisualizer:
         ax.set_ylim(ymax, ymin)
 
         ax.set_aspect('equal')
-        ax.set_title(title)
-        ax.set_xlabel("x")
-        ax.set_ylabel("y")
+        ax.set_title(title, fontsize=10)
+        # ax.set_xlabel("x")
+        # ax.set_ylabel("y")
 
-        ax.grid(True, linestyle="--", alpha=0.3)
+        # ⭐关键：刻度字体大小
+        ax.tick_params(axis='both', labelsize=10)
+
+        # ax.grid(True, linestyle="--", alpha=0.3)
 
     # ========================
     def visualize(self, npy_path):
@@ -124,15 +127,15 @@ class PoseNormalizationVisualizer:
 
             norm_range = self.compute_processed_range(vis.numpy())
 
-            fig, axes = plt.subplots(1, 2, figsize=(8, 4))
+            fig, axes = plt.subplots(1, 2, figsize=(6, 3))
 
-            self._draw_pose(axes[0], raw, (-1500, 1500, -1500, 1500), "Before")
-            self._draw_pose(axes[1], vis, norm_range, "After")
+            self._draw_pose(axes[0], raw, (-1500, 1500, -1500, 1500), "Raw")
+            self._draw_pose(axes[1], vis, norm_range, "Centered And Normalized")
 
             save_path = os.path.join(self.save_dir, f"{filename}_frame_{i}.png")
 
             plt.tight_layout()
-            plt.savefig(save_path, dpi=300)
+            plt.savefig(save_path, dpi=600)
             plt.close()
 
 

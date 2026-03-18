@@ -113,7 +113,8 @@ class PoseNormalizationVisualizer:
         poses_norm = self.normalize_pose(poses_filled)
 
         # ⭐关键：atanh恢复结构
-        poses_vis = torch.atanh(poses_norm.clamp(-0.9999, 0.9999))
+        # poses_vis = torch.atanh(poses_norm.clamp(-0.9999, 0.9999))
+        poses_vis = torch.atanh(poses_norm)
 
         for i in range(poses.shape[0]):
             if i > 0:
@@ -139,7 +140,7 @@ class PoseNormalizationVisualizer:
 if __name__ == "__main__":
     pose_dir = "/mnt/mydata/yh/liming/workspace/future/mydata/pose/60_15_15_15"
     save_dir = f"/mnt/mydata/yh/liming/workspace/future/tmp/imgs"
-    # save_dir = f"/mnt/mydata/yh/liming/workspace/future/tmp/imgs/{datetime.now().strftime("%Y%m%d%H%M%S")}"
+    # save_dir = f"/mnt/mydata/yh/liming/workspace/future/tmp/imgs/{datetime.now().strftime('%Y%m%d%H%M%S')}"
 
     visualizer = PoseNormalizationVisualizer(save_dir)
 

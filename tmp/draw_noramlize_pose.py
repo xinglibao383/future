@@ -101,12 +101,12 @@ class PoseNormalizationVisualizer:
         ax.set_ylim(ymax, ymin)
 
         ax.set_aspect('equal')
-        ax.set_title(title, fontsize=10)
+        ax.set_title(title, fontsize=12)
         # ax.set_xlabel("x")
         # ax.set_ylabel("y")
 
         # ⭐关键：刻度字体大小
-        ax.tick_params(axis='both', labelsize=10)
+        ax.tick_params(axis='both', labelsize=12)
 
         # ax.grid(True, linestyle="--", alpha=0.3)
 
@@ -130,9 +130,9 @@ class PoseNormalizationVisualizer:
 
             norm_range = self.compute_processed_range(vis.numpy())
 
-            fig, axes = plt.subplots(1, 2, figsize=(6, 3))
+            fig, axes = plt.subplots(1, 2, figsize=(5, 2.5))
 
-            self._draw_pose(axes[0], raw, (-1500, 1500, -1500, 1500), "Raw")
+            self._draw_pose(axes[0], raw, (-160, 1600, -160, 1600), "Raw")
             self._draw_pose(axes[1], vis, norm_range, "Centered And Normalized")
 
             save_path = os.path.join(self.save_dir, f"{filename}_frame_{i}.png")
@@ -153,7 +153,7 @@ if __name__ == "__main__":
     file_list = os.listdir(pose_dir)
     file_list = [os.path.join(pose_dir, v) for v in file_list]
 
-    num_workers = 10  # ⭐这里控制并发数量
+    num_workers = 15  # ⭐这里控制并发数量
 
     with ProcessPoolExecutor(max_workers=num_workers) as executor:
         futures = [executor.submit(process_one_file, f, save_dir) for f in file_list]

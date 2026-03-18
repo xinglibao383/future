@@ -18,7 +18,7 @@ timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
 # output_save_path = '/data/xinglibao/outputs'
 # data_root_path = '/home/xinglibao/workspace/future/mydata'
 output_save_path = '/mnt/mydata/yh/liming/workspace/future/outputsnew/experiment'
-data_root_path = '/mnt/mydata/yh/liming/workspace/future/mydata'
+data_root_path = ''
 
 
 def exclude_device_experiment(exclude_device_idx=None):

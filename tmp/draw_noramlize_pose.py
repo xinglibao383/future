@@ -138,8 +138,8 @@ class PoseNormalizationVisualizer:
 # ========================
 if __name__ == "__main__":
     pose_dir = "/mnt/mydata/yh/liming/workspace/future/mydata/pose/60_15_15_15"
-    timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
-    save_dir = f"/mnt/mydata/yh/liming/workspace/future/tmp/imgs/{timestamp}"
+    save_dir = f"/mnt/mydata/yh/liming/workspace/future/tmp/imgs"
+    # save_dir = f"/mnt/mydata/yh/liming/workspace/future/tmp/imgs/{datetime.now().strftime("%Y%m%d%H%M%S")}"
 
     visualizer = PoseNormalizationVisualizer(save_dir)
 

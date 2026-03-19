@@ -8,13 +8,13 @@ from models.comparison.baselines import build_baseline_model
 
 torch.manual_seed(3407)
 # devices = [torch.device('cuda:0'), torch.device('cuda:2'), torch.device('cuda:1'), torch.device('cuda:3')]
-devices = [torch.device('cuda:3')]
-timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+devices = [torch.device('cuda:1')]
 output_save_path = '/mnt/mydata/yh/liming/workspace/future/outputs/experiment/baseline'
 data_root_path = '/mnt/mydata/yh/liming/workspace/future/mydata'
 
 
 def experiment_baseline(baseline="aipose"):
+    timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
     logger = Logger(save_path=output_save_path, timestamp=timestamp)
     logger.record([f'备注: 基线模型对比实验, baseline={baseline}'])
     mask_ratio, batch_size, lr, num_epochs, loss_func = 0.25, 256, 1e-3, 200, "l1"
@@ -34,13 +34,13 @@ def experiment_baseline(baseline="aipose"):
     train_loader, val_loader = get_dataloaders_v3(data_root_path, use_len, compute_len, predict_len, stride_len, batch_size, train_ratio, random_seed=3407)
     train(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_normalize, num_epochs, devices, output_save_path, logger, timestamp)
 
-
+# nohup /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/experiment_baseline.py > /dev/null 2>&1 &
 # /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/experiment_baseline.py
 if __name__ == "__main__":
     # experiment_baseline(baseline="aipose")
     # experiment_baseline(baseline="pip_like_recon")
     # experiment_baseline(baseline="tip_like_recon")
-    experiment_baseline(baseline="imuposer_like_recon")
+    # experiment_baseline(baseline="imuposer_like_recon")
     experiment_baseline(baseline="dynaip_like_recon")
     experiment_baseline(baseline="asip_like_recon")
     experiment_baseline(baseline="mobileposer_like_recon")

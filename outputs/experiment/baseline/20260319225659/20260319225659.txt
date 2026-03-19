@@ -1,0 +1,18 @@
+[2026-03-19 22:56:59] 备注: 基线模型对比实验, baseline=tip_like_recon
+[2026-03-19 22:56:59] baseline=tip_like_recon, resnet_verson=resnet18, mask_ratio=0.25, batch_size=256, lr=0.001, epochs=200, loss_func=l1, hidden_dim=128, num_layers=2, nhead=4, dropout=0.1, use_len=60, compute_len=15, predict_len=15, stride_len=15, input_channels=30, train_ratio=0.8, need_normalize=True
+[2026-03-19 23:00:52] [20260319225659] Epoch: 0, train loss: 0.3057, train mpjpe: 123.5270
+[2026-03-19 23:00:52] [20260319225659] Epoch: 0,   val loss: 0.2359,   val mpjpe: 106.0560
+[2026-03-19 23:04:42] [20260319225659] Epoch: 1, train loss: 0.2296, train mpjpe: 104.3152
+[2026-03-19 23:04:42] [20260319225659] Epoch: 1,   val loss: 0.2247,   val mpjpe: 104.3902
+[2026-03-19 23:08:33] [20260319225659] Epoch: 2, train loss: 0.2126, train mpjpe: 101.9121
+[2026-03-19 23:08:33] [20260319225659] Epoch: 2,   val loss: 0.2072,   val mpjpe: 98.1859
+[2026-03-19 23:12:24] [20260319225659] Epoch: 3, train loss: 0.1992, train mpjpe: 100.0745
+[2026-03-19 23:12:24] [20260319225659] Epoch: 3,   val loss: 0.1967,   val mpjpe: 96.9474
+[2026-03-19 23:16:14] [20260319225659] Epoch: 4, train loss: 0.1913, train mpjpe: 98.8934
+[2026-03-19 23:16:14] [20260319225659] Epoch: 4,   val loss: 0.1899,   val mpjpe: 97.7938
+[2026-03-19 23:20:05] [20260319225659] Epoch: 5, train loss: 0.1869, train mpjpe: 98.6373
+[2026-03-19 23:20:05] [20260319225659] Epoch: 5,   val loss: 0.1889,   val mpjpe: 97.5226
+[2026-03-19 23:23:55] [20260319225659] Epoch: 6, train loss: 0.1837, train mpjpe: 98.0123
+[2026-03-19 23:23:55] [20260319225659] Epoch: 6,   val loss: 0.1837,   val mpjpe: 92.4428
+[2026-03-19 23:27:49] [20260319225659] Epoch: 7, train loss: 0.1782, train mpjpe: 96.4631
+[2026-03-19 23:27:49] [20260319225659] Epoch: 7,   val loss: 0.1756,   val mpjpe: 92.9386

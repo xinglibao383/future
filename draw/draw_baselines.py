@@ -61,7 +61,6 @@ def plot_multi_logs(log_map, save_path):
 
     # ===== 坐标轴 =====
     plt.xlim(0, 200)
-    plt.margins(x=0.02)   # 左右留白
 
     # ===== y轴：动态范围 =====
     min_mpjpe = min(all_mpjpes)

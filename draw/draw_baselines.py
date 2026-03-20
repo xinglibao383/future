@@ -1,6 +1,16 @@
 import re
 import matplotlib.pyplot as plt
-import os
+
+
+log_map = {
+    "Ours": "/mnt/mydata/yh/liming/workspace/future/outputs/experiment/baseline/20260320135010/20260320135010.txt",
+    "PIP": "/mnt/mydata/yh/liming/workspace/future/outputs/experiment/baseline/20260319225624/20260319225624.txt",
+    "TIP": "/mnt/mydata/yh/liming/workspace/future/outputs/experiment/baseline/20260319225659/20260319225659.txt",
+    "IMUPoser": "/mnt/mydata/yh/liming/workspace/future/outputs/experiment/baseline/20260319230056/20260319230056.txt",
+    "DynaIP": "/mnt/mydata/yh/liming/workspace/future/outputs/experiment/baseline/20260319232806/20260319232806.txt",
+    "ASIP": "/mnt/mydata/yh/liming/workspace/future/outputs/experiment/baseline/20260319235308/20260319235308.txt",
+    "MobilePoser": "/mnt/mydata/yh/liming/workspace/future/outputs/experiment/baseline/20260319235320/20260319235320.txt",
+}
 
 
 def parse_log(log_path):
@@ -21,13 +31,13 @@ def parse_log(log_path):
     return epochs, mpjpes
 
 
-def plot_multi_logs(log_map, save_path):
+def plot_baselines(save_path):
     plt.rcParams.update({
         "font.size": 12,
         "axes.titlesize": 12,
         "axes.labelsize": 12,
-        "xtick.labelsize": 12,
-        "ytick.labelsize": 12,
+        "xtick.labelsize": 10,
+        "ytick.labelsize": 10,
         "legend.fontsize": 12
     })
     plt.figure(figsize=(8, 5))
@@ -97,16 +107,4 @@ def plot_multi_logs(log_map, save_path):
 
 # /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/draw/draw_baselines.py
 if __name__ == "__main__":
-    save_path = "/mnt/mydata/yh/liming/workspace/future/draw/Baseline Pose Reconstruction MPJPE Comparison.png"
-
-    log_map = {
-        "Ours": "/mnt/mydata/yh/liming/workspace/future/outputs/experiment/baseline/20260319225524/20260319225524.txt",
-        "PIP": "/mnt/mydata/yh/liming/workspace/future/outputs/experiment/baseline/20260319225624/20260319225624.txt",
-        "TIP": "/mnt/mydata/yh/liming/workspace/future/outputs/experiment/baseline/20260319225659/20260319225659.txt",
-        "IMUPoser": "/mnt/mydata/yh/liming/workspace/future/outputs/experiment/baseline/20260319230056/20260319230056.txt",
-        "DynaIP": "/mnt/mydata/yh/liming/workspace/future/outputs/experiment/baseline/20260319232806/20260319232806.txt",
-        "ASIP": "/mnt/mydata/yh/liming/workspace/future/outputs/experiment/baseline/20260319235308/20260319235308.txt",
-        "MobilePoser": "/mnt/mydata/yh/liming/workspace/future/outputs/experiment/baseline/20260320085850/20260320085850.txt",
-    }
-
-    plot_multi_logs(log_map, save_path)
+    plot_baselines(save_path="/mnt/mydata/yh/liming/workspace/future/draw/imgs/Baseline Pose Reconstruction MPJPE Comparison.png")

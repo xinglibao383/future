@@ -14,7 +14,7 @@ def add_labels(x, y):
         )
 
 
-def plot_cross_scene(save_path):
+def plot_normalization_ablation(save_path):
     plt.rcParams.update({
         "font.size": 12,
         "axes.labelsize": 12,
@@ -23,13 +23,18 @@ def plot_cross_scene(save_path):
         "legend.fontsize": 12
     })
 
-    scenes = ["Bedroom", "Study", "Dining Room"]
-    recon = [204.4093, 147.1609, 138.3596]
-    pred  = [226.1702, 155.1837, 143.9825]
+    labels = [
+        "IMU✗ Pose✗",
+        "IMU✗ Pose✓",
+        "IMU✓ Pose✗",
+        "IMU✓ Pose✓"
+    ]
+    recon = [60.7588, 79.7920, 58.5465, 50.6833]
+    pred  = [74.1964, 86.5976, 70.5447, 56.4806]
 
     group_gap = 1.3
     bar_width = 0.5
-    x = np.arange(len(scenes)) * group_gap
+    x = np.arange(len(labels)) * group_gap
     x_recon = x - bar_width / 2
     x_pred  = x + bar_width / 2
     plt.figure(figsize=(8, 5))
@@ -47,10 +52,10 @@ def plot_cross_scene(save_path):
     )
     add_labels(x_recon, recon)
     add_labels(x_pred, pred)
-    plt.xticks(x, scenes)
-    plt.xlabel("Scene")
+    plt.xticks(x, labels)
+    plt.xlabel("Normalization")
     plt.ylabel("MPJPE")
-    plt.ylim(113, 243)
+    plt.ylim(43, 93)
     plt.grid(True, axis='y', linestyle="--", alpha=0.4)
     plt.legend(frameon=False)
     plt.savefig(save_path, dpi=900, bbox_inches='tight')
@@ -59,4 +64,4 @@ def plot_cross_scene(save_path):
 
 
 if __name__ == "__main__":
-    plot_cross_scene("/mnt/mydata/yh/liming/workspace/future/draw/imgs/cross_env.png")
+    plot_normalization_ablation("/mnt/mydata/yh/liming/workspace/future/draw/imgs/normalization_ablation.png")

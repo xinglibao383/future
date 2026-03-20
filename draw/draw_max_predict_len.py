@@ -1,40 +1,12 @@
 import matplotlib.pyplot as plt
 
 
-"""
-    \begin{table}[h]
-    \centering
-    \caption{最大预测长度实验结果}
-    \label{tab:prediction_horizon}
-    \begin{tblr}{
-        colspec={X[c] X[c]},
-    }
-    \toprule
-    预测长度区间 & MPJPE \\
-    \midrule
-    {[-15, 0)}   & 56.1941 \\
-    {[0, 15)}    & 60.9056 \\
-    {[15, 30)}   & 65.6229 \\
-    {[30, 45)}   & 77.7804 \\
-    {[45, 60)}   & 88.2202 \\
-    {[60, 75)}   & 94.8827 \\
-    {[75, 90)}   & 101.9103 \\
-    {[90, 105)}  & 108.3201 \\
-    {[105, 120)} & 113.4193 \\
-    {[120, 135)} & 119.1812 \\
-    {[135, 150)} & 125.6723 \\
-    \bottomrule
-    \end{tblr}
-    \end{table}
-"""
-
-
 def plot_prediction_horizon(save_path):
     plt.rcParams.update({
         "font.size": 12,
         "axes.labelsize": 12,
-        "xtick.labelsize": 12,
-        "ytick.labelsize": 12,
+        "xtick.labelsize": 10,
+        "ytick.labelsize": 10,
         "legend.fontsize": 12
     })
 
@@ -82,6 +54,15 @@ def plot_prediction_horizon(save_path):
         linewidth=1.5,
         label="MPJPE"
     )
+    for xi, yi in zip(x, y):
+        plt.text(
+            xi,
+            yi + 1,              # 稍微往上偏一点（关键）
+            f"{yi:.2f}",         # 保留四位小数
+            ha='center',
+            va='bottom',
+            fontsize=10
+        )
     plt.xlim(-1.5, 10.5)
     plt.ylim(48, 132)
     plt.xlabel("Prediction Time (s)")
@@ -93,4 +74,4 @@ def plot_prediction_horizon(save_path):
 
 
 if __name__ == "__main__":
-    plot_prediction_horizon(save_path="/mnt/mydata/yh/liming/workspace/future/draw/max_predict_len.png")
+    plot_prediction_horizon(save_path="/mnt/mydata/yh/liming/workspace/future/draw/imgs/max_predict_len.png")

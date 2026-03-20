@@ -2,12 +2,24 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
+def add_labels(x, y):
+    for xi, yi in zip(x, y):
+        plt.text(
+            xi,
+            yi + 0.5,                  # 稍微往上偏一点
+            f"{yi:.0f}",               # 保留四位小数
+            ha='center',
+            va='bottom',
+            fontsize=10
+        )
+
+
 def plot_cross_subject(save_path):
     plt.rcParams.update({
         "font.size": 12,
         "axes.labelsize": 12,
-        "xtick.labelsize": 12,
-        "ytick.labelsize": 12,
+        "xtick.labelsize": 10,
+        "ytick.labelsize": 10,
         "legend.fontsize": 12
     })
 
@@ -43,6 +55,8 @@ def plot_cross_subject(save_path):
         width=bar_width,
         label="Prediction"
     )
+    add_labels(x_recon, recon)
+    add_labels(x_pred, pred)
     plt.xticks(x, subjects)
     plt.xlabel("Subject ID")
     plt.ylabel("MPJPE")
@@ -55,4 +69,4 @@ def plot_cross_subject(save_path):
 
 
 if __name__ == "__main__":
-    plot_cross_subject("/mnt/mydata/yh/liming/workspace/future/draw/cross_subject.png")
+    plot_cross_subject("/mnt/mydata/yh/liming/workspace/future/draw/imgs/cross_subject.png")

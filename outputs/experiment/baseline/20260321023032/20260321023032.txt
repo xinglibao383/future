@@ -1,2 +1,8 @@
 [2026-03-21 02:30:32] 备注: 基线模型对比实验, baseline=mobileposer_like_recon
 [2026-03-21 02:30:32] baseline=mobileposer_like_recon, resnet_verson=resnet18, mask_ratio=0.25, batch_size=256, lr=0.001, epochs=200, loss_func=l1, hidden_dim=128, num_layers=2, nhead=4, dropout=0.1, use_len=60, compute_len=15, predict_len=15, stride_len=15, input_channels=30, train_ratio=0.8, need_normalize=True
+[2026-03-21 02:34:21] [20260321023032] Epoch: 0, train loss: 0.3458, train mpjpe: 128.2600
+[2026-03-21 02:34:21] [20260321023032] Epoch: 0,   val loss: 0.2645,   val mpjpe: 114.0680
+[2026-03-21 02:38:07] [20260321023032] Epoch: 1, train loss: 0.2743, train mpjpe: 115.3578
+[2026-03-21 02:38:07] [20260321023032] Epoch: 1,   val loss: 0.2489,   val mpjpe: 110.4452
+[2026-03-21 02:41:54] [20260321023032] Epoch: 2, train loss: 0.2643, train mpjpe: 116.0776
+[2026-03-21 02:41:54] [20260321023032] Epoch: 2,   val loss: 0.2532,   val mpjpe: 114.7579

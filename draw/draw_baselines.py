@@ -89,7 +89,7 @@ def plot_baselines(save_path):
         lines.append(line)
 
     # ===== 坐标轴 =====
-    plt.xlim(0, 200)
+    plt.xlim(-7, 207)
 
     # ===== y轴：动态范围 =====
     min_mpjpe = min(all_mpjpes)

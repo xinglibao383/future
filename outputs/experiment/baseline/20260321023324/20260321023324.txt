@@ -1,0 +1,2 @@
+[2026-03-21 02:33:24] 备注: 基线模型对比实验, baseline=mobileposer_like_recon
+[2026-03-21 02:33:24] baseline=mobileposer_like_recon, resnet_verson=resnet18, mask_ratio=0.25, batch_size=256, lr=0.001, epochs=200, loss_func=l1, hidden_dim=128, num_layers=2, nhead=4, dropout=0.1, use_len=60, compute_len=15, predict_len=15, stride_len=15, input_channels=30, train_ratio=0.8, need_normalize=True

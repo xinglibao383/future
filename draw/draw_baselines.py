@@ -13,7 +13,23 @@ log_map = {
 }
 
 
-def parse_log(log_path):
+def parse_log_ours(log_path):
+    """适用于 Ours：有 mpjpe1 / mpjpe2"""
+    epochs = []
+    mpjpes = []
+    pattern = re.compile(
+        r"Epoch:\s*(\d+).*val mpjpe1:\s*([\d.]+).*val mpjpe2:\s*([\d.]+)"
+    )
+    with open(log_path, "r") as f:
+        for line in f:
+            match = pattern.search(line)
+            if match:
+                epochs.append(int(match.group(1)))
+                mpjpes.append(float(match.group(3)))  # 用 mpjpe2
+    return epochs, mpjpes
+
+
+def parse_log_default(log_path):
     epochs = []
     mpjpes = []
 
@@ -47,7 +63,10 @@ def plot_baselines(save_path):
     all_mpjpes = []
 
     for name, log_path in log_map.items():
-        epochs, mpjpes = parse_log(log_path)
+        if name == "Ours":
+            epochs, mpjpes = parse_log_ours(log_path)
+        else:
+            epochs, mpjpes = parse_log_default(log_path)
 
         if len(epochs) == 0:
             continue

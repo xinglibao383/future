@@ -6,7 +6,7 @@ def plot_cross_subject(save_path):
     plt.rcParams.update({
         "font.size": 12,
         "axes.labelsize": 12,
-        "xtick.labelsize": 10,
+        "xtick.labelsize": 12,
         "ytick.labelsize": 12,
         "legend.fontsize": 12
     })

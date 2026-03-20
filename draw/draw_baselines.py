@@ -34,6 +34,7 @@ def plot_multi_logs(log_map, save_path):
 
     # ===== 存储线对象（用于legend）=====
     lines = []
+    all_mpjpes = []
 
     for name, log_path in log_map.items():
         epochs, mpjpes = parse_log(log_path)
@@ -41,6 +42,12 @@ def plot_multi_logs(log_map, save_path):
         if len(epochs) == 0:
             continue
 
+        all_mpjpes.extend(mpjpes)
+
+        # ===== 找最优（最小）MPJPE =====
+        min_idx = mpjpes.index(min(mpjpes))
+        min_val = mpjpes[min_idx]
+        min_epoch = epochs[min_idx]
 
         # ===== 画曲线 + legend带最大值 =====
         line, = plt.plot(
@@ -54,7 +61,16 @@ def plot_multi_logs(log_map, save_path):
 
     # ===== 坐标轴 =====
     plt.xlim(0, 200)
-    plt.ylim(0, 100)
+    plt.margins(x=0.02)   # 左右留白
+
+    # ===== y轴：动态范围 =====
+    min_mpjpe = min(all_mpjpes)
+    max_mpjpe = max(all_mpjpes)
+
+    y_min = min_mpjpe - (max_mpjpe - min_mpjpe) * 0.05
+    y_max = max_mpjpe + (max_mpjpe - min_mpjpe) * 0.05
+
+    plt.ylim(y_min, y_max)
 
     plt.xlabel("Epoch")
     plt.ylabel("MPJPE")
@@ -80,7 +96,7 @@ def plot_multi_logs(log_map, save_path):
     print(f"已保存到: {save_path}")
 
 
-# /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/wictivity/tmp/draw_baselines.py
+# /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/draw/draw_baselines.py
 if __name__ == "__main__":
     save_path = "/mnt/mydata/yh/liming/workspace/future/draw/Baseline Pose Reconstruction MPJPE Comparison.png"
 

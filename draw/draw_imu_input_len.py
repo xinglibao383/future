@@ -56,21 +56,14 @@ def plot_imu_input_len(save_path):
 
     # ===== 坐标轴 =====
     plt.xlim(8, 157)
-    plt.ylim(43, 88)
-
+    plt.ylim(46, 86)
     plt.xlabel("IMU Input Length")
     plt.ylabel("MPJPE")
-
     plt.grid(True, linestyle="--", alpha=0.4)
-
     plt.legend(
         handles=[line1, line2],
-        loc="lower center",
-        bbox_to_anchor=(0.5, 1),
-        ncol=2,
         frameon=False
     )
-    plt.subplots_adjust(top=0.8)
     plt.savefig(save_path, dpi=900, bbox_inches='tight')
     plt.close()
     print(f"已保存到: {save_path}")

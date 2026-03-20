@@ -105,17 +105,10 @@ def plot_baselines(save_path):
 
     plt.grid(True, linestyle="--", alpha=0.4)
 
-    # ===== 核心：底部 legend，每行2个 =====
     plt.legend(
         handles=lines,
-        loc="lower center",
-        bbox_to_anchor=(0.5, 1),
-        ncol=4,                      # 每行两个
-        frameon=False                # 去掉边框（更论文风）
+        frameon=False
     )
-
-    # ===== 关键：给 legend 留空间 =====
-    plt.subplots_adjust(top=0.8)
 
     # ===== 保存 =====
     plt.savefig(save_path, dpi=900, bbox_inches='tight')

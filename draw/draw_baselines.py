@@ -6,10 +6,10 @@ log_map = {
     "Ours": "/mnt/mydata/yh/liming/workspace/future/outputs/experiment/baseline/20260320135010/20260320135010.txt",
     "PIP": "/mnt/mydata/yh/liming/workspace/future/outputs/experiment/baseline/20260319225624/20260319225624.txt",
     "TIP": "/mnt/mydata/yh/liming/workspace/future/outputs/experiment/baseline/20260319225659/20260319225659.txt",
-    "IMUPoser": "/mnt/mydata/yh/liming/workspace/future/outputs/experiment/baseline/20260319230056/20260319230056.txt",
+    "IMUPoser": "/mnt/mydata/yh/liming/workspace/future/outputs/experiment/baseline/20260321025336/20260321025336.txt",
     "DynaIP": "/mnt/mydata/yh/liming/workspace/future/outputs/experiment/baseline/20260319232806/20260319232806.txt",
     "ASIP": "/mnt/mydata/yh/liming/workspace/future/outputs/experiment/baseline/20260319235308/20260319235308.txt",
-    "MobilePoser": "/mnt/mydata/yh/liming/workspace/future/outputs/experiment/baseline/20260319235320/20260319235320.txt",
+    "MobilePoser": "/mnt/mydata/yh/liming/workspace/future/outputs/experiment/baseline/20260321023032/20260321023032.txt",
 }
 
 

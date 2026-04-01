@@ -63,11 +63,11 @@ def experiment_baseline(baseline="aipose"):
 # nohup /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/experiment_baseline.py > /dev/null 2>&1 &
 # /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/experiment_baseline.py
 if __name__ == "__main__":
-    # ours()
+    ours()
     # experiment_baseline(baseline="aipose")
     # experiment_baseline(baseline="pip_like_recon")
     # experiment_baseline(baseline="tip_like_recon")
     # experiment_baseline(baseline="dynaip_like_recon")
     # experiment_baseline(baseline="asip_like_recon")
     # experiment_baseline(baseline="mobileposer_like_recon")
-    experiment_baseline(baseline="imuposer_like_recon")
+    # experiment_baseline(baseline="imuposer_like_recon")

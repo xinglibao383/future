@@ -89,8 +89,9 @@ def train(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_norma
             batch_size = x1.shape[0]
             if need_normalize:
                 x1, x2 = normalize(x1), normalize(x2)
-            mask = torch.rand_like(x1) >= mask_ratio
-            x1 = x1 * mask.float()
+            if mask_ratio > 0:
+                mask = torch.rand_like(x1) >= mask_ratio
+                x1 = x1 * mask.float()
             x1, y1, z1, x2, y2, z2 = x1.to(devices[0]), y1.to(devices[0]), z1.to(devices[0]), x2.to(devices[0]), y2.to(devices[0]), z2.to(devices[0])
             y1_hat, x2_hat, y2_hat = model(x1)
             loss1, loss2, loss3 = criterion(y1_hat, y1), criterion(x2_hat, x2), criterion(y2_hat, y2)

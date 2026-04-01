@@ -33,7 +33,7 @@ def plot_prediction_horizon(save_path):
     """注意，在这里将x轴单位转换为秒"""
 
     y = [
-        56.1941,
+        47.8203,
         60.9056,
         65.6229,
         77.7804,
@@ -64,7 +64,7 @@ def plot_prediction_horizon(save_path):
             fontsize=10
         )
     plt.xlim(-1.5, 10.5)
-    plt.ylim(48, 132)
+    plt.ylim(46, 132)
     plt.xlabel("Prediction Time (s)")
     plt.ylabel("MPJPE")
     plt.grid(True, linestyle="--", alpha=0.4)

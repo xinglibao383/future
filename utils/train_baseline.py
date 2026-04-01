@@ -64,38 +64,48 @@ def train(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_norma
             if i != 0 and i % 20 == 0:
                 train_pose_metrics = train_pose_tracker.summary()
                 train_loss1 = metric[0] / metric[1]
-                print(
-                    f'Epoch: {epoch}, iter: {i}, train loss: {train_loss1:.4f}, '
-                    f'train mpjpe: {train_pose_metrics["mpjpe"]:.4f}, '
-                    f'{train_pose_tracker.format_pck_metrics(train_pose_metrics)}'
+                train_mpjpe_line, train_pck_line = train_pose_tracker.format_pose_metric_lines(
+                    train_pose_metrics,
+                    mpjpe_label="train mpjpe",
+                    pck_label="train pck"
                 )
+                print(f'Epoch: {epoch}, iter: {i}, train loss: {train_loss1:.4f}, {train_mpjpe_line}')
+                print(f'Epoch: {epoch}, iter: {i}, {train_pck_line}')
         train_pose_metrics = train_pose_tracker.summary()
         train_loss1 = metric[0] / metric[1]
         val_metrics = evaluate_loss_mpjpe(model, val_loader, criterion, need_normalize)
-        train_msg = (
-            f'[{timestamp}] Epoch: {epoch}, train loss: {train_loss1:.4f}, '
-            f'train mpjpe: {train_pose_metrics["mpjpe"]:.4f}, '
-            f'{train_pose_tracker.format_pck_metrics(train_pose_metrics)}'
+        train_mpjpe_line, train_pck_line = train_pose_tracker.format_pose_metric_lines(
+            train_pose_metrics,
+            mpjpe_label="train mpjpe",
+            pck_label="train pck"
         )
-        val_msg = (
-            f'[{timestamp}] Epoch: {epoch},   val loss: {val_metrics["loss"]:.4f},   '
-            f'val mpjpe: {val_metrics["mpjpe"]:.4f}, '
-            f'{train_pose_tracker.format_pck_metrics(val_metrics)}'
+        val_mpjpe_line, val_pck_line = train_pose_tracker.format_pose_metric_lines(
+            val_metrics,
+            mpjpe_label="val mpjpe",
+            pck_label="val pck"
         )
+        train_msg_1 = f'[{timestamp}] Epoch: {epoch}, train loss: {train_loss1:.4f}, {train_mpjpe_line}'
+        train_msg_2 = f'[{timestamp}] Epoch: {epoch}, {train_pck_line}'
+        val_msg_1 = f'[{timestamp}] Epoch: {epoch}, val loss: {val_metrics["loss"]:.4f}, {val_mpjpe_line}'
+        val_msg_2 = f'[{timestamp}] Epoch: {epoch}, {val_pck_line}'
         train_joint_msg = (
             f'[{timestamp}] Epoch: {epoch}, train per-joint MPJPE:\n'
             f'{train_pose_tracker.format_per_joint_mpjpe(train_pose_metrics["per_joint_mpjpe"])}'
         )
         val_joint_msg = (
-            f'[{timestamp}] Epoch: {epoch},   val per-joint MPJPE:\n'
+            f'[{timestamp}] Epoch: {epoch}, val per-joint MPJPE:\n'
             f'{train_pose_tracker.format_per_joint_mpjpe(val_metrics["per_joint_mpjpe"])}'
         )
-        print(train_msg)
-        print(val_msg)
+        print(train_msg_1)
+        print(train_msg_2)
+        print(val_msg_1)
+        print(val_msg_2)
         print(train_joint_msg)
         print(val_joint_msg)
-        logger.record([train_msg])
-        logger.record([val_msg])
+        logger.record([train_msg_1])
+        logger.record([train_msg_2])
+        logger.record([val_msg_1])
+        logger.record([val_msg_2])
         logger.record([train_joint_msg], print_flag=False)
         logger.record([val_joint_msg], print_flag=False)
         if val_metrics["mpjpe"] < min_val_mpjpe:
@@ -106,11 +116,13 @@ def train(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_norma
             break
     logger.record([f'[{timestamp}] The best mpjpe occurred in epoch {best_epoch}'])
     if best_val_metrics is not None:
-        best_msg = (
-            f'[{timestamp}] Best val pose metrics: mpjpe={best_val_metrics["mpjpe"]:.4f}, '
-            f'{train_pose_tracker.format_pck_metrics(best_val_metrics)}'
+        best_mpjpe_line, best_pck_line = train_pose_tracker.format_pose_metric_lines(
+            best_val_metrics,
+            mpjpe_label="best val mpjpe",
+            pck_label="best val pck"
         )
-        logger.record([best_msg])
+        logger.record([f'[{timestamp}] {best_mpjpe_line}'])
+        logger.record([f'[{timestamp}] {best_pck_line}'])
         logger.record([
             f'[{timestamp}] Best val per-joint MPJPE:\n'
             f'{train_pose_tracker.format_per_joint_mpjpe(best_val_metrics["per_joint_mpjpe"])}'

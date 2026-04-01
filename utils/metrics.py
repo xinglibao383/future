@@ -101,6 +101,21 @@ class PoseMetricTracker:
             parts.append(f"{prefix_name}{key}: {metrics[f'{prefix_name}{key}']:.4f}")
         return ", ".join(parts)
 
+    def format_mpjpe_metrics(self, metrics, prefix=None, label=None):
+        prefix_name = "" if prefix is None else f"{prefix}_"
+        metric_name = f"{prefix_name}mpjpe"
+        show_name = label if label is not None else metric_name
+        return f"{show_name}: {metrics[metric_name]:.4f}"
+
+    def format_pose_metric_lines(self, metrics, prefix=None, mpjpe_label=None, pck_label=None):
+        mpjpe_line = self.format_mpjpe_metrics(metrics, prefix=prefix, label=mpjpe_label)
+        pck_text = self.format_pck_metrics(metrics, prefix=prefix)
+        if pck_label is not None:
+            pck_line = f"{pck_label}: {pck_text}"
+        else:
+            pck_line = pck_text
+        return mpjpe_line, pck_line
+
     def format_per_joint_mpjpe(self, per_joint_mpjpe):
         joint_count = len(per_joint_mpjpe)
         joint_names = (

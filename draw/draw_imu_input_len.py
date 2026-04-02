@@ -7,10 +7,13 @@ def plot_imu_input_len(save_path):
         "axes.labelsize": 12,
         "xtick.labelsize": 10,
         "ytick.labelsize": 10,
-        "legend.fontsize": 12
+        "legend.fontsize": 10
     })
 
     x = [15, 30, 45, 60, 75, 90, 105, 120, 135, 150]
+    # 单位换算为秒，上面的是以视频帧为单位
+    x = [v / 15 for v in x]
+
     recon = [
         78.1419, 63.0527, 56.0555, 50.7079,
         48.6763, 48.7303, 47.3098, 47.4721,
@@ -27,13 +30,13 @@ def plot_imu_input_len(save_path):
         x, recon,
         marker='o',
         linewidth=1.5,
-        label="Reconstruction"
+        label="人体姿态重构"
     )
     line2, = plt.plot(
         x, pred,
         marker='o',
         linewidth=1.5,
-        label="Prediction"
+        label="人体姿态预测"
     )
     for xi, yi in zip(x, recon):
         plt.text(
@@ -55,10 +58,10 @@ def plot_imu_input_len(save_path):
         )
 
     # ===== 坐标轴 =====
-    plt.xlim(8, 157)
+    plt.xlim(0.3, 10.7)
     plt.ylim(46, 86)
-    plt.xlabel("IMU Input Length")
-    plt.ylabel("MPJPE")
+    plt.xlabel("IMU 序列输入长度（单位：秒）")
+    plt.ylabel("平均关节点位置误差（单位：像素）")
     plt.grid(True, linestyle="--", alpha=0.4)
     plt.legend(
         handles=[line1, line2],

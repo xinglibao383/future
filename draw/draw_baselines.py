@@ -54,7 +54,7 @@ def plot_baselines(save_path):
         "axes.labelsize": 12,
         "xtick.labelsize": 10,
         "ytick.labelsize": 10,
-        "legend.fontsize": 12
+        "legend.fontsize": 10
     })
     plt.figure(figsize=(8, 5))
 

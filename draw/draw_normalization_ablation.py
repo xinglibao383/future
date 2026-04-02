@@ -20,7 +20,7 @@ def plot_normalization_ablation(save_path):
         "axes.labelsize": 12,
         "xtick.labelsize": 10,
         "ytick.labelsize": 10,
-        "legend.fontsize": 12
+        "legend.fontsize": 10
     })
 
     labels = [

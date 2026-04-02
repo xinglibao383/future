@@ -22,15 +22,12 @@ def evaluate_loss_mpjpe(model, dataloader, criterion, need_normalize):
             batch_size = x1.shape[0]
             if need_normalize:
                 x1 = normalize(x1)
-            x1, y1, z1 = x1.to(device), y1.to(device), z1.to(device)
+            x1, y1, z1 = x1.to(device, non_blocking=True), y1.to(device, non_blocking=True), z1.to(device, non_blocking=True)
             y1_hat = model(x1)
             loss1 = criterion(y1_hat, y1)
             metric.add(loss1.item() * batch_size, batch_size)
             pose_tracker.update(y1_hat, y1, z1)
-    return {
-        "loss": metric[0] / metric[1],
-        **pose_tracker.summary(),
-    }
+    return {"loss": metric[0] / metric[1], **pose_tracker.summary()}
 
 
 def train(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_normalize, num_epochs, devices, output_save_path, logger, timestamp):
@@ -56,7 +53,7 @@ def train(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_norma
                 x1 = normalize(x1)
             mask = torch.rand_like(x1) >= mask_ratio
             x1 = x1 * mask.float()
-            x1, y1, z1 = x1.to(devices[0]), y1.to(devices[0]), z1.to(devices[0])
+            x1, y1, z1 = x1.to(devices[0], non_blocking=True), y1.to(devices[0], non_blocking=True), z1.to(devices[0], non_blocking=True)
             y1_hat = model(x1)
             loss1 = criterion(y1_hat, y1)
             loss1.backward()

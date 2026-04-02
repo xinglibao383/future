@@ -20,13 +20,15 @@ class XRFV22(Dataset):
             filenames = self.cross_experiment_filter(filenames, cross, cross_idx, mode)
         self.imu_filepaths = [os.path.join(self.imu_root_path, f) for f in filenames]
         self.pose_filepaths = [os.path.join(self.pose_root_path, f) for f in filenames]
-
         self.exclude_device_idx = exclude_device_idx
+        self.cache = {}
 
     def __len__(self):
         return len(self.imu_filepaths)
 
     def __getitem__(self, idx):
+        if idx in self.cache:
+            return self.cache[idx]
         imu = torch.tensor(np.load(self.imu_filepaths[idx]), dtype=torch.float32)
         if imu.shape[1] == 0:
             imu = torch.zeros((30, int((self.use_len + self.predict_len) / 15 * 50)))
@@ -36,8 +38,9 @@ class XRFV22(Dataset):
         normalized_pose = self.fill_missing_keypoints(pose)
         normalized_pose, shoulder_width = self.normalize_pose(pose)
         # return imu[:, :int(self.use_len / 15 * 50)], pose[:self.compute_len, :, :2], imu[:, int(self.use_len / 15 * 50):], pose[self.compute_len:, :, :2]
-        return (imu[:, :int(self.use_len / 15 * 50)], normalized_pose[:self.compute_len, :, :2], shoulder_width[:self.compute_len], 
-                imu[:, int(self.use_len / 15 * 50):], normalized_pose[self.compute_len:, :, :2], shoulder_width[self.compute_len:])
+        self.cache[idx] =  (imu[:, :int(self.use_len / 15 * 50)], normalized_pose[:self.compute_len, :, :2], shoulder_width[:self.compute_len], 
+                            imu[:, int(self.use_len / 15 * 50):], normalized_pose[self.compute_len:, :, :2], shoulder_width[self.compute_len:])
+        return self.cache[idx]
 
     def normalize_pose(self, keypoints_tensor, center_idx=8, left_shoulder_idx=5, right_shoulder_idx=2):
         center = keypoints_tensor[:, center_idx, :2].unsqueeze(1)  # (num_poses, 1, 2)

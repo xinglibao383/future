@@ -10,10 +10,9 @@ from models.posenet import *
 
 torch.manual_seed(3407)
 devices = [torch.device('cuda:0'), torch.device('cuda:2'), torch.device('cuda:1'), torch.device('cuda:3')]
-devices = [torch.device('cuda:3')]
 # output_save_path = '/mnt/mydata/yh/liming/workspace/future/outputs/experiment2027/baseline'
 # data_root_path = '/mnt/mydata/yh/liming/workspace/future/mydata'
-output_save_path = '/root/future/outputs2028/experiment2027/baseline'
+output_save_path = '/root/future/outputs/experiment2028/baseline'
 data_root_path = '/root/future/mydata'
 
 

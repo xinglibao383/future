@@ -1,2 +1,0 @@
-[2026-04-02 10:26:22] 备注: 基线模型对比实验, baseline=aipose
-[2026-04-02 10:26:22] mask_ratio=0.25, batch_size=256, lr=0.001, epochs=200, loss_func=l1, resnet_verson=resnet18, imu_generator=transformer, transformer_hidden=128, transformer_layers=2, transformer_nhead=4, transformer_dropout=0.1, use_len=60, compute_len=15, predict_len=15, stride_len=15, need_normalize=True, alpha=1, beta=1, gamma=1

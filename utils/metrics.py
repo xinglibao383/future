@@ -36,7 +36,7 @@ class PoseMetricTracker:
         pck_threshold_ratios=None,
         pck_threshold_pixels=None,
         joint_names=None,
-        enable_ratio_pck=True,
+        enable_ratio_pck=False,
         enable_pixel_pck=True,
     ):
         self.prefixes = list(prefixes) if prefixes is not None else [None]
@@ -165,12 +165,14 @@ class PoseMetricTracker:
         keys = [pixel_to_key(pixel) for pixel in self.pck_threshold_pixels]
         return self._format_metric_group(metrics, keys, prefix=prefix, group_label=label)
 
-    def format_pose_metric_lines(self, metrics, prefix=None, mpjpe_label=None, ratio_pck_label=None, pixel_pck_label=None):
+    def format_pose_metric_lines(self, metrics, prefix=None, mpjpe_label=None, pixel_pck_label=None):
         lines = [self.format_mpjpe_metrics(metrics, prefix=prefix, label=mpjpe_label)]
-        ratio_line = self.format_ratio_pck_metrics(metrics, prefix=prefix, label=ratio_pck_label)
+        # Ratio-based PCK is temporarily disabled in logging/output.
+        # Keep the code path for future reuse.
+        # ratio_line = self.format_ratio_pck_metrics(metrics, prefix=prefix, label=ratio_pck_label)
+        # if ratio_line:
+        #     lines.append(ratio_line)
         pixel_line = self.format_pixel_pck_metrics(metrics, prefix=prefix, label=pixel_pck_label)
-        if ratio_line:
-            lines.append(ratio_line)
         if pixel_line:
             lines.append(pixel_line)
         return tuple(lines)

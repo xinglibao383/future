@@ -1,4 +1,5 @@
 import os
+import socket
 import datetime
 import torch
 from utils.logger import Logger
@@ -6,14 +7,18 @@ from utils.dataloader import *
 from utils.train3 import train as train3
 from models.posenet import *
 from utils.predict_max_predict_len import *
+from itertools import combinations
 
 
 devices = [torch.device('cuda:0'), torch.device('cuda:2'), torch.device('cuda:1'), torch.device('cuda:3')]
+devices = [torch.device('cuda:2')]
 timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
-# output_save_path = '/mnt/mydata/yh/liming/workspace/future/outputs/experiment'
-# data_root_path = '/mnt/mydata/yh/liming/workspace/future/mydata'
-output_save_path = '/root/future/outputs2028'
-data_root_path = '/root/future/mydata'
+if socket.gethostname() == "lenovo-Lenovo-WenTian-WA5480-G3":
+    output_save_path = '/mnt/mydata/yh/liming/workspace/future/outputs/experiment2028'
+    data_root_path = '/mnt/mydata/yh/liming/workspace/future/mydata'
+else:
+    output_save_path = '/root/future/outputs/experiment2028'
+    data_root_path = '/root/future/mydata'
 
 
 def exclude_device_experiment(exclude_device_idx=None):
@@ -35,7 +40,6 @@ def exclude_device_experiment(exclude_device_idx=None):
         "need_normalize": need_normalize, "alpha": alpha, "beta": beta, "gamma": gamma,
     }
     logger.record([", ".join([f"{k}={v}" for k, v in params.items()])])
-
     imu_generator_params = (transformer_hidden, transformer_layers, transformer_nhead, transformer_dropout)
     model = PoseNet(input_channels=30-6*len(exclude_device_idx), resnet_verson=resnet_verson, imu_generator=imu_generator, imu_generator_params=imu_generator_params, target_time=int(predict_len / 15 * 50), target_poses=predict_len, num_poses=compute_len, num_keypoints=25, output_dim=2)
     train_loader, val_loader = get_dataloaders_v3(data_root_path, use_len, compute_len, predict_len, stride_len, batch_size, 0.8, exclude_device_idx=exclude_device_idx)
@@ -61,7 +65,6 @@ def cross_environment_experiment(cross, cross_idx):
         "need_normalize": need_normalize, "alpha": alpha, "beta": beta, "gamma": gamma,
     }
     logger.record([", ".join([f"{k}={v}" for k, v in params.items()])])
-
     imu_generator_params = (transformer_hidden, transformer_layers, transformer_nhead, transformer_dropout)
     model = PoseNet(input_channels=30, resnet_verson=resnet_verson, imu_generator=imu_generator, imu_generator_params=imu_generator_params, target_time=int(predict_len / 15 * 50), target_poses=predict_len, num_poses=compute_len, num_keypoints=25, output_dim=2)
     train_loader, val_loader = get_dataloaders_v3_cross_experiment(data_root_path, use_len, compute_len, predict_len, stride_len, batch_size, cross, cross_idx)
@@ -126,9 +129,16 @@ def ablation_mask(mask_ratio):
 # nohup /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/experiment3.py > /dev/null 2>&1 &
 # /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/experiment3.py
 if __name__ == "__main__":
-    # exclude_device_experiment(exclude_device_idx=[2, 4])
-    # cross_environment_experiment(cross="cross_environment", cross_idx=2)
-    # cross_environment_experiment(cross="cross_person", cross_idx=6)
+    # for v in list(combinations([0, 1, 2, 3, 4], 4)):
+    #     exclude_device_experiment(exclude_device_idx=v)
+
+    # for idx in range(1, 4):
+    #     cross_environment_experiment(cross="cross_environment", cross_idx=idx)
+
+    # for idx in range(16):
+    #     cross_environment_experiment(cross="cross_person", cross_idx=idx)
+
     # max_predict_len(checkpoint_filepath="/mnt/mydata/yh/liming/workspace/future/outputsnew/experiment/max_predict_len/20251020163457/checkpoints/epoch_199.pth")
-    for mr in [round(i * 0.05, 2) for i in range(10, 20)]:
+    
+    for mr in [round(i * 0.05, 2) for i in range(1, 10)]:
         ablation_mask(mask_ratio=mr)

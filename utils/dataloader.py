@@ -9,15 +9,15 @@ def get_dataloaders_v3(root_path, use_len, compute_len, predict_len, stride_len,
     train_size = int(train_ratio * len(dataset))
     val_size = len(dataset) - train_size
     train_dataset, val_dataset = random_split(dataset, [train_size, val_size])
-    return (DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=4, prefetch_factor=16, persistent_workers=True), 
-            DataLoader(val_dataset, batch_size=batch_size, shuffle=False, num_workers=4, prefetch_factor=16, persistent_workers=True))
+    return (DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=2, prefetch_factor=2, persistent_workers=True), 
+            DataLoader(val_dataset, batch_size=batch_size, shuffle=False, num_workers=2, prefetch_factor=2, persistent_workers=True))
 
 
 def get_dataloaders_v3_cross_experiment(root_path, use_len, compute_len, predict_len, stride_len, batch_size, cross, cross_idx):
     train_dataset= XRFV22(root_path, use_len, compute_len, predict_len, stride_len, cross=cross, cross_idx=cross_idx, mode="train")
     val_dataset= XRFV22(root_path, use_len, compute_len, predict_len, stride_len, cross=cross, cross_idx=cross_idx, mode="val")
-    return (DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=4, prefetch_factor=16, persistent_workers=True), 
-            DataLoader(val_dataset, batch_size=batch_size, shuffle=False, num_workers=4, prefetch_factor=16, persistent_workers=True))
+    return (DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=2, prefetch_factor=2, persistent_workers=True), 
+            DataLoader(val_dataset, batch_size=batch_size, shuffle=False, num_workers=2, prefetch_factor=2, persistent_workers=True))
 
 
 def get_dataloaders_v3_max_predict_len(root_path, use_len, compute_len, predict_len, stride_len, batch_size, train_ratio, random_seed=3407):
@@ -26,8 +26,8 @@ def get_dataloaders_v3_max_predict_len(root_path, use_len, compute_len, predict_
     train_size = int(train_ratio * len(dataset))
     val_size = len(dataset) - train_size
     train_dataset, val_dataset = random_split(dataset, [train_size, val_size])
-    return (DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=4, prefetch_factor=16, persistent_workers=True), 
-            DataLoader(val_dataset, batch_size=batch_size, shuffle=False, num_workers=4, prefetch_factor=16, persistent_workers=True))
+    return (DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=2, prefetch_factor=2, persistent_workers=True), 
+            DataLoader(val_dataset, batch_size=batch_size, shuffle=False, num_workers=2, prefetch_factor=2, persistent_workers=True))
 
 
 if __name__ == "__main__":

@@ -8,13 +8,12 @@ from models.posenet import *
 from utils.predict_max_predict_len import *
 
 
-# devices = [torch.device('cuda:0'), torch.device('cuda:2'), torch.device('cuda:1'), torch.device('cuda:3')]
-devices = [torch.device('cuda:2'), torch.device('cuda:3')]
+devices = [torch.device('cuda:0'), torch.device('cuda:2'), torch.device('cuda:1'), torch.device('cuda:3')]
 timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
-# output_save_path = '/data/xinglibao/outputs'
-# data_root_path = '/home/xinglibao/workspace/future/mydata'
-output_save_path = '/mnt/mydata/yh/liming/workspace/future/outputs/experiment'
-data_root_path = '/mnt/mydata/yh/liming/workspace/future/mydata'
+# output_save_path = '/mnt/mydata/yh/liming/workspace/future/outputs/experiment'
+# data_root_path = '/mnt/mydata/yh/liming/workspace/future/mydata'
+output_save_path = '/root/future/outputs2028'
+data_root_path = '/root/future/mydata'
 
 
 def exclude_device_experiment(exclude_device_idx=None):

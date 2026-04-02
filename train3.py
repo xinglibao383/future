@@ -9,25 +9,12 @@ from utils.train3 import train as train3
 from models.posenet import *
 
 
-def clean_outputs(root_dir="/mnt/mydata/yh/liming/workspace/future/outputsnew", min_epoch=15):
-    min_lines = 2 + 2 * min_epoch
-    for folder_name in os.listdir(root_dir):
-        folder_path = os.path.join(root_dir, folder_name)
-        txt_file_path = os.path.join(folder_path, f"{folder_name}.txt")
-        with open(txt_file_path, "r", encoding="utf-8") as f:
-            lines = f.readlines()
-        if len(lines) < min_lines:
-            print(f"删除文件夹 {folder_path}，因为行数只有 {len(lines)}")
-            shutil.rmtree(folder_path)
-
-
-# devices = [torch.device('cuda:0'), torch.device('cuda:2'), torch.device('cuda:1'), torch.device('cuda:3')]
-devices = [torch.device('cuda:0')]
+devices = [torch.device('cuda:0'), torch.device('cuda:2'), torch.device('cuda:1'), torch.device('cuda:3')]
 timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
-# output_save_path = '/data/xinglibao/outputs'
-# data_root_path = '/home/xinglibao/workspace/future/mydata'
-output_save_path = '/mnt/mydata/yh/liming/workspace/future/outputsnew'
-data_root_path = '/mnt/mydata/yh/liming/workspace/future/mydata'
+# output_save_path = '/mnt/mydata/yh/liming/workspace/future/outputsnew'
+# data_root_path = '/mnt/mydata/yh/liming/workspace/future/mydata'
+output_save_path = '/root/future/outputs2028'
+data_root_path = '/root/future/mydata'
 logger = Logger(save_path=output_save_path, timestamp=timestamp)
 
 

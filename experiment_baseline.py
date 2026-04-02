@@ -10,9 +10,11 @@ from models.posenet import *
 
 torch.manual_seed(3407)
 devices = [torch.device('cuda:0'), torch.device('cuda:2'), torch.device('cuda:1'), torch.device('cuda:3')]
-devices = [torch.device('cuda:2'), torch.device('cuda:3')]
-output_save_path = '/mnt/mydata/yh/liming/workspace/future/outputs/experiment2027/baseline'
-data_root_path = '/mnt/mydata/yh/liming/workspace/future/mydata'
+devices = [torch.device('cuda:3')]
+# output_save_path = '/mnt/mydata/yh/liming/workspace/future/outputs/experiment2027/baseline'
+# data_root_path = '/mnt/mydata/yh/liming/workspace/future/mydata'
+output_save_path = '/root/future/outputs2028/experiment2027/baseline'
+data_root_path = '/root/future/mydata'
 
 
 def ours():
@@ -62,6 +64,8 @@ def experiment_baseline(baseline="aipose"):
 
 # nohup /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/experiment_baseline.py > /dev/null 2>&1 &
 # /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/experiment_baseline.py
+# nohup /usr/local/miniconda3/envs/future/bin/python /root/future/experiment_baseline.py > /dev/null 2>&1 &
+# /usr/local/miniconda3/envs/future/bin/python /root/future/experiment_baseline.py
 if __name__ == "__main__":
     ours()
     # experiment_baseline(baseline="pip_like_recon")

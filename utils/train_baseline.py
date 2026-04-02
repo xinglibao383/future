@@ -37,12 +37,14 @@ def train(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_norma
     def init_weights(m):
         if type(m) == nn.Linear or type(m) == nn.Conv1d or type(m) == nn.Conv2d:
             nn.init.xavier_uniform_(m.weight)
+
     model.apply(init_weights)
     model = nn.DataParallel(model, device_ids=devices).to(devices[0])
     optimizer = torch.optim.AdamW(model.parameters(), lr=lr)
     criterion = nn.MSELoss() if loss_func == "mse" else nn.L1Loss()
     min_val_mpjpe, best_epoch = float('inf'), 0
     best_val_metrics = None
+
     for epoch in range(num_epochs):
         metric = Accumulator(2)
         train_pose_tracker = PoseMetricTracker()
@@ -64,30 +66,39 @@ def train(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_norma
             if i != 0 and i % 20 == 0:
                 train_pose_metrics = train_pose_tracker.summary()
                 train_loss1 = metric[0] / metric[1]
-                train_mpjpe_line, train_pck_line = train_pose_tracker.format_pose_metric_lines(
+                lines = train_pose_tracker.format_pose_metric_lines(
                     train_pose_metrics,
                     mpjpe_label="train mpjpe",
-                    pck_label="train pck"
+                    ratio_pck_label="train ratio pck",
+                    pixel_pck_label="train pixel pck",
                 )
-                print(f'Epoch: {epoch}, iter: {i}, train loss: {train_loss1:.4f}, {train_mpjpe_line}')
-                print(f'Epoch: {epoch}, iter: {i}, {train_pck_line}')
+                print(f'Epoch: {epoch}, iter: {i}, train loss: {train_loss1:.4f}, {lines[0]}')
+                print(f'Epoch: {epoch}, iter: {i}, {lines[1]}')
+                print(f'Epoch: {epoch}, iter: {i}, {lines[2]}')
+
         train_pose_metrics = train_pose_tracker.summary()
         train_loss1 = metric[0] / metric[1]
         val_metrics = evaluate_loss_mpjpe(model, val_loader, criterion, need_normalize)
-        train_mpjpe_line, train_pck_line = train_pose_tracker.format_pose_metric_lines(
+
+        train_lines = train_pose_tracker.format_pose_metric_lines(
             train_pose_metrics,
             mpjpe_label="train mpjpe",
-            pck_label="train pck"
+            ratio_pck_label="train ratio pck",
+            pixel_pck_label="train pixel pck",
         )
-        val_mpjpe_line, val_pck_line = train_pose_tracker.format_pose_metric_lines(
+        val_lines = train_pose_tracker.format_pose_metric_lines(
             val_metrics,
             mpjpe_label="val mpjpe",
-            pck_label="val pck"
+            ratio_pck_label="val ratio pck",
+            pixel_pck_label="val pixel pck",
         )
-        train_msg_1 = f'[{timestamp}] Epoch: {epoch}, train loss: {train_loss1:.4f}, {train_mpjpe_line}'
-        train_msg_2 = f'[{timestamp}] Epoch: {epoch}, {train_pck_line}'
-        val_msg_1 = f'[{timestamp}] Epoch: {epoch}, val loss: {val_metrics["loss"]:.4f}, {val_mpjpe_line}'
-        val_msg_2 = f'[{timestamp}] Epoch: {epoch}, {val_pck_line}'
+
+        train_msg_1 = f'[{timestamp}] Epoch: {epoch}, train loss: {train_loss1:.4f}, {train_lines[0]}'
+        train_msg_2 = f'[{timestamp}] Epoch: {epoch}, {train_lines[1]}'
+        train_msg_3 = f'[{timestamp}] Epoch: {epoch}, {train_lines[2]}'
+        val_msg_1 = f'[{timestamp}] Epoch: {epoch}, val loss: {val_metrics["loss"]:.4f}, {val_lines[0]}'
+        val_msg_2 = f'[{timestamp}] Epoch: {epoch}, {val_lines[1]}'
+        val_msg_3 = f'[{timestamp}] Epoch: {epoch}, {val_lines[2]}'
         train_joint_msg = (
             f'[{timestamp}] Epoch: {epoch}, train per-joint MPJPE:\n'
             f'{train_pose_tracker.format_per_joint_mpjpe(train_pose_metrics["per_joint_mpjpe"])}'
@@ -96,33 +107,43 @@ def train(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_norma
             f'[{timestamp}] Epoch: {epoch}, val per-joint MPJPE:\n'
             f'{train_pose_tracker.format_per_joint_mpjpe(val_metrics["per_joint_mpjpe"])}'
         )
+
         print(train_msg_1)
         print(train_msg_2)
+        print(train_msg_3)
         print(val_msg_1)
         print(val_msg_2)
+        print(val_msg_3)
         print(train_joint_msg)
         print(val_joint_msg)
+
         logger.record([train_msg_1])
         logger.record([train_msg_2])
+        logger.record([train_msg_3])
         logger.record([val_msg_1])
         logger.record([val_msg_2])
+        logger.record([val_msg_3])
         logger.record([train_joint_msg], print_flag=False)
         logger.record([val_joint_msg], print_flag=False)
+
         if val_metrics["mpjpe"] < min_val_mpjpe:
             min_val_mpjpe = val_metrics["mpjpe"]
             best_epoch = epoch
             best_val_metrics = val_metrics
         if epoch - best_epoch >= 20:
             break
+
     logger.record([f'[{timestamp}] The best mpjpe occurred in epoch {best_epoch}'])
     if best_val_metrics is not None:
-        best_mpjpe_line, best_pck_line = train_pose_tracker.format_pose_metric_lines(
+        best_lines = train_pose_tracker.format_pose_metric_lines(
             best_val_metrics,
             mpjpe_label="best val mpjpe",
-            pck_label="best val pck"
+            ratio_pck_label="best val ratio pck",
+            pixel_pck_label="best val pixel pck",
         )
-        logger.record([f'[{timestamp}] {best_mpjpe_line}'])
-        logger.record([f'[{timestamp}] {best_pck_line}'])
+        logger.record([f'[{timestamp}] {best_lines[0]}'])
+        logger.record([f'[{timestamp}] {best_lines[1]}'])
+        logger.record([f'[{timestamp}] {best_lines[2]}'])
         logger.record([
             f'[{timestamp}] Best val per-joint MPJPE:\n'
             f'{train_pose_tracker.format_per_joint_mpjpe(best_val_metrics["per_joint_mpjpe"])}'

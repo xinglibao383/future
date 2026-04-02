@@ -2302,3 +2302,47 @@
 [2026-04-02 21:02:26] [20260402175600] Epoch: 141, val loss: 0.1332, val mpjpe: 72.6373
 [2026-04-02 21:03:00] [20260402175600] Epoch: 142, train loss: 0.1070, train mpjpe: 61.1357
 [2026-04-02 21:03:00] [20260402175600] Epoch: 142, val loss: 0.1324, val mpjpe: 73.6246
+[2026-04-02 21:03:34] [20260402175600] Epoch: 143, train loss: 0.1063, train mpjpe: 60.8384
+[2026-04-02 21:03:34] [20260402175600] Epoch: 143, val loss: 0.1331, val mpjpe: 72.5503
+[2026-04-02 21:04:08] [20260402175600] Epoch: 144, train loss: 0.1075, train mpjpe: 61.4724
+[2026-04-02 21:04:08] [20260402175600] Epoch: 144, val loss: 0.1334, val mpjpe: 73.5048
+[2026-04-02 21:04:41] [20260402175600] Epoch: 145, train loss: 0.1067, train mpjpe: 61.2565
+[2026-04-02 21:04:41] [20260402175600] Epoch: 145, val loss: 0.1338, val mpjpe: 73.5567
+[2026-04-02 21:05:15] [20260402175600] Epoch: 146, train loss: 0.1068, train mpjpe: 60.9005
+[2026-04-02 21:05:15] [20260402175600] Epoch: 146, val loss: 0.1364, val mpjpe: 73.7111
+[2026-04-02 21:05:49] [20260402175600] Epoch: 147, train loss: 0.1063, train mpjpe: 60.9868
+[2026-04-02 21:05:49] [20260402175600] Epoch: 147, val loss: 0.1324, val mpjpe: 73.3947
+[2026-04-02 21:06:22] [20260402175600] Epoch: 148, train loss: 0.1055, train mpjpe: 60.4818
+[2026-04-02 21:06:22] [20260402175600] Epoch: 148, val loss: 0.1320, val mpjpe: 72.5849
+[2026-04-02 21:06:56] [20260402175600] Epoch: 149, train loss: 0.1048, train mpjpe: 60.0610
+[2026-04-02 21:06:56] [20260402175600] Epoch: 149, val loss: 0.1330, val mpjpe: 73.4724
+[2026-04-02 21:06:56] [20260402175600] The best mpjpe occurred in epoch 129
+[2026-04-02 21:06:56] [20260402175600] best val mpjpe: 72.0477
+[2026-04-02 21:06:56] [20260402175600] best val pixel pck: pck@5px: 0.1363, pck@10px: 0.2166, pck@20px: 0.3591
+[2026-04-02 21:06:56] [20260402175600] Best val per-joint MPJPE:
+ joint_id joint_name    mpjpe
+        0       Nose  90.9898
+        1       Neck  58.2323
+        2  RShoulder  60.6691
+        3     RElbow  64.6726
+        4     RWrist  97.4716
+        5  LShoulder  61.1391
+        6     LElbow  58.6436
+        7     LWrist  80.3936
+        8     MidHip   0.1250
+        9       RHip  14.5020
+       10      RKnee  58.1900
+       11     RAnkle  82.5071
+       12       LHip  15.9251
+       13      LKnee  58.3900
+       14     LAnkle  78.2344
+       15       REye  95.7595
+       16       LEye 103.4124
+       17       REar  89.8814
+       18       LEar  83.5982
+       19    LBigToe  98.6341
+       20  LSmallToe 100.3143
+       21      LHeel  85.3539
+       22    RBigToe  89.1494
+       23  RSmallToe  89.8041
+       24      RHeel  85.2012

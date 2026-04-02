@@ -9,7 +9,7 @@ from models.posenet import *
 
 
 torch.manual_seed(3407)
-devices = [torch.device('cuda:0'), torch.device('cuda:2'), torch.device('cuda:1'), torch.device('cuda:3')]
+devices = [torch.device('cuda:3'), torch.device('cuda:2')]
 # output_save_path = '/mnt/mydata/yh/liming/workspace/future/outputs/experiment2027/baseline'
 # data_root_path = '/mnt/mydata/yh/liming/workspace/future/mydata'
 output_save_path = '/root/future/outputs/experiment2028/baseline'
@@ -66,10 +66,10 @@ def experiment_baseline(baseline="aipose"):
 # nohup /usr/local/miniconda3/envs/future/bin/python /root/future/experiment_baseline.py > /dev/null 2>&1 &
 # /usr/local/miniconda3/envs/future/bin/python /root/future/experiment_baseline.py
 if __name__ == "__main__":
-    ours()
+    # ours()
     # experiment_baseline(baseline="pip_like_recon")
     # experiment_baseline(baseline="tip_like_recon")
     # experiment_baseline(baseline="dynaip_like_recon")
     # experiment_baseline(baseline="asip_like_recon")
     # experiment_baseline(baseline="mobileposer_like_recon")
-    # experiment_baseline(baseline="imuposer_like_recon")
+    experiment_baseline(baseline="imuposer_like_recon")

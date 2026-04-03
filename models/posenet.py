@@ -49,14 +49,15 @@ class PoseNet(nn.Module):
                 target_len=target_time
             )
         elif imu_generator == "mamba":
-            mamba_d_state, mamba_d_conv, mamba_expand = imu_generator_params
+            mamba_d_state, mamba_d_conv, mamba_expand, mamba_dropout = imu_generator_params
             self.imu_predictor = MambaGenerator(
                 input_dim=resent_feature_dim, 
                 output_dim=input_channels, 
                 d_state=mamba_d_state, 
                 d_conv=mamba_d_conv, 
                 expand=mamba_expand, 
-                target_len=target_time
+                target_len=target_time,
+                dropout=mamba_dropout
             )
 
         self.fc1 = nn.Linear(resent_feature_dim, num_poses * num_keypoints * output_dim)

@@ -25,11 +25,11 @@ def plot_per_joint_group(save_path, labels, method_data):
     # })
 
     plt.rcParams.update({
-        "font.size": 14,
-        "axes.labelsize": 14,
-        "xtick.labelsize": 12,
-        "ytick.labelsize": 12,
-        "legend.fontsize": 12
+        "font.size": 16,
+        "axes.labelsize": 16,
+        "xtick.labelsize": 14,
+        "ytick.labelsize": 14,
+        "legend.fontsize": 14
     })
 
     methods = list(method_data.keys())

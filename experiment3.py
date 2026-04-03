@@ -11,7 +11,7 @@ from itertools import combinations
 
 
 devices = [torch.device('cuda:0'), torch.device('cuda:2'), torch.device('cuda:1'), torch.device('cuda:3')]
-devices = [torch.device('cuda:2')]
+devices = [torch.device('cuda:0')]
 timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
 if socket.gethostname() == "lenovo-Lenovo-WenTian-WA5480-G3":
     output_save_path = '/mnt/mydata/yh/liming/workspace/future/outputs/experiment2028'
@@ -23,10 +23,10 @@ else:
 
 def exclude_device_experiment(exclude_device_idx=None):
     global output_save_path
-    output_save_path = os.path.join(output_save_path, "exclude_device")
+    output_save_path = os.path.join(output_save_path, "exclude_device_200epoch")
     logger = Logger(save_path=output_save_path, timestamp=timestamp)
     logger.record([f'备注: 设备消融实验, exclude_device_idx = {exclude_device_idx}'])
-    mask_ratio, batch_size, lr, num_epochs, loss_func = 0.25, 256, 1e-3, 300, "l1"
+    mask_ratio, batch_size, lr, num_epochs, loss_func = 0.25, 256, 1e-3, 200, "l1"
     resnet_verson, imu_generator = "resnet18", "transformer"
     transformer_hidden, transformer_layers, transformer_nhead, transformer_dropout = 128, 2, 4, 0.1
     use_len, compute_len, predict_len, stride_len = 60, 15, 15, 15
@@ -166,9 +166,13 @@ def select_backbone(imu_generator):
 
 # nohup /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/experiment3.py > /dev/null 2>&1 &
 # /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/experiment3.py
+# nohup /usr/local/miniconda3/envs/future/bin/python /root/future/experiment3.py > /dev/null 2>&1 &
+# /usr/local/miniconda3/envs/future/bin/python /root/future/experiment3.py
 if __name__ == "__main__":
-    # for v in list(combinations([0, 1, 2, 3, 4], 4)):
-    #     exclude_device_experiment(exclude_device_idx=v)
+    combo_list = list(combinations([0, 1, 2, 3, 4], 3))
+    mid = len(combo_list) // 2
+    for v in combo_list[:mid]:
+        exclude_device_experiment(exclude_device_idx=v)
 
     # for idx in range(1, 4):
     #     cross_environment_experiment(cross="cross_environment", cross_idx=idx)
@@ -181,4 +185,4 @@ if __name__ == "__main__":
     # for mr in [round(i * 0.05, 2) for i in range(1, 10)]:
     #     ablation_mask(mask_ratio=mr)
 
-    select_backbone(imu_generator="mamba")
+    # select_backbone(imu_generator="mamba")

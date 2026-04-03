@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from mamba_ssm import Mamba
+# from mamba_ssm import Mamba
 
 
 class MambaGenerator(nn.Module):
@@ -10,7 +10,7 @@ class MambaGenerator(nn.Module):
         self.output_dim = output_dim
         self.target_len = target_len
 
-        self.mamba = Mamba(d_model=input_dim, d_state=d_state, d_conv=d_conv, expand=expand)
+        # self.mamba = Mamba(d_model=input_dim, d_state=d_state, d_conv=d_conv, expand=expand)
         self.output_dim_proj = nn.Linear(input_dim, output_dim)
 
     def forward(self, x):

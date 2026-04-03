@@ -16,12 +16,20 @@ def add_labels(x, y):
 
 
 def plot_per_joint_group(save_path, labels, method_data):
+    # plt.rcParams.update({
+    #     "font.size": 12,
+    #     "axes.labelsize": 12,
+    #     "xtick.labelsize": 10,
+    #     "ytick.labelsize": 10,
+    #     "legend.fontsize": 10
+    # })
+
     plt.rcParams.update({
-        "font.size": 12,
-        "axes.labelsize": 12,
-        "xtick.labelsize": 10,
-        "ytick.labelsize": 10,
-        "legend.fontsize": 10
+        "font.size": 14,
+        "axes.labelsize": 14,
+        "xtick.labelsize": 12,
+        "ytick.labelsize": 12,
+        "legend.fontsize": 12
     })
 
     methods = list(method_data.keys())
@@ -30,11 +38,9 @@ def plot_per_joint_group(save_path, labels, method_data):
     group_gap = 1.1
     bar_width = 0.14
     x = np.arange(len(labels)) * group_gap
-
-    # 每个方法在组内的偏移
     offsets = (np.arange(num_methods) - (num_methods - 1) / 2) * bar_width
 
-    plt.figure(figsize=(8, 5))
+    plt.figure(figsize=(16, 5))
 
     all_values = []
 
@@ -48,18 +54,22 @@ def plot_per_joint_group(save_path, labels, method_data):
             width=bar_width,
             label=method
         )
-        add_labels(x_pos, values)
+        # add_labels(x_pos, values)
         all_values.extend(values)
 
-    plt.xticks(x, labels)
+    plt.xticks(x, labels, rotation=0, ha='center')
+    plt.tick_params(axis='x', length=0)
     plt.xlabel("Joint")
     plt.ylabel("MPJPE")
-
-    y_max = max(all_values)
-    plt.ylim(0, 180)
+    plt.ylim(0, 160)
 
     plt.grid(True, axis='y', linestyle="--", alpha=0.4)
-    plt.legend(frameon=False, ncol=2)
+    plt.legend(frameon=False, ncol=4)
+
+    # 收紧左右留白
+    left_edge = x[0] + offsets[0] - bar_width / 2
+    right_edge = x[-1] + offsets[-1] + bar_width / 2
+    plt.xlim(left_edge - 0.08, right_edge + 0.08)
 
     plt.savefig(save_path, dpi=900, bbox_inches='tight')
     plt.close()
@@ -69,12 +79,12 @@ def plot_per_joint_group(save_path, labels, method_data):
 def plot_all_per_joint_groups(save_dir):
     os.makedirs(save_dir, exist_ok=True)
 
-    joint_groups = [
-        ["Nose", "Neck", "RShoulder", "RElbow", "RWrist"],
-        ["LShoulder", "LElbow", "LWrist", "MidHip", "RHip"],
-        ["RKnee", "RAnkle", "LHip", "LKnee", "LAnkle"],
-        ["REye", "LEye", "REar", "LEar", "LBigToe"],
-        ["LSmallToe", "LHeel", "RBigToe", "RSmallToe", "RHeel"],
+    labels = [
+        "Nose", "Neck", "RShoulder", "RElbow", "RWrist",
+        "LShoulder", "LElbow", "LWrist", "MidHip", "RHip",
+        "RKnee", "RAnkle", "LHip", "LKnee", "LAnkle",
+        "REye", "LEye", "REar", "LEar", "LBigToe",
+        "LSmallToe", "LHeel", "RBigToe", "RSmallToe", "RHeel"
     ]
 
     full_data = {
@@ -129,10 +139,13 @@ def plot_all_per_joint_groups(save_dir):
         ]
     }
 
-    for idx, joint_group in enumerate(joint_groups, start=1):
-        start = (idx - 1) * 5
-        end = start + 5
+    group_indices = [
+        (0, 13),   # 前13个
+        (13, 25),  # 后12个
+    ]
 
+    for idx, (start, end) in enumerate(group_indices, start=1):
+        current_labels = labels[start:end]
         method_data = {
             method: values[start:end]
             for method, values in full_data.items()
@@ -141,7 +154,7 @@ def plot_all_per_joint_groups(save_dir):
         save_path = os.path.join(save_dir, f"per_joint_group_{idx}.png")
         plot_per_joint_group(
             save_path=save_path,
-            labels=joint_group,
+            labels=current_labels,
             method_data=method_data
         )
 

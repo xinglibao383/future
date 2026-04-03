@@ -5828,3 +5828,13 @@
 [2026-04-03 14:01:39] [20260403061029] Epoch: 162, val loss1: 0.1699, val loss2: 0.2389, val loss3: 0.1818, val current mpjpe: 79.6043, val future mpjpe: 86.9701
 [2026-04-03 14:04:00] [20260403061029] Epoch: 163, train loss1: 0.0742, train loss2: 0.1701, train loss3: 0.0811, train current mpjpe: 46.2234, train future mpjpe: 50.7079
 [2026-04-03 14:04:00] [20260403061029] Epoch: 163, val loss1: 0.1667, val loss2: 0.2352, val loss3: 0.1803, val current mpjpe: 78.0784, val future mpjpe: 85.8138
+[2026-04-03 14:06:27] [20260403061029] Epoch: 164, train loss1: 0.0752, train loss2: 0.1699, train loss3: 0.0818, train current mpjpe: 46.5007, train future mpjpe: 51.0147
+[2026-04-03 14:06:27] [20260403061029] Epoch: 164, val loss1: 0.1685, val loss2: 0.2372, val loss3: 0.1820, val current mpjpe: 79.5096, val future mpjpe: 87.2719
+[2026-04-03 14:08:55] [20260403061029] Epoch: 165, train loss1: 0.0743, train loss2: 0.1703, train loss3: 0.0811, train current mpjpe: 46.1605, train future mpjpe: 50.7342
+[2026-04-03 14:08:55] [20260403061029] Epoch: 165, val loss1: 0.1666, val loss2: 0.2357, val loss3: 0.1807, val current mpjpe: 77.9961, val future mpjpe: 85.4958
+[2026-04-03 14:11:28] [20260403061029] Epoch: 166, train loss1: 0.0737, train loss2: 0.1693, train loss3: 0.0804, train current mpjpe: 45.9513, train future mpjpe: 50.4614
+[2026-04-03 14:11:28] [20260403061029] Epoch: 166, val loss1: 0.1732, val loss2: 0.2411, val loss3: 0.1862, val current mpjpe: 79.9594, val future mpjpe: 87.4134
+[2026-04-03 14:13:55] [20260403061029] Epoch: 167, train loss1: 0.0746, train loss2: 0.1699, train loss3: 0.0813, train current mpjpe: 46.3465, train future mpjpe: 50.8707
+[2026-04-03 14:13:55] [20260403061029] Epoch: 167, val loss1: 0.1777, val loss2: 0.2417, val loss3: 0.1902, val current mpjpe: 80.6186, val future mpjpe: 88.4120
+[2026-04-03 14:16:19] [20260403061029] Epoch: 168, train loss1: 0.0730, train loss2: 0.1680, train loss3: 0.0795, train current mpjpe: 45.6933, train future mpjpe: 50.1055
+[2026-04-03 14:16:19] [20260403061029] Epoch: 168, val loss1: 0.1658, val loss2: 0.2381, val loss3: 0.1784, val current mpjpe: 78.0752, val future mpjpe: 86.5487

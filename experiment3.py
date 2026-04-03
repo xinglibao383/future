@@ -11,7 +11,7 @@ from itertools import combinations
 
 
 devices = [torch.device('cuda:0'), torch.device('cuda:2'), torch.device('cuda:1'), torch.device('cuda:3')]
-devices = [torch.device('cuda:0')]
+devices = [torch.device('cuda:2')]
 timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
 if socket.gethostname() == "lenovo-Lenovo-WenTian-WA5480-G3":
     output_save_path = '/mnt/mydata/yh/liming/workspace/future/outputs/experiment2028'
@@ -23,7 +23,7 @@ else:
 
 def exclude_device_experiment(exclude_device_idx=None):
     global output_save_path
-    output_save_path = os.path.join(output_save_path, "exclude_device_200epoch")
+    output_save_path = os.path.join(output_save_path, "exclude_device")
     logger = Logger(save_path=output_save_path, timestamp=timestamp)
     logger.record([f'备注: 设备消融实验, exclude_device_idx = {exclude_device_idx}'])
     mask_ratio, batch_size, lr, num_epochs, loss_func = 0.25, 256, 1e-3, 200, "l1"
@@ -48,8 +48,9 @@ def exclude_device_experiment(exclude_device_idx=None):
 
 def cross_environment_experiment(cross, cross_idx):
     global output_save_path
-    output_save_path = os.path.join(output_save_path, cross)
-    logger = Logger(save_path=output_save_path, timestamp=timestamp)
+    this_output_save_path = os.path.join(output_save_path, cross)
+    timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+    logger = Logger(save_path=this_output_save_path, timestamp=timestamp)
     logger.record([f'备注: 跨域实验, cross={cross}, cross_idx={cross_idx}'])
     mask_ratio, batch_size, lr, num_epochs, loss_func = 0.25, 256, 1e-3, 200, "l1"
     resnet_verson, imu_generator = "resnet18", "transformer"
@@ -68,7 +69,7 @@ def cross_environment_experiment(cross, cross_idx):
     imu_generator_params = (transformer_hidden, transformer_layers, transformer_nhead, transformer_dropout)
     model = PoseNet(input_channels=30, resnet_verson=resnet_verson, imu_generator=imu_generator, imu_generator_params=imu_generator_params, target_time=int(predict_len / 15 * 50), target_poses=predict_len, num_poses=compute_len, num_keypoints=25, output_dim=2)
     train_loader, val_loader = get_dataloaders_v3_cross_experiment(data_root_path, use_len, compute_len, predict_len, stride_len, batch_size, cross, cross_idx)
-    train3(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_normalize, alpha, beta, gamma, num_epochs, devices, output_save_path, logger, timestamp)
+    train3(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_normalize, alpha, beta, gamma, num_epochs, devices, this_output_save_path, logger, timestamp)
 
 
 def max_predict_len(checkpoint_filepath=None):
@@ -166,17 +167,14 @@ def select_backbone(imu_generator):
 
 # nohup /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/experiment3.py > /dev/null 2>&1 &
 # /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/experiment3.py
-# nohup /usr/local/miniconda3/envs/future/bin/python /root/future/experiment3.py > /dev/null 2>&1 &
-# /usr/local/miniconda3/envs/future/bin/python /root/future/experiment3.py
 if __name__ == "__main__":
-    combo_list = list(combinations([0, 1, 2, 3, 4], 3))
-    mid = len(combo_list) // 2
-    for v in combo_list[:mid]:
-        exclude_device_experiment(exclude_device_idx=v)
+    # for v in list(combinations([0, 1, 2, 3, 4], 4)):
+    #     exclude_device_experiment(exclude_device_idx=v)
 
     # for idx in range(1, 4):
     #     cross_environment_experiment(cross="cross_environment", cross_idx=idx)
 
+    cross_environment_experiment(cross="cross_person", cross_idx=10)
     # for idx in range(16):
     #     cross_environment_experiment(cross="cross_person", cross_idx=idx)
 

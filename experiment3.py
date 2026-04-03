@@ -23,7 +23,7 @@ else:
 
 def exclude_device_experiment(exclude_device_idx=None):
     global output_save_path
-    output_save_path = os.path.join(output_save_path, "exclude_device")
+    output_save_path = os.path.join(output_save_path, "exclude_device_200epoch")
     logger = Logger(save_path=output_save_path, timestamp=timestamp)
     logger.record([f'备注: 设备消融实验, exclude_device_idx = {exclude_device_idx}'])
     mask_ratio, batch_size, lr, num_epochs, loss_func = 0.25, 256, 1e-3, 200, "l1"
@@ -135,7 +135,7 @@ def select_backbone(imu_generator):
     logger.record([f'备注: 选择backbone, imu_generator={imu_generator}'])
     mask_ratio, batch_size, lr, num_epochs, loss_func = 0.25, 256, 1e-3, 200, "l1"
     resnet_verson = "resnet18"
-    mamba_d_state, mamba_d_conv, mamba_expand = 192, 8, 3
+    mamba_d_state, mamba_d_conv, mamba_expand, mamba_dropout = 64, 4, 2, 0.1
     lstm_hidden, lstm_layers, lstm_dropout = 128, 2, 0.1
     gru_hidden, gru_layers, gru_dropout = 128, 2, 0.1
     transformer_hidden, transformer_layers, transformer_nhead, transformer_dropout = 128, 2, 4, 0.1
@@ -159,7 +159,7 @@ def select_backbone(imu_generator):
     elif imu_generator == "gru":
         imu_generator_params = (gru_hidden, gru_layers, gru_dropout)
     elif imu_generator == "mamba":
-        imu_generator_params = (mamba_d_state, mamba_d_conv, mamba_expand)
+        imu_generator_params = (mamba_d_state, mamba_d_conv, mamba_expand, mamba_dropout)
     model = PoseNet(input_channels=30, resnet_verson=resnet_verson, imu_generator=imu_generator, imu_generator_params=imu_generator_params, target_time=int(predict_len / 15 * 50), target_poses=predict_len, num_poses=compute_len, num_keypoints=25, output_dim=2)
     train_loader, val_loader = get_dataloaders_v3(data_root_path, use_len, compute_len, predict_len, stride_len, batch_size, 0.8, random_seed=3407)
     train3(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_normalize, alpha, beta, gamma, num_epochs, devices, this_output_save_path, logger, timestamp)

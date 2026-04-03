@@ -898,3 +898,583 @@
        22    RBigToe 110.4400
        23  RSmallToe 113.2347
        24      RHeel 105.9643
+[2026-04-03 19:57:10] [20260403182153] Epoch: 9, train loss1: 0.1591, train loss2: 0.6290, train loss3: 0.1688, train current mpjpe: 85.0378, train future mpjpe: 90.9321
+[2026-04-03 19:57:10] [20260403182153] Epoch: 9, val loss1: 0.1595, val loss2: 0.6268, val loss3: 0.1690, val current mpjpe: 87.9615, val future mpjpe: 92.9261
+[2026-04-03 20:06:06] [20260403182153] Epoch: 10, train loss1: 0.1564, train loss2: 0.6281, train loss3: 0.1664, train current mpjpe: 84.0971, train future mpjpe: 90.1120
+[2026-04-03 20:06:06] [20260403182153] Epoch: 10, val loss1: 0.1573, val loss2: 0.6269, val loss3: 0.1661, val current mpjpe: 87.6559, val future mpjpe: 93.6206
+[2026-04-03 20:14:00] [20260403182153] Epoch: 11, train loss1: 0.1540, train loss2: 0.6274, train loss3: 0.1641, train current mpjpe: 82.5460, train future mpjpe: 88.5691
+[2026-04-03 20:14:00] [20260403182153] Epoch: 11, val loss1: 0.1552, val loss2: 0.6267, val loss3: 0.1649, val current mpjpe: 84.2311, val future mpjpe: 90.1439
+[2026-04-03 20:14:00] [20260403182153] Epoch: 11, train current pixel pck: current_pck@5px: 0.0918, current_pck@10px: 0.1507, current_pck@20px: 0.2612, train future pixel pck: future_pck@5px: 0.0919, future_pck@10px: 0.1484, future_pck@20px: 0.2541
+[2026-04-03 20:14:00] [20260403182153] Epoch: 11, val current pixel pck: current_pck@5px: 0.0935, current_pck@10px: 0.1518, current_pck@20px: 0.2621, val future pixel pck: future_pck@5px: 0.0946, future_pck@10px: 0.1500, future_pck@20px: 0.2535
+[2026-04-03 20:14:00] [20260403182153] Epoch: 11, train current per-joint MPJPE:
+ joint_id joint_name    mpjpe
+        0       Nose 112.8865
+        1       Neck  64.2897
+        2  RShoulder  67.9379
+        3     RElbow  70.3864
+        4     RWrist 105.2520
+        5  LShoulder  68.2563
+        6     LElbow  64.7708
+        7     LWrist  86.0483
+        8     MidHip   1.5312
+        9       RHip  16.6855
+       10      RKnee  64.0672
+       11     RAnkle  95.3842
+       12       LHip  18.4493
+       13      LKnee  63.7088
+       14     LAnkle  86.0738
+       15       REye 115.3185
+       16       LEye 131.9290
+       17       REar 110.8940
+       18       LEar  98.7456
+       19    LBigToe 110.1630
+       20  LSmallToe 112.8101
+       21      LHeel  94.2271
+       22    RBigToe 102.1210
+       23  RSmallToe 102.6539
+       24      RHeel  99.0606
+[2026-04-03 20:14:00] [20260403182153] Epoch: 11, train future per-joint MPJPE:
+ joint_id joint_name    mpjpe
+        0       Nose 120.1236
+        1       Neck  67.0435
+        2  RShoulder  70.7420
+        3     RElbow  77.6713
+        4     RWrist 120.0009
+        5  LShoulder  71.5498
+        6     LElbow  69.4637
+        7     LWrist  94.9362
+        8     MidHip   1.4215
+        9       RHip  19.4825
+       10      RKnee  71.3550
+       11     RAnkle 100.7535
+       12       LHip  22.0013
+       13      LKnee  70.0689
+       14     LAnkle  95.8378
+       15       REye 122.1371
+       16       LEye 139.4799
+       17       REar 115.9906
+       18       LEar 104.9804
+       19    LBigToe 115.9878
+       20  LSmallToe 119.2964
+       21      LHeel 102.9230
+       22    RBigToe 108.1574
+       23  RSmallToe 110.5621
+       24      RHeel 102.2606
+[2026-04-03 20:14:00] [20260403182153] Epoch: 11, val current per-joint MPJPE:
+ joint_id joint_name    mpjpe
+        0       Nose 113.8177
+        1       Neck  66.8365
+        2  RShoulder  71.5713
+        3     RElbow  73.9445
+        4     RWrist 109.3202
+        5  LShoulder  70.5104
+        6     LElbow  66.5553
+        7     LWrist  88.5462
+        8     MidHip   1.7388
+        9       RHip  16.2382
+       10      RKnee  67.9648
+       11     RAnkle  99.6472
+       12       LHip  18.0086
+       13      LKnee  67.7823
+       14     LAnkle  89.7638
+       15       REye 113.0226
+       16       LEye 134.1714
+       17       REar 103.9148
+       18       LEar 104.4009
+       19    LBigToe 111.8644
+       20  LSmallToe 113.8416
+       21      LHeel  97.9663
+       22    RBigToe 102.4930
+       23  RSmallToe 101.9995
+       24      RHeel  99.8573
+[2026-04-03 20:14:00] [20260403182153] Epoch: 11, val future per-joint MPJPE:
+ joint_id joint_name    mpjpe
+        0       Nose 122.8097
+        1       Neck  69.6537
+        2  RShoulder  74.2071
+        3     RElbow  79.6900
+        4     RWrist 121.2463
+        5  LShoulder  73.8963
+        6     LElbow  70.5822
+        7     LWrist  97.2524
+        8     MidHip   1.5154
+        9       RHip  18.7584
+       10      RKnee  72.6184
+       11     RAnkle 102.7838
+       12       LHip  21.2240
+       13      LKnee  70.5023
+       14     LAnkle  98.8830
+       15       REye 122.5194
+       16       LEye 142.1659
+       17       REar 111.8392
+       18       LEar 108.8830
+       19    LBigToe 119.2535
+       20  LSmallToe 122.4778
+       21      LHeel 106.7103
+       22    RBigToe 108.8871
+       23  RSmallToe 111.1102
+       24      RHeel 104.1283
+[2026-04-03 20:23:29] [20260403182153] Epoch: 12, train loss1: 0.1508, train loss2: 0.6153, train loss3: 0.1610, train current mpjpe: 80.8500, train future mpjpe: 86.9320
+[2026-04-03 20:23:29] [20260403182153] Epoch: 12, val loss1: 0.1535, val loss2: 0.5376, val loss3: 0.1629, val current mpjpe: 83.0226, val future mpjpe: 89.2369
+[2026-04-03 20:23:29] [20260403182153] Epoch: 12, train current pixel pck: current_pck@5px: 0.0935, current_pck@10px: 0.1541, current_pck@20px: 0.2677, train future pixel pck: future_pck@5px: 0.0942, future_pck@10px: 0.1524, future_pck@20px: 0.2607
+[2026-04-03 20:23:29] [20260403182153] Epoch: 12, val current pixel pck: current_pck@5px: 0.0961, current_pck@10px: 0.1572, current_pck@20px: 0.2711, val future pixel pck: future_pck@5px: 0.0972, future_pck@10px: 0.1551, future_pck@20px: 0.2627
+[2026-04-03 20:23:29] [20260403182153] Epoch: 12, train current per-joint MPJPE:
+ joint_id joint_name    mpjpe
+        0       Nose 110.1604
+        1       Neck  62.9317
+        2  RShoulder  66.4860
+        3     RElbow  69.1676
+        4     RWrist 103.9139
+        5  LShoulder  66.8059
+        6     LElbow  63.7289
+        7     LWrist  85.0386
+        8     MidHip   1.4074
+        9       RHip  16.3666
+       10      RKnee  62.1141
+       11     RAnkle  93.3399
+       12       LHip  18.1521
+       13      LKnee  62.4579
+       14     LAnkle  84.2992
+       15       REye 112.9392
+       16       LEye 129.7427
+       17       REar 108.5209
+       18       LEar  97.2193
+       19    LBigToe 108.2189
+       20  LSmallToe 110.4788
+       21      LHeel  92.3724
+       22    RBigToe  99.4398
+       23  RSmallToe 100.0360
+       24      RHeel  95.9122
+[2026-04-03 20:23:29] [20260403182153] Epoch: 12, train future per-joint MPJPE:
+ joint_id joint_name    mpjpe
+        0       Nose 117.5413
+        1       Neck  65.6961
+        2  RShoulder  69.4073
+        3     RElbow  76.8335
+        4     RWrist 119.0076
+        5  LShoulder  70.1508
+        6     LElbow  68.5982
+        7     LWrist  93.9247
+        8     MidHip   1.3140
+        9       RHip  19.1888
+       10      RKnee  69.5613
+       11     RAnkle  98.3730
+       12       LHip  21.7781
+       13      LKnee  68.9161
+       14     LAnkle  93.8803
+       15       REye 119.7013
+       16       LEye 137.1888
+       17       REar 113.5955
+       18       LEar 103.0340
+       19    LBigToe 114.1719
+       20  LSmallToe 117.1808
+       21      LHeel 100.8195
+       22    RBigToe 105.8842
+       23  RSmallToe 108.2401
+       24      RHeel  99.3128
+[2026-04-03 20:23:29] [20260403182153] Epoch: 12, val current per-joint MPJPE:
+ joint_id joint_name    mpjpe
+        0       Nose 111.1832
+        1       Neck  64.4528
+        2  RShoulder  68.3994
+        3     RElbow  71.9030
+        4     RWrist 107.2819
+        5  LShoulder  68.4597
+        6     LElbow  64.2333
+        7     LWrist  88.7623
+        8     MidHip   1.6428
+        9       RHip  16.0254
+       10      RKnee  66.4382
+       11     RAnkle  98.5004
+       12       LHip  17.7415
+       13      LKnee  65.0179
+       14     LAnkle  86.0920
+       15       REye 112.3204
+       16       LEye 131.9421
+       17       REar 106.1145
+       18       LEar  98.5605
+       19    LBigToe 110.8235
+       20  LSmallToe 114.1949
+       21      LHeel  94.2960
+       22    RBigToe 105.5578
+       23  RSmallToe 104.3488
+       24      RHeel 101.2718
+[2026-04-03 20:23:29] [20260403182153] Epoch: 12, val future per-joint MPJPE:
+ joint_id joint_name    mpjpe
+        0       Nose 121.6182
+        1       Neck  68.6705
+        2  RShoulder  72.4701
+        3     RElbow  78.3359
+        4     RWrist 120.0073
+        5  LShoulder  72.7017
+        6     LElbow  69.1110
+        7     LWrist  97.2897
+        8     MidHip   1.3778
+        9       RHip  18.7557
+       10      RKnee  72.0071
+       11     RAnkle 104.9371
+       12       LHip  21.1094
+       13      LKnee  69.4429
+       14     LAnkle  96.9233
+       15       REye 121.7321
+       16       LEye 141.1712
+       17       REar 110.1276
+       18       LEar 104.5269
+       19    LBigToe 117.8288
+       20  LSmallToe 120.6564
+       21      LHeel 104.5044
+       22    RBigToe 108.6638
+       23  RSmallToe 110.8190
+       24      RHeel 106.1348
+[2026-04-03 20:31:11] [20260403182153] Epoch: 13, train loss1: 0.1499, train loss2: 0.5374, train loss3: 0.1600, train current mpjpe: 80.5018, train future mpjpe: 86.6980
+[2026-04-03 20:31:11] [20260403182153] Epoch: 13, val loss1: 0.1520, val loss2: 0.5358, val loss3: 0.1625, val current mpjpe: 82.4768, val future mpjpe: 88.9413
+[2026-04-03 20:31:11] [20260403182153] Epoch: 13, train current pixel pck: current_pck@5px: 0.0951, current_pck@10px: 0.1564, current_pck@20px: 0.2715, train future pixel pck: future_pck@5px: 0.0954, future_pck@10px: 0.1540, future_pck@20px: 0.2639
+[2026-04-03 20:31:11] [20260403182153] Epoch: 13, val current pixel pck: current_pck@5px: 0.1000, current_pck@10px: 0.1621, current_pck@20px: 0.2779, val future pixel pck: future_pck@5px: 0.1001, future_pck@10px: 0.1586, future_pck@20px: 0.2684
+[2026-04-03 20:31:11] [20260403182153] Epoch: 13, train current per-joint MPJPE:
+ joint_id joint_name    mpjpe
+        0       Nose 109.1846
+        1       Neck  62.7233
+        2  RShoulder  66.2414
+        3     RElbow  69.0874
+        4     RWrist 103.1896
+        5  LShoulder  66.4230
+        6     LElbow  63.2726
+        7     LWrist  84.6554
+        8     MidHip   1.3345
+        9       RHip  16.3052
+       10      RKnee  62.1184
+       11     RAnkle  92.7572
+       12       LHip  18.0600
+       13      LKnee  62.3258
+       14     LAnkle  84.0417
+       15       REye 111.8874
+       16       LEye 128.4123
+       17       REar 107.3608
+       18       LEar  96.8514
+       19    LBigToe 108.1386
+       20  LSmallToe 110.4606
+       21      LHeel  92.0281
+       22    RBigToe  99.6492
+       23  RSmallToe 100.4630
+       24      RHeel  95.5743
+[2026-04-03 20:31:11] [20260403182153] Epoch: 13, train future per-joint MPJPE:
+ joint_id joint_name    mpjpe
+        0       Nose 116.8149
+        1       Neck  65.7354
+        2  RShoulder  69.3146
+        3     RElbow  76.6086
+        4     RWrist 118.2091
+        5  LShoulder  69.9998
+        6     LElbow  68.2229
+        7     LWrist  93.4547
+        8     MidHip   1.2484
+        9       RHip  19.1606
+       10      RKnee  69.0228
+       11     RAnkle  98.3528
+       12       LHip  21.7213
+       13      LKnee  68.7905
+       14     LAnkle  93.6421
+       15       REye 118.7558
+       16       LEye 135.7097
+       17       REar 113.5916
+       18       LEar 102.4413
+       19    LBigToe 113.8618
+       20  LSmallToe 117.0521
+       21      LHeel 100.5213
+       22    RBigToe 106.5326
+       23  RSmallToe 108.8349
+       24      RHeel  99.8496
+[2026-04-03 20:31:11] [20260403182153] Epoch: 13, val current per-joint MPJPE:
+ joint_id joint_name    mpjpe
+        0       Nose 111.3682
+        1       Neck  63.9415
+        2  RShoulder  67.8040
+        3     RElbow  71.4024
+        4     RWrist 107.0199
+        5  LShoulder  67.9193
+        6     LElbow  64.1985
+        7     LWrist  88.0299
+        8     MidHip   1.4362
+        9       RHip  15.6332
+       10      RKnee  66.3388
+       11     RAnkle  96.2249
+       12       LHip  17.6238
+       13      LKnee  66.4498
+       14     LAnkle  86.2926
+       15       REye 111.3553
+       16       LEye 130.4722
+       17       REar 106.1530
+       18       LEar  98.5142
+       19    LBigToe 111.4605
+       20  LSmallToe 114.4701
+       21      LHeel  94.0422
+       22    RBigToe 102.7589
+       23  RSmallToe 103.7193
+       24      RHeel  97.2921
+[2026-04-03 20:31:11] [20260403182153] Epoch: 13, val future per-joint MPJPE:
+ joint_id joint_name    mpjpe
+        0       Nose 121.2463
+        1       Neck  67.8941
+        2  RShoulder  71.6314
+        3     RElbow  78.1450
+        4     RWrist 120.1143
+        5  LShoulder  72.0529
+        6     LElbow  69.6470
+        7     LWrist  97.8038
+        8     MidHip   1.1589
+        9       RHip  18.5063
+       10      RKnee  71.9276
+       11     RAnkle 101.5556
+       12       LHip  20.9480
+       13      LKnee  70.3978
+       14     LAnkle  96.8547
+       15       REye 120.9218
+       16       LEye 138.6132
+       17       REar 114.6875
+       18       LEar 104.3398
+       19    LBigToe 118.0578
+       20  LSmallToe 119.8349
+       21      LHeel 103.6815
+       22    RBigToe 109.5774
+       23  RSmallToe 112.3190
+       24      RHeel 101.6163
+[2026-04-03 20:38:54] [20260403182153] Epoch: 14, train loss1: 0.1546, train loss2: 0.5445, train loss3: 0.1648, train current mpjpe: 83.6937, train future mpjpe: 89.8992
+[2026-04-03 20:38:54] [20260403182153] Epoch: 14, val loss1: 0.1587, val loss2: 0.5356, val loss3: 0.1675, val current mpjpe: 85.1502, val future mpjpe: 90.2943
+[2026-04-03 20:46:37] [20260403182153] Epoch: 15, train loss1: 0.1507, train loss2: 0.5359, train loss3: 0.1612, train current mpjpe: 81.6363, train future mpjpe: 87.5983
+[2026-04-03 20:46:37] [20260403182153] Epoch: 15, val loss1: 0.1523, val loss2: 0.5332, val loss3: 0.1618, val current mpjpe: 81.0003, val future mpjpe: 86.9847
+[2026-04-03 20:46:37] [20260403182153] Epoch: 15, train current pixel pck: current_pck@5px: 0.0953, current_pck@10px: 0.1564, current_pck@20px: 0.2711, train future pixel pck: future_pck@5px: 0.0962, future_pck@10px: 0.1546, future_pck@20px: 0.2640
+[2026-04-03 20:46:37] [20260403182153] Epoch: 15, val current pixel pck: current_pck@5px: 0.0969, current_pck@10px: 0.1590, current_pck@20px: 0.2725, val future pixel pck: future_pck@5px: 0.0988, future_pck@10px: 0.1575, future_pck@20px: 0.2651
+[2026-04-03 20:46:37] [20260403182153] Epoch: 15, train current per-joint MPJPE:
+ joint_id joint_name    mpjpe
+        0       Nose 111.0147
+        1       Neck  63.7986
+        2  RShoulder  67.1027
+        3     RElbow  69.0611
+        4     RWrist 102.9714
+        5  LShoulder  67.5177
+        6     LElbow  63.3108
+        7     LWrist  84.7872
+        8     MidHip   1.2130
+        9       RHip  16.2441
+       10      RKnee  63.0647
+       11     RAnkle  95.3132
+       12       LHip  18.0132
+       13      LKnee  63.8533
+       14     LAnkle  85.9619
+       15       REye 113.0785
+       16       LEye 129.7647
+       17       REar 108.2946
+       18       LEar  97.3333
+       19    LBigToe 109.8754
+       20  LSmallToe 112.1743
+       21      LHeel  93.8176
+       22    RBigToe 102.5743
+       23  RSmallToe 102.4971
+       24      RHeel  98.2698
+[2026-04-03 20:46:37] [20260403182153] Epoch: 15, train future per-joint MPJPE:
+ joint_id joint_name    mpjpe
+        0       Nose 118.3221
+        1       Neck  66.4085
+        2  RShoulder  69.9543
+        3     RElbow  76.5438
+        4     RWrist 118.4286
+        5  LShoulder  70.6671
+        6     LElbow  68.0908
+        7     LWrist  93.5501
+        8     MidHip   1.1402
+        9       RHip  19.0458
+       10      RKnee  69.9583
+       11     RAnkle 100.7835
+       12       LHip  21.6002
+       13      LKnee  69.8816
+       14     LAnkle  95.3779
+       15       REye 119.3758
+       16       LEye 136.7511
+       17       REar 114.2841
+       18       LEar 102.8622
+       19    LBigToe 115.8913
+       20  LSmallToe 118.5829
+       21      LHeel 102.3334
+       22    RBigToe 107.9618
+       23  RSmallToe 110.3515
+       24      RHeel 101.8109
+[2026-04-03 20:46:37] [20260403182153] Epoch: 15, val current per-joint MPJPE:
+ joint_id joint_name    mpjpe
+        0       Nose 107.2028
+        1       Neck  63.2237
+        2  RShoulder  66.7197
+        3     RElbow  69.6256
+        4     RWrist 102.8254
+        5  LShoulder  67.2160
+        6     LElbow  62.9171
+        7     LWrist  86.7617
+        8     MidHip   1.2830
+        9       RHip  15.8887
+       10      RKnee  63.3644
+       11     RAnkle  94.3991
+       12       LHip  17.7613
+       13      LKnee  64.2305
+       14     LAnkle  86.0318
+       15       REye 110.5765
+       16       LEye 127.9362
+       17       REar 108.5986
+       18       LEar  98.3578
+       19    LBigToe 109.7871
+       20  LSmallToe 111.9129
+       21      LHeel  93.7747
+       22    RBigToe  98.6168
+       23  RSmallToe  99.7703
+       24      RHeel  96.2252
+[2026-04-03 20:46:37] [20260403182153] Epoch: 15, val future per-joint MPJPE:
+ joint_id joint_name    mpjpe
+        0       Nose 117.2355
+        1       Neck  66.0647
+        2  RShoulder  69.9594
+        3     RElbow  76.2553
+        4     RWrist 116.8505
+        5  LShoulder  70.0434
+        6     LElbow  67.8238
+        7     LWrist  96.1153
+        8     MidHip   1.1484
+        9       RHip  18.4243
+       10      RKnee  69.2303
+       11     RAnkle  99.0331
+       12       LHip  20.9385
+       13      LKnee  68.5759
+       14     LAnkle  95.3591
+       15       REye 116.3102
+       16       LEye 136.7224
+       17       REar 114.4535
+       18       LEar 105.2302
+       19    LBigToe 115.7804
+       20  LSmallToe 117.6963
+       21      LHeel 101.8229
+       22    RBigToe 105.7008
+       23  RSmallToe 108.2059
+       24      RHeel  99.6381
+[2026-04-03 20:54:19] [20260403182153] Epoch: 16, train loss1: 0.1456, train loss2: 0.5336, train loss3: 0.1559, train current mpjpe: 79.2969, train future mpjpe: 85.2271
+[2026-04-03 20:54:19] [20260403182153] Epoch: 16, val loss1: 0.1475, val loss2: 0.5314, val loss3: 0.1575, val current mpjpe: 80.9453, val future mpjpe: 87.3128
+[2026-04-03 21:00:48] [20260403182153] Epoch: 17, train loss1: 0.1658, train loss2: 0.5598, train loss3: 0.1753, train current mpjpe: 92.2314, train future mpjpe: 97.7114
+[2026-04-03 21:00:48] [20260403182153] Epoch: 17, val loss1: 0.1708, val loss2: 0.5642, val loss3: 0.1792, val current mpjpe: 91.7681, val future mpjpe: 98.7267
+[2026-04-03 21:07:15] [20260403182153] Epoch: 18, train loss1: 0.1589, train loss2: 0.5504, train loss3: 0.1689, train current mpjpe: 85.0484, train future mpjpe: 92.1590
+[2026-04-03 21:07:15] [20260403182153] Epoch: 18, val loss1: 0.1591, val loss2: 0.5325, val loss3: 0.1689, val current mpjpe: 85.4973, val future mpjpe: 91.8107
+[2026-04-03 21:14:42] [20260403182153] Epoch: 19, train loss1: 0.1665, train loss2: 0.5432, train loss3: 0.1755, train current mpjpe: 88.6973, train future mpjpe: 94.7632
+[2026-04-03 21:14:42] [20260403182153] Epoch: 19, val loss1: 0.1611, val loss2: 0.5340, val loss3: 0.1697, val current mpjpe: 86.7938, val future mpjpe: 91.7139
+[2026-04-03 21:22:22] [20260403182153] Epoch: 20, train loss1: 0.1518, train loss2: 0.5359, train loss3: 0.1616, train current mpjpe: 81.9754, train future mpjpe: 88.1758
+[2026-04-03 21:22:22] [20260403182153] Epoch: 20, val loss1: 0.1524, val loss2: 0.5364, val loss3: 0.1623, val current mpjpe: 82.5036, val future mpjpe: 87.8452
+[2026-04-03 21:28:59] [20260403182153] Epoch: 21, train loss1: 0.1460, train loss2: 0.5341, train loss3: 0.1562, train current mpjpe: 78.9684, train future mpjpe: 85.1196
+[2026-04-03 21:28:59] [20260403182153] Epoch: 21, val loss1: 0.1509, val loss2: 0.5318, val loss3: 0.1594, val current mpjpe: 80.3066, val future mpjpe: 85.4827
+[2026-04-03 21:28:59] [20260403182153] Epoch: 21, train current pixel pck: current_pck@5px: 0.0973, current_pck@10px: 0.1592, current_pck@20px: 0.2757, train future pixel pck: future_pck@5px: 0.0979, future_pck@10px: 0.1572, future_pck@20px: 0.2674
+[2026-04-03 21:28:59] [20260403182153] Epoch: 21, val current pixel pck: current_pck@5px: 0.0980, current_pck@10px: 0.1596, current_pck@20px: 0.2727, val future pixel pck: future_pck@5px: 0.0991, future_pck@10px: 0.1585, future_pck@20px: 0.2677
+[2026-04-03 21:28:59] [20260403182153] Epoch: 21, train current per-joint MPJPE:
+ joint_id joint_name    mpjpe
+        0       Nose 107.3948
+        1       Neck  62.0832
+        2  RShoulder  65.0229
+        3     RElbow  67.8778
+        4     RWrist 100.4383
+        5  LShoulder  65.4855
+        6     LElbow  62.0779
+        7     LWrist  83.2646
+        8     MidHip   0.7529
+        9       RHip  15.7410
+       10      RKnee  60.4352
+       11     RAnkle  90.3035
+       12       LHip  17.5161
+       13      LKnee  61.0416
+       14     LAnkle  82.6153
+       15       REye 109.9173
+       16       LEye 126.6495
+       17       REar 104.3849
+       18       LEar  94.0461
+       19    LBigToe 107.0870
+       20  LSmallToe 109.2268
+       21      LHeel  90.7618
+       22    RBigToe  97.8425
+       23  RSmallToe  98.5993
+       24      RHeel  93.6435
+[2026-04-03 21:28:59] [20260403182153] Epoch: 21, train future per-joint MPJPE:
+ joint_id joint_name    mpjpe
+        0       Nose 114.8949
+        1       Neck  64.9862
+        2  RShoulder  68.1466
+        3     RElbow  75.4142
+        4     RWrist 115.4955
+        5  LShoulder  68.7766
+        6     LElbow  67.0878
+        7     LWrist  92.2247
+        8     MidHip   0.7305
+        9       RHip  18.5669
+       10      RKnee  67.6081
+       11     RAnkle  96.0920
+       12       LHip  21.1604
+       13      LKnee  67.7300
+       14     LAnkle  92.7077
+       15       REye 116.2742
+       16       LEye 133.8655
+       17       REar 110.4030
+       18       LEar  99.1012
+       19    LBigToe 112.5026
+       20  LSmallToe 115.2306
+       21      LHeel 100.0428
+       22    RBigToe 104.2487
+       23  RSmallToe 107.0039
+       24      RHeel  97.6953
+[2026-04-03 21:28:59] [20260403182153] Epoch: 21, val current per-joint MPJPE:
+ joint_id joint_name    mpjpe
+        0       Nose 106.7900
+        1       Neck  63.3860
+        2  RShoulder  66.6117
+        3     RElbow  70.1327
+        4     RWrist 103.2884
+        5  LShoulder  67.4891
+        6     LElbow  64.3064
+        7     LWrist  87.3388
+        8     MidHip   0.8056
+        9       RHip  15.8554
+       10      RKnee  61.7353
+       11     RAnkle  93.7888
+       12       LHip  17.7527
+       13      LKnee  62.7525
+       14     LAnkle  84.1294
+       15       REye 108.9213
+       16       LEye 127.6869
+       17       REar  98.4735
+       18       LEar  98.5773
+       19    LBigToe 107.7915
+       20  LSmallToe 111.0625
+       21      LHeel  92.3127
+       22    RBigToe  99.3436
+       23  RSmallToe 100.9016
+       24      RHeel  96.4321
+[2026-04-03 21:28:59] [20260403182153] Epoch: 21, val future per-joint MPJPE:
+ joint_id joint_name    mpjpe
+        0       Nose 114.5110
+        1       Neck  65.4885
+        2  RShoulder  69.1670
+        3     RElbow  76.6870
+        4     RWrist 116.5215
+        5  LShoulder  69.4088
+        6     LElbow  68.2017
+        7     LWrist  96.3781
+        8     MidHip   0.7173
+        9       RHip  18.1655
+       10      RKnee  67.7431
+       11     RAnkle  96.9697
+       12       LHip  20.7525
+       13      LKnee  67.1948
+       14     LAnkle  93.5052
+       15       REye 114.8492
+       16       LEye 135.5558
+       17       REar 105.4735
+       18       LEar 102.1517
+       19    LBigToe 112.2905
+       20  LSmallToe 115.5107
+       21      LHeel 100.9395
+       22    RBigToe 103.3998
+       23  RSmallToe 106.5715
+       24      RHeel  98.9134
+[2026-04-03 21:34:00] [20260403182153] Epoch: 22, train loss1: 0.1451, train loss2: 0.5336, train loss3: 0.1549, train current mpjpe: 78.8807, train future mpjpe: 84.7506
+[2026-04-03 21:34:00] [20260403182153] Epoch: 22, val loss1: 0.1496, val loss2: 0.5301, val loss3: 0.1594, val current mpjpe: 80.7256, val future mpjpe: 85.7932
+[2026-04-03 21:39:02] [20260403182153] Epoch: 23, train loss1: 0.1444, train loss2: 0.5340, train loss3: 0.1544, train current mpjpe: 78.5546, train future mpjpe: 84.5259
+[2026-04-03 21:39:02] [20260403182153] Epoch: 23, val loss1: 0.1493, val loss2: 0.5272, val loss3: 0.1589, val current mpjpe: 80.2945, val future mpjpe: 86.1069

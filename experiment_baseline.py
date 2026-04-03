@@ -1,5 +1,6 @@
 import datetime
 import torch
+import socket
 from utils.logger import Logger
 from utils.dataloader import *
 from utils.train_baseline import train
@@ -9,11 +10,13 @@ from models.posenet import *
 
 
 torch.manual_seed(3407)
-devices = [torch.device('cuda:3'), torch.device('cuda:2')]
-# output_save_path = '/mnt/mydata/yh/liming/workspace/future/outputs/experiment2027/baseline'
-# data_root_path = '/mnt/mydata/yh/liming/workspace/future/mydata'
-output_save_path = '/root/future/outputs/experiment2028/baseline'
-data_root_path = '/root/future/mydata'
+devices = [torch.device('cuda:2')]
+if socket.gethostname() == "lenovo-Lenovo-WenTian-WA5480-G3":
+    output_save_path = '/mnt/mydata/yh/liming/workspace/future/outputs/experiment2028/baseline'
+    data_root_path = '/mnt/mydata/yh/liming/workspace/future/mydata'
+else:
+    output_save_path = '/root/future/outputs/experiment2028/baseline'
+    data_root_path = '/root/future/mydata'
 
 
 def ours():
@@ -70,6 +73,6 @@ if __name__ == "__main__":
     # experiment_baseline(baseline="pip_like_recon")
     # experiment_baseline(baseline="tip_like_recon")
     # experiment_baseline(baseline="dynaip_like_recon")
-    # experiment_baseline(baseline="asip_like_recon")
+    experiment_baseline(baseline="asip_like_recon")
     # experiment_baseline(baseline="mobileposer_like_recon")
-    experiment_baseline(baseline="imuposer_like_recon")
+    # experiment_baseline(baseline="imuposer_like_recon")

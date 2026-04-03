@@ -23,7 +23,7 @@ else:
 
 def exclude_device_experiment(exclude_device_idx=None):
     global output_save_path
-    output_save_path = os.path.join(output_save_path, "exclude_device")
+    output_save_path = os.path.join(output_save_path, "exclude_device_200epoch")
     logger = Logger(save_path=output_save_path, timestamp=timestamp)
     logger.record([f'备注: 设备消融实验, exclude_device_idx = {exclude_device_idx}'])
     mask_ratio, batch_size, lr, num_epochs, loss_func = 0.25, 256, 1e-3, 200, "l1"
@@ -167,14 +167,18 @@ def select_backbone(imu_generator):
 
 # nohup /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/experiment3.py > /dev/null 2>&1 &
 # /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/experiment3.py
+# nohup /usr/local/miniconda3/envs/future/bin/python /root/future/experiment3.py > /dev/null 2>&1 &
+# /usr/local/miniconda3/envs/future/bin/python /root/future/experiment3.py
 if __name__ == "__main__":
-    # for v in list(combinations([0, 1, 2, 3, 4], 4)):
+    # combo_list = list(combinations([0, 1, 2, 3, 4], 3))
+    # mid = len(combo_list) // 2
+    # for v in combo_list[:mid]:
     #     exclude_device_experiment(exclude_device_idx=v)
 
     # for idx in range(1, 4):
     #     cross_environment_experiment(cross="cross_environment", cross_idx=idx)
 
-    cross_environment_experiment(cross="cross_person", cross_idx=10)
+    cross_environment_experiment(cross="cross_person", cross_idx=15)
     # for idx in range(16):
     #     cross_environment_experiment(cross="cross_person", cross_idx=idx)
 
@@ -183,4 +187,4 @@ if __name__ == "__main__":
     # for mr in [round(i * 0.05, 2) for i in range(1, 10)]:
     #     ablation_mask(mask_ratio=mr)
 
-    # select_backbone(imu_generator="mamba")
+    # select_backbone(imu_generator="gru")

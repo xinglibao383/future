@@ -178,7 +178,7 @@ if __name__ == "__main__":
     # for idx in range(1, 4):
     #     cross_environment_experiment(cross="cross_environment", cross_idx=idx)
 
-    # cross_environment_experiment(cross="cross_person", cross_idx=15)
+    cross_environment_experiment(cross="cross_person", cross_idx=0)
     # for idx in range(16):
     #     cross_environment_experiment(cross="cross_person", cross_idx=idx)
 
@@ -187,4 +187,4 @@ if __name__ == "__main__":
     # for mr in [round(i * 0.05, 2) for i in range(1, 10)]:
     #     ablation_mask(mask_ratio=mr)
 
-    select_backbone(imu_generator="mamba")
+    # select_backbone(imu_generator="mamba")

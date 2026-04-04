@@ -11,8 +11,11 @@ from itertools import combinations
 from glob import glob
 
 
-def already_done(target_tuple, ):
-    root_dir = "/root/future/outputs/experiment2028/exclude_device_200epoch"
+def already_done(target_tuple):
+    if socket.gethostname() == "lenovo-Lenovo-WenTian-WA5480-G3":
+        root_dir = "/root/future/outputs/experiment2028/exclude_device_200epoch"
+    else:
+        root_dir = "/mnt/mydata/yh/liming/workspace/future/outputs/experiment2028/exclude_device_200epoch"
     target_str = str(target_tuple)
     txt_files = glob(os.path.join(root_dir, "**", "*.txt"), recursive=True)
     for txt_file in txt_files:
@@ -27,7 +30,7 @@ def already_done(target_tuple, ):
 
 
 devices = [torch.device('cuda:0'), torch.device('cuda:2'), torch.device('cuda:1'), torch.device('cuda:3')]
-devices = [torch.device('cuda:0')]
+devices = [torch.device('cuda:1')]
 timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
 if socket.gethostname() == "lenovo-Lenovo-WenTian-WA5480-G3":
     output_save_path = '/mnt/mydata/yh/liming/workspace/future/outputs/experiment2028'
@@ -187,7 +190,7 @@ def select_backbone(imu_generator):
 # nohup /usr/local/miniconda3/envs/future/bin/python /root/future/experiment3.py > /dev/null 2>&1 &
 # /usr/local/miniconda3/envs/future/bin/python /root/future/experiment3.py
 if __name__ == "__main__":
-    for v in list(combinations([0, 1, 2, 3, 4], 3)):
+    for v in list(combinations([0, 1, 2, 3, 4], 4)):
         if not already_done(v):
             exclude_device_experiment(exclude_device_idx=v)
 

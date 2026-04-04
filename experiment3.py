@@ -190,7 +190,7 @@ def select_backbone(imu_generator):
 # nohup /usr/local/miniconda3/envs/future/bin/python /root/future/experiment3.py > /dev/null 2>&1 &
 # /usr/local/miniconda3/envs/future/bin/python /root/future/experiment3.py
 if __name__ == "__main__":
-    for v in list(combinations([0, 1, 2, 3, 4], 4)):
+    for v in list(combinations([0, 1, 2, 3, 4], 1)):
         if not already_done(v):
             exclude_device_experiment(exclude_device_idx=v)
 

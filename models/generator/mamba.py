@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from mamba_ssm import Mamba
+# from mamba_ssm import Mamba
 
 
 class MambaGenerator(nn.Module):
@@ -11,12 +11,12 @@ class MambaGenerator(nn.Module):
         self.target_len = target_len
         self.input_proj = nn.Linear(input_dim, input_dim)
         self.input_norm = nn.LayerNorm(input_dim)
-        self.mamba = Mamba(
-            d_model=input_dim,
-            d_state=d_state,
-            d_conv=d_conv,
-            expand=expand
-        )
+        # self.mamba = Mamba(
+        #     d_model=input_dim,
+        #     d_state=d_state,
+        #     d_conv=d_conv,
+        #     expand=expand
+        # )
         self.residual_gate = nn.Sequential(
             nn.Linear(input_dim, input_dim),
             nn.Sigmoid()

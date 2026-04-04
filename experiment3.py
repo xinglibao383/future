@@ -8,10 +8,26 @@ from utils.train3 import train as train3
 from models.posenet import *
 from utils.predict_max_predict_len import *
 from itertools import combinations
+from glob import glob
+
+
+def already_done(target_tuple, ):
+    root_dir = "/root/future/outputs/experiment2028/exclude_device_200epoch"
+    target_str = str(target_tuple)
+    txt_files = glob(os.path.join(root_dir, "**", "*.txt"), recursive=True)
+    for txt_file in txt_files:
+        try:
+            with open(txt_file, "r", encoding="utf-8") as f:
+                first_line = f.readline().strip()
+            if target_str in first_line:
+                return True
+        except Exception as e:
+            print(f"读取文件失败: {txt_file}, 错误: {e}")
+    return False
 
 
 devices = [torch.device('cuda:0'), torch.device('cuda:2'), torch.device('cuda:1'), torch.device('cuda:3')]
-devices = [torch.device('cuda:2')]
+devices = [torch.device('cuda:0')]
 timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
 if socket.gethostname() == "lenovo-Lenovo-WenTian-WA5480-G3":
     output_save_path = '/mnt/mydata/yh/liming/workspace/future/outputs/experiment2028'
@@ -23,8 +39,9 @@ else:
 
 def exclude_device_experiment(exclude_device_idx=None):
     global output_save_path
-    output_save_path = os.path.join(output_save_path, "exclude_device_200epoch")
-    logger = Logger(save_path=output_save_path, timestamp=timestamp)
+    this_output_save_path = os.path.join(output_save_path, "exclude_device_200epoch")
+    timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+    logger = Logger(save_path=this_output_save_path, timestamp=timestamp)
     logger.record([f'备注: 设备消融实验, exclude_device_idx = {exclude_device_idx}'])
     mask_ratio, batch_size, lr, num_epochs, loss_func = 0.25, 256, 1e-3, 200, "l1"
     resnet_verson, imu_generator = "resnet18", "transformer"
@@ -43,7 +60,7 @@ def exclude_device_experiment(exclude_device_idx=None):
     imu_generator_params = (transformer_hidden, transformer_layers, transformer_nhead, transformer_dropout)
     model = PoseNet(input_channels=30-6*len(exclude_device_idx), resnet_verson=resnet_verson, imu_generator=imu_generator, imu_generator_params=imu_generator_params, target_time=int(predict_len / 15 * 50), target_poses=predict_len, num_poses=compute_len, num_keypoints=25, output_dim=2)
     train_loader, val_loader = get_dataloaders_v3(data_root_path, use_len, compute_len, predict_len, stride_len, batch_size, 0.8, exclude_device_idx=exclude_device_idx)
-    train3(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_normalize, alpha, beta, gamma, num_epochs, devices, output_save_path, logger, timestamp)
+    train3(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_normalize, alpha, beta, gamma, num_epochs, devices, this_output_save_path, logger, timestamp)
 
 
 def cross_environment_experiment(cross, cross_idx):
@@ -170,13 +187,14 @@ def select_backbone(imu_generator):
 # nohup /usr/local/miniconda3/envs/future/bin/python /root/future/experiment3.py > /dev/null 2>&1 &
 # /usr/local/miniconda3/envs/future/bin/python /root/future/experiment3.py
 if __name__ == "__main__":
-    # for v in list(combinations([0, 1, 2, 3, 4], 4)):
-    #     exclude_device_experiment(exclude_device_idx=v)
+    for v in list(combinations([0, 1, 2, 3, 4], 3)):
+        if not already_done(v):
+            exclude_device_experiment(exclude_device_idx=v)
 
     # for idx in range(1, 4):
     #     cross_environment_experiment(cross="cross_environment", cross_idx=idx)
 
-    cross_environment_experiment(cross="cross_person", cross_idx=15)
+    # cross_environment_experiment(cross="cross_person", cross_idx=15)
     # for idx in range(16):
     #     cross_environment_experiment(cross="cross_person", cross_idx=idx)
 

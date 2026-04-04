@@ -35,7 +35,7 @@ class XRFV22(Dataset):
         if self.exclude_device_idx != None:
             imu = self.exclude_device_data(imu)
         pose = torch.tensor(np.load(self.pose_filepaths[idx]), dtype=torch.float32)
-        normalized_pose = self.fill_missing_keypoints(pose)
+        # normalized_pose = self.fill_missing_keypoints(pose)
         normalized_pose, shoulder_width = self.normalize_pose(pose)
         # return imu[:, :int(self.use_len / 15 * 50)], pose[:self.compute_len, :, :2], imu[:, int(self.use_len / 15 * 50):], pose[self.compute_len:, :, :2]
         self.cache[idx] =  (imu[:, :int(self.use_len / 15 * 50)], normalized_pose[:self.compute_len, :, :2], shoulder_width[:self.compute_len], 

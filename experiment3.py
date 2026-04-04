@@ -12,7 +12,7 @@ from glob import glob
 
 
 def already_done(target_tuple):
-    if socket.gethostname() == "lenovo-Lenovo-WenTian-WA5480-G3":
+    if socket.gethostname() != "lenovo-Lenovo-WenTian-WA5480-G3":
         root_dir = "/root/future/outputs/experiment2028/exclude_device_200epoch"
     else:
         root_dir = "/mnt/mydata/yh/liming/workspace/future/outputs/experiment2028/exclude_device_200epoch"

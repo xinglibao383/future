@@ -30,7 +30,7 @@ def already_done(target_tuple):
 
 
 devices = [torch.device('cuda:0'), torch.device('cuda:2'), torch.device('cuda:1'), torch.device('cuda:3')]
-devices = [torch.device('cuda:3')]
+devices = [torch.device('cuda:2')]
 timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
 if socket.gethostname() == "lenovo-Lenovo-WenTian-WA5480-G3":
     output_save_path = '/mnt/mydata/yh/liming/workspace/future/outputs/experiment2028'
@@ -185,6 +185,31 @@ def select_backbone(imu_generator):
     train3(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_normalize, alpha, beta, gamma, num_epochs, devices, this_output_save_path, logger, timestamp)
 
 
+def imu_normalize(need_normalize):
+    global output_save_path
+    this_output_save_path = os.path.join(output_save_path, "imu_normalize")
+    timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+    logger = Logger(save_path=this_output_save_path, timestamp=timestamp)
+    logger.record([f'备注: 标准化消融实验, need_normalize={need_normalize}'])
+    batch_size, lr, num_epochs, loss_func = 512, 1e-3, 200, "l1"
+    resnet_verson, imu_generator = "resnet18", "transformer"
+    transformer_hidden, transformer_layers, transformer_nhead, transformer_dropout = 128, 2, 4, 0.1
+    use_len, compute_len, predict_len, stride_len = 60, 15, 15, 15
+    mask_ratio, alpha, beta, gamma = 0.25, 1, 1, 1
+    params = {
+        "mask_ratio": mask_ratio, "batch_size": batch_size, "lr": lr, "epochs": num_epochs, "loss_func": loss_func,
+        "resnet_verson": resnet_verson, "imu_generator": imu_generator, 
+        "transformer_hidden": transformer_hidden, "transformer_layers": transformer_layers, "transformer_nhead": transformer_nhead, "transformer_dropout": transformer_dropout, 
+        "use_len": use_len, "compute_len": compute_len, "predict_len": predict_len, "stride_len": stride_len,
+        "need_normalize": need_normalize, "alpha": alpha, "beta": beta, "gamma": gamma,
+    }
+    logger.record([", ".join([f"{k}={v}" for k, v in params.items()])])
+    imu_generator_params = (transformer_hidden, transformer_layers, transformer_nhead, transformer_dropout)
+    model = PoseNet(input_channels=30, resnet_verson=resnet_verson, imu_generator=imu_generator, imu_generator_params=imu_generator_params, target_time=int(predict_len / 15 * 50), target_poses=predict_len, num_poses=compute_len, num_keypoints=25, output_dim=2)
+    train_loader, val_loader = get_dataloaders_v3(data_root_path, use_len, compute_len, predict_len, stride_len, batch_size, 0.8, random_seed=3407)
+    train3(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_normalize, alpha, beta, gamma, num_epochs, devices, this_output_save_path, logger, timestamp)
+
+
 # nohup /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/experiment3.py > /dev/null 2>&1 &
 # /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/experiment3.py
 # nohup /usr/local/miniconda3/envs/future/bin/python /root/future/experiment3.py > /dev/null 2>&1 &
@@ -206,4 +231,6 @@ if __name__ == "__main__":
     # for mr in [round(i * 0.05, 2) for i in range(1, 10)]:
     #     ablation_mask(mask_ratio=mr)
 
-    select_backbone(imu_generator="gru")
+    # select_backbone(imu_generator="gru")
+
+    imu_normalize(need_normalize=False)

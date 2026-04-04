@@ -1,2 +1,0 @@
-[2026-04-03 18:20:02] 备注: 选择backbone, imu_generator=mamba
-[2026-04-03 18:20:02] mask_ratio=0.25, batch_size=256, lr=0.001, epochs=200, loss_func=l1, resnet_verson=resnet18, imu_generator=mamba, mamba_d_state=192, mamba_d_conv=8, mamba_expand=3, lstm_hidden=128, lstm_layers=2, lstm_dropout=0.1, gru_hidden=128, gru_layers=2, gru_dropout=0.1, transformer_hidden=128, transformer_layers=2, transformer_nhead=4, transformer_dropout=0.1, use_len=60, compute_len=15, predict_len=15, stride_len=15, need_normalize=True, alpha=1, beta=1, gamma=1

@@ -61,7 +61,7 @@ def plot_per_joint_group(save_path, labels, method_data):
     plt.tick_params(axis='x', length=0)
     plt.xlabel("Joint")
     plt.ylabel("MPJPE")
-    plt.ylim(0, 160)
+    plt.ylim(0, 170)
 
     plt.grid(True, axis='y', linestyle="--", alpha=0.4)
     plt.legend(frameon=False, ncol=4)
@@ -159,6 +159,7 @@ def plot_all_per_joint_groups(save_dir):
         )
 
 
+# /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/draw2028/draw_baselines_perjoint.py
 if __name__ == "__main__":
     plot_all_per_joint_groups(
         "/mnt/mydata/yh/liming/workspace/future/draw2028/imgs/per_joint"

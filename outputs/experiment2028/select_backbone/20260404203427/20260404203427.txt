@@ -1,0 +1,2 @@
+[2026-04-04 20:34:27] 备注: 选择backbone, imu_generator=gru
+[2026-04-04 20:34:27] mask_ratio=0.25, batch_size=256, lr=0.001, epochs=200, loss_func=l1, resnet_verson=resnet18, imu_generator=gru, mamba_d_state=64, mamba_d_conv=4, mamba_expand=2, lstm_hidden=128, lstm_layers=2, lstm_dropout=0.1, gru_hidden=128, gru_layers=2, gru_dropout=0.1, transformer_hidden=128, transformer_layers=2, transformer_nhead=4, transformer_dropout=0.1, use_len=60, compute_len=15, predict_len=15, stride_len=15, need_normalize=True, alpha=1, beta=1, gamma=1

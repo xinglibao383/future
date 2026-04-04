@@ -190,9 +190,9 @@ def select_backbone(imu_generator):
 # nohup /usr/local/miniconda3/envs/future/bin/python /root/future/experiment3.py > /dev/null 2>&1 &
 # /usr/local/miniconda3/envs/future/bin/python /root/future/experiment3.py
 if __name__ == "__main__":
-    for v in list(combinations([0, 1, 2, 3, 4], 4)):
-        if not already_done(v):
-            exclude_device_experiment(exclude_device_idx=v)
+    # for v in list(combinations([0, 1, 2, 3, 4], 4)):
+    #     if not already_done(v):
+    #         exclude_device_experiment(exclude_device_idx=v)
 
     # for idx in range(1, 4):
     #     cross_environment_experiment(cross="cross_environment", cross_idx=idx)
@@ -206,4 +206,4 @@ if __name__ == "__main__":
     # for mr in [round(i * 0.05, 2) for i in range(1, 10)]:
     #     ablation_mask(mask_ratio=mr)
 
-    # select_backbone(imu_generator="mamba")
+    select_backbone(imu_generator="gru")

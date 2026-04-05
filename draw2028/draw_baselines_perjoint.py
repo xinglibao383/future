@@ -59,8 +59,8 @@ def plot_per_joint_group(save_path, labels, method_data):
 
     plt.xticks(x, labels, rotation=0, ha='center')
     plt.tick_params(axis='x', length=0)
-    plt.xlabel("Joint")
-    plt.ylabel("MPJPE")
+    plt.xlabel("关节点")
+    plt.ylabel("平均关节点位置误差（单位：像素）")
     plt.ylim(0, 170)
 
     plt.grid(True, axis='y', linestyle="--", alpha=0.4)

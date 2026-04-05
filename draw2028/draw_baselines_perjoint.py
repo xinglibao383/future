@@ -161,6 +161,5 @@ def plot_all_per_joint_groups(save_dir):
 
 # /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/draw2028/draw_baselines_perjoint.py
 if __name__ == "__main__":
-    plot_all_per_joint_groups(
-        "/mnt/mydata/yh/liming/workspace/future/draw2028/imgs/per_joint"
-    )
+    # plot_all_per_joint_groups("/mnt/mydata/yh/liming/workspace/future/draw2028/imgs/per_joint")
+    plot_all_per_joint_groups("/root/future/draw2028/imgs/per_joint")

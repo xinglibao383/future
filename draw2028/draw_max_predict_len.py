@@ -2,7 +2,7 @@ from matplotlib import pyplot as plt
 from matplotlib.font_manager import FontProperties
 
 FONT_PATH = "/usr/share/fonts/opentype/noto/NotoSerifCJK-Regular.ttc"
-cn_font = FontProperties(fname=FONT_PATH)
+cn_font = FontProperties(fname=FONT_PATH, size=12)
 
 plt.rcParams["axes.unicode_minus"] = False
 plt.rcParams["pdf.fonttype"] = 42

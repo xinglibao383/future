@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 from matplotlib.font_manager import FontProperties
 
 FONT_PATH = "/usr/share/fonts/opentype/noto/NotoSerifCJK-Regular.ttc"
-cn_font = FontProperties(fname=FONT_PATH)
+cn_font = FontProperties(fname=FONT_PATH, size=12)
 
 plt.rcParams["axes.unicode_minus"] = False
 plt.rcParams["pdf.fonttype"] = 42
@@ -78,7 +78,7 @@ def plot_imu_input_len(save_path):
         frameon=False,
         prop=cn_font
     )
-    plt.savefig(save_path, dpi=1200, bbox_inches='tight')
+    plt.savefig(save_path, dpi=1500, bbox_inches='tight')
     plt.close()
     print(f"已保存到: {save_path}")
 

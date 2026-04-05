@@ -1,6 +1,13 @@
 import re
 import matplotlib.pyplot as plt
-from matplotlib.lines import Line2D
+from matplotlib.font_manager import FontProperties
+
+FONT_PATH = "/usr/share/fonts/opentype/noto/NotoSerifCJK-Regular.ttc"
+cn_font_label = FontProperties(fname=FONT_PATH, size=12)
+
+plt.rcParams["axes.unicode_minus"] = False
+plt.rcParams["pdf.fonttype"] = 42
+plt.rcParams["ps.fonttype"] = 42
 
 
 log_map = {
@@ -78,7 +85,7 @@ def plot_baselines(save_path):
         "legend.fontsize": 10
     })
 
-    plt.figure(figsize=(8, 5))
+    fig, ax = plt.subplots(figsize=(8, 5))
 
     lines = []
     all_mpjpes = []
@@ -95,7 +102,7 @@ def plot_baselines(save_path):
 
         all_mpjpes.extend(mpjpes)
 
-        line, = plt.plot(
+        line, = ax.plot(
             epochs,
             mpjpes,
             linewidth=1.5,
@@ -107,19 +114,19 @@ def plot_baselines(save_path):
         print("[ERROR] No MPJPE data parsed.")
         return
 
-    plt.xlim(-8, 208)
+    ax.set_xlim(-8, 208)
 
     min_mpjpe = min(all_mpjpes)
     max_mpjpe = max(all_mpjpes)
     mpjpe_margin = (max_mpjpe - min_mpjpe) * 0.08 if max_mpjpe > min_mpjpe else 5
-    plt.ylim(min_mpjpe - mpjpe_margin, max_mpjpe + mpjpe_margin)
+    ax.set_ylim(min_mpjpe - mpjpe_margin, max_mpjpe + mpjpe_margin)
 
-    plt.xlabel("训练轮数")
-    plt.ylabel("平均关节点位置误差（单位：像素）")
+    ax.set_xlabel("训练轮数（单位：轮）", fontproperties=cn_font_label)
+    ax.set_ylabel("平均关节点位置误差（单位：像素）", fontproperties=cn_font_label)
 
-    plt.grid(True, linestyle="--", alpha=0.35)
+    ax.grid(True, linestyle="--", alpha=0.35)
 
-    plt.legend(
+    ax.legend(
         handles=lines,
         frameon=False,
         loc="upper right"

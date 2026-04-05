@@ -14,6 +14,17 @@ log_map = {
 }
 
 
+log_map = {
+    "PIP": "/root/future/outputs/experiment2028/baseline/20260402175529/20260402175529.txt",
+    "TIP": "/root/future/outputs/experiment2028/baseline/20260402175600/20260402175600.txt",
+    "IMUPoser": "/root/future/outputs/experiment2028/baseline/20260402181255/20260402181255.txt",
+    "DynaIP": "/root/future/outputs/experiment2028/baseline/20260402175627/20260402175627.txt",
+    "ASIP": "/root/future/outputs/experiment2028/baseline/20260403115422/20260403115422.txt",
+    "MobilePoser": "/root/future/outputs/experiment2028/baseline/20260402181241/20260402181241.txt",
+    "AIPose (Ours)": "/root/future/outputs/experiment2028/baseline/20260402121744/20260402121744.txt",
+}
+
+
 def parse_log_aipose(log_path):
     """
     适用于 AIPose:
@@ -96,15 +107,15 @@ def plot_baselines(save_path):
         print("[ERROR] No MPJPE data parsed.")
         return
 
-    plt.xlim(-2, 205)
+    plt.xlim(-8, 208)
 
     min_mpjpe = min(all_mpjpes)
     max_mpjpe = max(all_mpjpes)
     mpjpe_margin = (max_mpjpe - min_mpjpe) * 0.08 if max_mpjpe > min_mpjpe else 5
     plt.ylim(min_mpjpe - mpjpe_margin, max_mpjpe + mpjpe_margin)
 
-    plt.xlabel("Epoch")
-    plt.ylabel("MPJPE (px)")
+    plt.xlabel("训练轮数")
+    plt.ylabel("平均关节点位置误差（单位：像素）")
 
     plt.grid(True, linestyle="--", alpha=0.35)
 
@@ -114,7 +125,7 @@ def plot_baselines(save_path):
         loc="upper right"
     )
 
-    plt.savefig(save_path, dpi=900, bbox_inches="tight")
+    plt.savefig(save_path, dpi=1500, bbox_inches="tight")
     plt.close()
 
     print(f"已保存到: {save_path}")
@@ -122,7 +133,8 @@ def plot_baselines(save_path):
 
 # /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/draw2028/draw_baselines.py
 if __name__ == "__main__":
-    plot_baselines(save_path="/mnt/mydata/yh/liming/workspace/future/draw2028/imgs/aipose_baselines.png")
+    # plot_baselines(save_path="/mnt/mydata/yh/liming/workspace/future/draw2028/imgs/aipose_baselines.png")
+    plot_baselines(save_path="/root/future/draw2028/imgs/aipose_baselines.png")
 
 
 

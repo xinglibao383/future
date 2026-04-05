@@ -1,4 +1,12 @@
 import matplotlib.pyplot as plt
+from matplotlib.font_manager import FontProperties
+
+FONT_PATH = "/usr/share/fonts/opentype/noto/NotoSerifCJK-Regular.ttc"
+cn_font = FontProperties(fname=FONT_PATH)
+
+plt.rcParams["axes.unicode_minus"] = False
+plt.rcParams["pdf.fonttype"] = 42
+plt.rcParams["ps.fonttype"] = 42
 
 
 def plot_imu_input_len(save_path):
@@ -25,30 +33,21 @@ def plot_imu_input_len(save_path):
         53.8773, 52.9400
     ]
 
-    plt.figure(figsize=(8, 5))
-    line1, = plt.plot(
+    fig, ax = plt.subplots(figsize=(8, 5))
+
+    line1, = ax.plot(
         x, recon,
         marker='o',
-        linewidth=1.5,
-        label="人体姿态重构"
+        linewidth=1.5
     )
-    line2, = plt.plot(
+    line2, = ax.plot(
         x, pred,
         marker='o',
-        linewidth=1.5,
-        label="人体姿态预测"
+        linewidth=1.5
     )
+
     for xi, yi in zip(x, recon):
-        plt.text(
-            xi,
-            yi + 0.8,
-            f"{yi:.2f}",
-            ha='center',
-            va='bottom',
-            fontsize=10
-        )
-    for xi, yi in zip(x, pred):
-        plt.text(
+        ax.text(
             xi,
             yi + 0.8,
             f"{yi:.2f}",
@@ -57,20 +56,33 @@ def plot_imu_input_len(save_path):
             fontsize=10
         )
 
-    # ===== 坐标轴 =====
-    plt.xlim(0.3, 10.7)
-    plt.ylim(46, 86)
-    plt.xlabel("IMU 序列输入长度（单位：秒）")
-    plt.ylabel("平均关节点位置误差（单位：像素）")
-    plt.grid(True, linestyle="--", alpha=0.4)
-    plt.legend(
-        handles=[line1, line2],
-        frameon=False
+    for xi, yi in zip(x, pred):
+        ax.text(
+            xi,
+            yi + 0.8,
+            f"{yi:.2f}",
+            ha='center',
+            va='bottom',
+            fontsize=10
+        )
+
+    ax.set_xlim(0.3, 10.7)
+    ax.set_ylim(46, 86)
+    ax.set_xlabel("IMU 序列输入长度（单位：秒）", fontproperties=cn_font)
+    ax.set_ylabel("平均关节点位置误差（单位：像素）", fontproperties=cn_font)
+    ax.grid(True, linestyle="--", alpha=0.4)
+
+    legend = ax.legend(
+        [line1, line2],
+        ["人体姿态重构", "人体姿态预测"],
+        frameon=False,
+        prop=cn_font
     )
-    plt.savefig(save_path, dpi=900, bbox_inches='tight')
+    plt.savefig(save_path, dpi=1200, bbox_inches='tight')
     plt.close()
     print(f"已保存到: {save_path}")
 
 
 if __name__ == "__main__":
-    plot_imu_input_len("/mnt/mydata/yh/liming/workspace/future/draw/imgs/imu_input_len.png")
+    # plot_imu_input_len("/mnt/mydata/yh/liming/workspace/future/draw/imgs/imu_input_len.png")
+    plot_imu_input_len("/root/future/draw2028/imgs/imu_input_len.png")

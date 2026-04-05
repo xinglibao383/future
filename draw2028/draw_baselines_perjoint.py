@@ -89,7 +89,7 @@ def plot_per_joint_group(save_path, labels, method_data):
     right_edge = x[-1] + offsets[-1] + bar_width / 2
     ax.set_xlim(left_edge - 0.08, right_edge + 0.08)
 
-    plt.savefig(save_path, dpi=900, bbox_inches='tight')
+    plt.savefig(save_path, dpi=1500, bbox_inches='tight')
     plt.close()
     print(f"已保存到: {save_path}")
 

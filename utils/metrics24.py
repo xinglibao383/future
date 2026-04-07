@@ -7,10 +7,10 @@ DEFAULT_PCK_THRESHOLD_RATIOS = [0.05, 0.10, 0.20]
 DEFAULT_PCK_THRESHOLD_PIXELS = [5.0, 10.0, 20.0]
 
 DIP_IMU_24_JOINT_NAMES = [
-    "joint_0", "joint_1", "joint_2", "joint_3", "joint_4", "joint_5",
-    "joint_6", "joint_7", "joint_8", "joint_9", "joint_10", "joint_11",
-    "joint_12", "joint_13", "joint_14", "joint_15", "joint_16", "joint_17",
-    "joint_18", "joint_19", "joint_20", "joint_21", "joint_22", "joint_23",
+    "0", "1", "2", "3", "4", "5",
+    "6", "7", "8", "9", "10", "11",
+    "12", "13", "14", "15", "16", "17",
+    "18", "19", "20", "21", "22", "23",
 ]
 
 
@@ -85,36 +85,36 @@ class PoseMetricTracker:
             prefix_state = self.state[prefix]
             prefix_name = "" if prefix is None else f"{prefix}_"
             error_count = prefix_state["error_count"]
-            summary[f"{prefix_name}mpjpe"] = float(prefix_state["error_sum"] / error_count) if error_count else 0.0
+            summary[f"{prefix_name}mjpe"] = float(prefix_state["error_sum"] / error_count) if error_count else 0.0
 
             if prefix_state["per_joint_error_sum"] is None:
-                per_joint_mpjpe = np.array([], dtype=np.float64)
+                per_joint_mjpe = np.array([], dtype=np.float64)
             else:
-                per_joint_mpjpe = (
+                per_joint_mjpe = (
                     prefix_state["per_joint_error_sum"] / max(prefix_state["per_joint_count"], 1)
                 ).numpy()
-            summary[f"{prefix_name}per_joint_mpjpe"] = per_joint_mpjpe
+            summary[f"{prefix_name}per_joint_mjpe"] = per_joint_mjpe
         return summary
 
-    def format_mpjpe_metrics(self, metrics, prefix=None, label=None):
+    def format_mjpe_metrics(self, metrics, prefix=None, label=None):
         prefix_name = "" if prefix is None else f"{prefix}_"
-        metric_name = f"{prefix_name}mpjpe"
+        metric_name = f"{prefix_name}mjpe"
         show_name = label if label is not None else metric_name
         return f"{show_name}: {metrics[metric_name]:.4f}"
 
-    def format_pose_metric_lines(self, metrics, prefix=None, mpjpe_label=None, pixel_pck_label=None):
-        return (self.format_mpjpe_metrics(metrics, prefix=prefix, label=mpjpe_label),)
+    def format_pose_metric_lines(self, metrics, prefix=None, mjpe_label=None, pixel_pck_label=None):
+        return (self.format_mjpe_metrics(metrics, prefix=prefix, label=mjpe_label),)
 
-    def format_per_joint_mpjpe(self, per_joint_mpjpe):
-        joint_count = len(per_joint_mpjpe)
+    def format_per_joint_mjpe(self, per_joint_mjpe):
+        joint_count = len(per_joint_mjpe)
         joint_names = (
             self.joint_names[:joint_count]
             if joint_count <= len(self.joint_names)
-            else [f"joint_{i}" for i in range(joint_count)]
+            else [f"{i}" for i in range(joint_count)]
         )
         df = pd.DataFrame({
             "joint_id": np.arange(joint_count),
             "joint_name": joint_names,
-            "mpjpe": np.round(per_joint_mpjpe, 4),
+            "mjpe": np.round(per_joint_mjpe, 4),
         })
         return df.to_string(index=False)

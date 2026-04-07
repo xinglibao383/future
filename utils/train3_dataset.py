@@ -14,9 +14,9 @@ def normalize(x, eps=1e-6):
     return (x - mean) / std
 
 
-def evaluate_loss_mpjpe(model, dataloader, criterion, need_normalize, timestamp, output_save_path):
+def evaluate_loss_mjpe(model, dataloader, criterion, need_normalize, timestamp, output_save_path):
     metric = Accumulator(4)
-    pose_tracker = PoseMetricTracker(prefixes=["current", "future"], enable_ratio_pck=False, enable_pixel_pck=True)
+    pose_tracker = PoseMetricTracker(prefixes=["current", "future"], enable_ratio_pck=False, enable_pixel_pck=False)
     device = next(iter(model.parameters())).device
     model.eval()
     with torch.no_grad():
@@ -51,12 +51,12 @@ def train(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_norma
     model = nn.DataParallel(model, device_ids=devices).to(devices[0])
     optimizer = torch.optim.AdamW(model.parameters(), lr=lr)
     criterion = nn.MSELoss() if loss_func == "mse" else nn.L1Loss()
-    min_val_mpjpe, best_epoch = float('inf'), 0
+    min_val_mjpe, best_epoch = float('inf'), 0
     best_val_metrics = None
 
     for epoch in range(num_epochs):
         metric = Accumulator(4)
-        train_pose_tracker = PoseMetricTracker(prefixes=["current", "future"], enable_ratio_pck=False, enable_pixel_pck=True)
+        train_pose_tracker = PoseMetricTracker(prefixes=["current", "future"], enable_ratio_pck=False, enable_pixel_pck=False)
         model.train()
         for i, (x1, y1, x2, y2) in enumerate(train_loader):
             optimizer.zero_grad()
@@ -88,13 +88,13 @@ def train(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_norma
                 current_lines = train_pose_tracker.format_pose_metric_lines(
                     train_pose_metrics,
                     prefix="current",
-                    mpjpe_label="train current mpjpe",
+                    mjpe_label="train current mjpe",
                     pixel_pck_label="train current pixel pck",
                 )
                 future_lines = train_pose_tracker.format_pose_metric_lines(
                     train_pose_metrics,
                     prefix="future",
-                    mpjpe_label="train future mpjpe",
+                    mjpe_label="train future mjpe",
                     pixel_pck_label="train future pixel pck",
                 )
                 print(
@@ -110,30 +110,30 @@ def train(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_norma
         train_loss1 = metric[0] / metric[3]
         train_loss2 = metric[1] / metric[3]
         train_loss3 = metric[2] / metric[3]
-        val_metrics = evaluate_loss_mpjpe(model, val_loader, criterion, need_normalize, timestamp, output_save_path)
+        val_metrics = evaluate_loss_mjpe(model, val_loader, criterion, need_normalize, timestamp, output_save_path)
 
         train_current_lines = train_pose_tracker.format_pose_metric_lines(
             train_pose_metrics,
             prefix="current",
-            mpjpe_label="train current mpjpe",
+            mjpe_label="train current mjpe",
             pixel_pck_label="train current pixel pck",
         )
         train_future_lines = train_pose_tracker.format_pose_metric_lines(
             train_pose_metrics,
             prefix="future",
-            mpjpe_label="train future mpjpe",
+            mjpe_label="train future mjpe",
             pixel_pck_label="train future pixel pck",
         )
         val_current_lines = train_pose_tracker.format_pose_metric_lines(
             val_metrics,
             prefix="current",
-            mpjpe_label="val current mpjpe",
+            mjpe_label="val current mjpe",
             pixel_pck_label="val current pixel pck",
         )
         val_future_lines = train_pose_tracker.format_pose_metric_lines(
             val_metrics,
             prefix="future",
-            mpjpe_label="val future mpjpe",
+            mjpe_label="val future mjpe",
             pixel_pck_label="val future pixel pck",
         )
 
@@ -148,10 +148,10 @@ def train(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_norma
             f'{val_current_lines[0]}, {val_future_lines[0]}'
         )
 
-        current_score = val_metrics["current_mpjpe"] + val_metrics["future_mpjpe"]
-        is_best_epoch = current_score < min_val_mpjpe
+        current_score = val_metrics["current_mjpe"] + val_metrics["future_mjpe"]
+        is_best_epoch = current_score < min_val_mjpe
         if is_best_epoch:
-            min_val_mpjpe = current_score
+            min_val_mjpe = current_score
             best_epoch = epoch
             best_val_metrics = val_metrics
 
@@ -172,20 +172,20 @@ def train(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_norma
                 logger.record([val_msg_2])
 
             train_current_joint_msg = (
-                f'[{timestamp}] Epoch: {epoch}, train current per-joint MPJPE:\n'
-                f'{train_pose_tracker.format_per_joint_mpjpe(train_pose_metrics["current_per_joint_mpjpe"])}'
+                f'[{timestamp}] Epoch: {epoch}, train current per-joint MJPE:\n'
+                f'{train_pose_tracker.format_per_joint_mjpe(train_pose_metrics["current_per_joint_mjpe"])}'
             )
             train_future_joint_msg = (
-                f'[{timestamp}] Epoch: {epoch}, train future per-joint MPJPE:\n'
-                f'{train_pose_tracker.format_per_joint_mpjpe(train_pose_metrics["future_per_joint_mpjpe"])}'
+                f'[{timestamp}] Epoch: {epoch}, train future per-joint MJPE:\n'
+                f'{train_pose_tracker.format_per_joint_mjpe(train_pose_metrics["future_per_joint_mjpe"])}'
             )
             val_current_joint_msg = (
-                f'[{timestamp}] Epoch: {epoch}, val current per-joint MPJPE:\n'
-                f'{train_pose_tracker.format_per_joint_mpjpe(val_metrics["current_per_joint_mpjpe"])}'
+                f'[{timestamp}] Epoch: {epoch}, val current per-joint MJPE:\n'
+                f'{train_pose_tracker.format_per_joint_mjpe(val_metrics["current_per_joint_mjpe"])}'
             )
             val_future_joint_msg = (
-                f'[{timestamp}] Epoch: {epoch}, val future per-joint MPJPE:\n'
-                f'{train_pose_tracker.format_per_joint_mpjpe(val_metrics["future_per_joint_mpjpe"])}'
+                f'[{timestamp}] Epoch: {epoch}, val future per-joint MJPE:\n'
+                f'{train_pose_tracker.format_per_joint_mjpe(val_metrics["future_per_joint_mjpe"])}'
             )
 
             print(train_current_joint_msg)
@@ -201,29 +201,29 @@ def train(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_norma
         if epoch - best_epoch >= 20:
             break
 
-    logger.record([f'[{timestamp}] The best mpjpe occurred in epoch {best_epoch}'])
+    logger.record([f'[{timestamp}] The best mjpe occurred in epoch {best_epoch}'])
     if best_val_metrics is not None:
         best_current_lines = train_pose_tracker.format_pose_metric_lines(
             best_val_metrics,
             prefix="current",
-            mpjpe_label="best val current mpjpe",
+            mjpe_label="best val current mjpe",
             pixel_pck_label="best val current pixel pck",
         )
         best_future_lines = train_pose_tracker.format_pose_metric_lines(
             best_val_metrics,
             prefix="future",
-            mpjpe_label="best val future mpjpe",
+            mjpe_label="best val future mjpe",
             pixel_pck_label="best val future pixel pck",
         )
         logger.record([f'[{timestamp}] {best_current_lines[0]}, {best_future_lines[0]}'])
         if len(best_current_lines) > 1 and len(best_future_lines) > 1:
             logger.record([f'[{timestamp}] {best_current_lines[1]}, {best_future_lines[1]}'])
         logger.record([
-            f'[{timestamp}] Best val current per-joint MPJPE:\n'
-            f'{train_pose_tracker.format_per_joint_mpjpe(best_val_metrics["current_per_joint_mpjpe"])}'
+            f'[{timestamp}] Best val current per-joint MJPE:\n'
+            f'{train_pose_tracker.format_per_joint_mjpe(best_val_metrics["current_per_joint_mjpe"])}'
         ], print_flag=False)
         logger.record([
-            f'[{timestamp}] Best val future per-joint MPJPE:\n'
-            f'{train_pose_tracker.format_per_joint_mpjpe(best_val_metrics["future_per_joint_mpjpe"])}'
+            f'[{timestamp}] Best val future per-joint MJPE:\n'
+            f'{train_pose_tracker.format_per_joint_mjpe(best_val_metrics["future_per_joint_mjpe"])}'
         ], print_flag=False)
     return os.path.join(output_save_path, timestamp, "checkpoints", f"epoch_{best_epoch}.pth")

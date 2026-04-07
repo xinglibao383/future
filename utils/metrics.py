@@ -25,8 +25,9 @@ def pixel_to_key(pixel):
 
 
 def restore_pose(normalized_pose, shoulder_width):
-    normalized_pose = normalized_pose.clamp(min=-0.9999, max=0.9999)
-    return torch.atanh(normalized_pose) * shoulder_width
+    if shoulder_width == None:
+        return torch.atanh(normalized_pose.clamp(min=-0.9999, max=0.9999))
+    return torch.atanh(normalized_pose.clamp(min=-0.9999, max=0.9999)) * shoulder_width
 
 
 class PoseMetricTracker:

@@ -464,7 +464,7 @@ class MobilePoserLikeReconstructor(BaseReconstructor):
         return self.norm(self.fuse(torch.cat([seq1, seq2], dim=-1)))
 
 
-def build_baseline_model(name, input_channels, num_poses, hidden_dim, num_layers, nhead, dropout, resnet_verson):
+def build_baseline_model(name, input_channels, num_poses, hidden_dim, num_layers, nhead, dropout, resnet_verson, num_keypoints=25, output_dim=2):
     name = name.lower()
     kwargs = dict(
         input_channels=input_channels,
@@ -472,8 +472,8 @@ def build_baseline_model(name, input_channels, num_poses, hidden_dim, num_layers
         num_layers=num_layers,
         nhead=nhead,
         num_poses=num_poses,
-        num_keypoints=25,
-        output_dim=2,
+        num_keypoints=num_keypoints,
+        output_dim=output_dim,
         dropout=dropout,
     )
     if name in ["aipose", "ours_resnet", "ours"]:
@@ -481,8 +481,8 @@ def build_baseline_model(name, input_channels, num_poses, hidden_dim, num_layers
             input_channels=input_channels,
             resnet_verson=resnet_verson,
             num_poses=num_poses,
-            num_keypoints=25,
-            output_dim=2,
+            num_keypoints=num_keypoints,
+            output_dim=output_dim,
             dropout=dropout,
         )
     if name in ["pip_like_recon", "pip_like"]:

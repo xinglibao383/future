@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from torch import nn
 from utils.accumulator import Accumulator
 from utils.dataloader import *
-from utils.metrics import PoseMetricTracker
+from utils.metrics24 import PoseMetricTracker
 
 
 def normalize(x, eps=1e-6):
@@ -161,8 +161,15 @@ def train(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_norma
         logger.record([val_msg_1])
 
         if is_best_epoch:
-            train_msg_2 = f'[{timestamp}] Epoch: {epoch}, {train_current_lines[1]}, {train_future_lines[1]}'
-            val_msg_2 = f'[{timestamp}] Epoch: {epoch}, {val_current_lines[1]}, {val_future_lines[1]}'
+            if len(train_current_lines) > 1 and len(train_future_lines) > 1:
+                train_msg_2 = f'[{timestamp}] Epoch: {epoch}, {train_current_lines[1]}, {train_future_lines[1]}'
+                print(train_msg_2)
+                logger.record([train_msg_2])
+
+            if len(val_current_lines) > 1 and len(val_future_lines) > 1:
+                val_msg_2 = f'[{timestamp}] Epoch: {epoch}, {val_current_lines[1]}, {val_future_lines[1]}'
+                print(val_msg_2)
+                logger.record([val_msg_2])
 
             train_current_joint_msg = (
                 f'[{timestamp}] Epoch: {epoch}, train current per-joint MPJPE:\n'
@@ -181,15 +188,11 @@ def train(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_norma
                 f'{train_pose_tracker.format_per_joint_mpjpe(val_metrics["future_per_joint_mpjpe"])}'
             )
 
-            print(train_msg_2)
-            print(val_msg_2)
             print(train_current_joint_msg)
             print(train_future_joint_msg)
             print(val_current_joint_msg)
             print(val_future_joint_msg)
 
-            logger.record([train_msg_2])
-            logger.record([val_msg_2])
             logger.record([train_current_joint_msg], print_flag=False)
             logger.record([train_future_joint_msg], print_flag=False)
             logger.record([val_current_joint_msg], print_flag=False)

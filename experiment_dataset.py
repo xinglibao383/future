@@ -38,7 +38,7 @@ def ours():
     train3(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_normalize, alpha, beta, gamma, num_epochs, devices, output_save_path, logger, timestamp)
 
 
-def experiment_baseline(baseline="aipose"):
+def experiment_baseline(baseline):
     timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
     logger = Logger(save_path=output_save_path, timestamp=timestamp)
     logger.record([f'备注: 数据集, baseline={baseline}'])
@@ -60,8 +60,8 @@ def experiment_baseline(baseline="aipose"):
     train(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_normalize, num_epochs, devices, output_save_path, logger, timestamp)
 
 
-# nohup /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/experiment_baseline.py > /dev/null 2>&1 &
-# /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/experiment_baseline.py
+# nohup /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/experiment_dataset.py > /dev/null 2>&1 &
+# /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/experiment_dataset.py
 if __name__ == "__main__":
     ours()
     # experiment_baseline(baseline="pip_like_recon")

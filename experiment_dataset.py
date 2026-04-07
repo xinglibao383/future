@@ -3,14 +3,14 @@ import torch
 import socket
 from utils.logger import Logger
 from utils.dataloader import *
-from utils.train_baseline import train
+from utils.train_baseline_dataset import train
 from models.comparison.baselines24 import build_baseline_model
 from utils.train3_dataset import train as train3
 from models.posenet24 import *
 
 
 torch.manual_seed(3407)
-devices = [torch.device('cuda:2')]
+devices = [torch.device('cuda:1')]
 output_save_path = '/mnt/mydata/yh/liming/workspace/future/outputs/experiment2028/dataset'
 data_root_path = '/mnt/mydata/yh/liming/workspace/future/mydata/DIP_IMU_split'
 
@@ -55,7 +55,7 @@ def experiment_baseline(baseline):
         "need_normalize": need_normalize,
     }
     logger.record([", ".join([f"{k}={v}" for k, v in params.items()])])
-    model = build_baseline_model(name=baseline, input_channels=input_channels, num_poses=compute_len, hidden_dim=hidden_dim, num_layers=num_layers, nhead=nhead, dropout=dropout, resnet_verson=resnet_verson, num_keypoints=24, output_dim=3)
+    model = build_baseline_model(name=baseline, input_channels=input_channels, num_poses=compute_len*60, hidden_dim=hidden_dim, num_layers=num_layers, nhead=nhead, dropout=dropout, resnet_verson=resnet_verson, num_keypoints=24, output_dim=3)
     train_loader, val_loader = get_dataloaders_dip_imu(data_root_path, use_len, compute_len, predict_len, stride_len, batch_size, train_ratio, random_seed=3407)
     train(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_normalize, num_epochs, devices, output_save_path, logger, timestamp)
 
@@ -63,10 +63,10 @@ def experiment_baseline(baseline):
 # nohup /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/experiment_dataset.py > /dev/null 2>&1 &
 # /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/experiment_dataset.py
 if __name__ == "__main__":
-    ours()
-    # experiment_baseline(baseline="pip_like_recon")
-    # experiment_baseline(baseline="tip_like_recon")
-    # experiment_baseline(baseline="dynaip_like_recon")
-    # experiment_baseline(baseline="asip_like_recon")
-    # experiment_baseline(baseline="mobileposer_like_recon")
-    # experiment_baseline(baseline="imuposer_like_recon")
+    # ours()
+    experiment_baseline(baseline="pip_like_recon")
+    experiment_baseline(baseline="tip_like_recon")
+    experiment_baseline(baseline="dynaip_like_recon")
+    experiment_baseline(baseline="asip_like_recon")
+    experiment_baseline(baseline="mobileposer_like_recon")
+    experiment_baseline(baseline="imuposer_like_recon")

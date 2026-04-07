@@ -4,7 +4,7 @@ import socket
 from utils.logger import Logger
 from utils.dataloader import *
 from utils.train_baseline import train
-from models.comparison.baselines import build_baseline_model
+from models.comparison.baselines24 import build_baseline_model
 from utils.train3_dataset import train as train3
 from models.posenet24 import *
 

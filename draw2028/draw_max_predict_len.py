@@ -1,4 +1,12 @@
-import matplotlib.pyplot as plt
+from matplotlib import pyplot as plt
+from matplotlib.font_manager import FontProperties
+
+FONT_PATH = "/usr/share/fonts/opentype/noto/NotoSerifCJK-Regular.ttc"
+cn_font = FontProperties(fname=FONT_PATH, size=12)
+
+plt.rcParams["axes.unicode_minus"] = False
+plt.rcParams["pdf.fonttype"] = 42
+plt.rcParams["ps.fonttype"] = 42
 
 
 def plot_prediction_horizon(save_path):
@@ -46,32 +54,37 @@ def plot_prediction_horizon(save_path):
         125.6723
     ]
 
-    plt.figure(figsize=(8, 5))
-    plt.plot(
+    fig, ax = plt.subplots(figsize=(8, 5))
+
+    line, = ax.plot(
         x,
         y,
         marker='o',
         linewidth=1.5,
         label="MPJPE"
     )
+
     for xi, yi in zip(x, y):
-        plt.text(
+        ax.text(
             xi,
-            yi + 1,              # 稍微往上偏一点（关键）
-            f"{yi:.2f}",         # 保留四位小数
+            yi + 1,
+            f"{yi:.2f}",
             ha='center',
             va='bottom',
             fontsize=10
         )
-    plt.xlim(-1.5, 10.5)
-    plt.ylim(46, 132)
-    plt.xlabel("Prediction Time (s)")
-    plt.ylabel("MPJPE")
-    plt.grid(True, linestyle="--", alpha=0.4)
-    plt.savefig(save_path, dpi=900, bbox_inches='tight')
+
+    ax.set_xlim(-1.5, 10.5)
+    ax.set_ylim(43, 137)
+    ax.set_xlabel("未来预测时间区间（单位：秒）", fontproperties=cn_font)
+    ax.set_ylabel("平均关节点位置误差（单位：像素）", fontproperties=cn_font)
+    ax.grid(True, linestyle="--", alpha=0.4)
+
+    plt.savefig(save_path, dpi=1500, bbox_inches='tight')
     plt.close()
     print(f"已保存到: {save_path}")
 
 
 if __name__ == "__main__":
-    plot_prediction_horizon(save_path="/mnt/mydata/yh/liming/workspace/future/draw/imgs/max_predict_len.png")
+    # plot_prediction_horizon(save_path="/mnt/mydata/yh/liming/workspace/future/draw/imgs/max_predict_len.png")
+    plot_prediction_horizon(save_path="/root/future/draw2028/imgs/max_predict_len.png")

@@ -1,6 +1,17 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import os
+from matplotlib.font_manager import FontProperties
+
+FONT_PATH = "/usr/share/fonts/opentype/noto/NotoSerifCJK-Regular.ttc"
+
+cn_font_tick = FontProperties(fname=FONT_PATH, size=16)
+cn_font_label = FontProperties(fname=FONT_PATH, size=18)
+cn_font_legend = FontProperties(fname=FONT_PATH, size=16)
+
+plt.rcParams["axes.unicode_minus"] = False
+plt.rcParams["pdf.fonttype"] = 42
+plt.rcParams["ps.fonttype"] = 42
 
 
 def add_labels(x, y):
@@ -40,7 +51,7 @@ def plot_per_joint_group(save_path, labels, method_data):
     x = np.arange(len(labels)) * group_gap
     offsets = (np.arange(num_methods) - (num_methods - 1) / 2) * bar_width
 
-    plt.figure(figsize=(16, 5))
+    fig, ax = plt.subplots(figsize=(16, 5))
 
     all_values = []
 
@@ -48,30 +59,37 @@ def plot_per_joint_group(save_path, labels, method_data):
         values = method_data[method]
         x_pos = x + offsets[i]
 
-        plt.bar(
+        ax.bar(
             x_pos,
             values,
             width=bar_width,
             label=method
         )
-        # add_labels(x_pos, values)
         all_values.extend(values)
 
-    plt.xticks(x, labels, rotation=0, ha='center')
-    plt.tick_params(axis='x', length=0)
-    plt.xlabel("Joint")
-    plt.ylabel("MPJPE")
-    plt.ylim(0, 170)
+    ax.set_xticks(x)
+    ax.set_xticklabels(
+        labels,
+        rotation=0,
+        ha='center',
+        fontproperties=cn_font_tick
+    )
+    ax.tick_params(axis='x', length=0)
 
-    plt.grid(True, axis='y', linestyle="--", alpha=0.4)
-    plt.legend(frameon=False, ncol=4)
+    ax.set_xlabel("关节点", fontproperties=cn_font_label)
+    ax.set_ylabel("平均关节点位置误差（单位：像素）", fontproperties=cn_font_label)
+    ax.set_ylim(0, 170)
 
-    # 收紧左右留白
+    ax.grid(True, axis='y', linestyle="--", alpha=0.4)
+
+    ax.legend(frameon=False, ncol=4)
+
+
     left_edge = x[0] + offsets[0] - bar_width / 2
     right_edge = x[-1] + offsets[-1] + bar_width / 2
-    plt.xlim(left_edge - 0.08, right_edge + 0.08)
+    ax.set_xlim(left_edge - 0.08, right_edge + 0.08)
 
-    plt.savefig(save_path, dpi=900, bbox_inches='tight')
+    plt.savefig(save_path, dpi=1500, bbox_inches='tight')
     plt.close()
     print(f"已保存到: {save_path}")
 
@@ -85,6 +103,14 @@ def plot_all_per_joint_groups(save_dir):
         "RKnee", "RAnkle", "LHip", "LKnee", "LAnkle",
         "REye", "LEye", "REar", "LEar", "LBigToe",
         "LSmallToe", "LHeel", "RBigToe", "RSmallToe", "RHeel"
+    ]
+
+    labels = [
+        "鼻部", "颈部", "右肩", "右肘", "右腕",
+        "左肩", "左肘", "左腕", "髋部中点", "右髋",
+        "右膝", "右踝", "左髋", "左膝", "左踝",
+        "右眼", "左眼", "右耳", "左耳", "左大脚趾",
+        "左小脚趾", "左脚跟", "右大脚趾", "右小脚趾", "右脚跟"
     ]
 
     full_data = {
@@ -161,6 +187,5 @@ def plot_all_per_joint_groups(save_dir):
 
 # /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/draw2028/draw_baselines_perjoint.py
 if __name__ == "__main__":
-    plot_all_per_joint_groups(
-        "/mnt/mydata/yh/liming/workspace/future/draw2028/imgs/per_joint"
-    )
+    # plot_all_per_joint_groups("/mnt/mydata/yh/liming/workspace/future/draw2028/imgs/per_joint")
+    plot_all_per_joint_groups("/root/future/draw2028/imgs/per_joint")

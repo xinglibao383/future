@@ -259,22 +259,6 @@ class BaseReconstructor(nn.Module):
         return self.decode(self.encode(x))
 
 
-class AIPose(nn.Module):
-    def __init__(self, input_channels, resnet_verson="resnet18", num_poses=15, num_keypoints=25, output_dim=2, dropout=0.1):
-        super().__init__()
-        self.backbone = resnet(resnet_verson, input_channels)
-        feature_dim = 512 if resnet_verson in ["resnet18", "resnet34"] else 2048
-        self.fc = nn.Linear(feature_dim, num_poses * num_keypoints * output_dim)
-        self.num_poses = num_poses
-        self.num_keypoints = num_keypoints
-        self.output_dim = output_dim
-
-    def forward(self, x):
-        out = self.fc(self.backbone(x))
-        out = out.view(out.size(0), self.num_poses, self.num_keypoints, self.output_dim)
-        return torch.tanh(out)
-
-
 class PIPLikeReconstructor(BaseReconstructor):
     def __init__(self, input_channels, hidden_dim=192, num_poses=15, num_keypoints=25, output_dim=2, dropout=0.1,
                  **kwargs):
@@ -476,15 +460,6 @@ def build_baseline_model(name, input_channels, num_poses, hidden_dim, num_layers
         output_dim=output_dim,
         dropout=dropout,
     )
-    if name in ["aipose", "ours_resnet", "ours"]:
-        return AIPose(
-            input_channels=input_channels,
-            resnet_verson=resnet_verson,
-            num_poses=num_poses,
-            num_keypoints=num_keypoints,
-            output_dim=output_dim,
-            dropout=dropout,
-        )
     if name in ["pip_like_recon", "pip_like"]:
         return PIPLikeReconstructor(**kwargs)
     if name in ["tip_like_recon", "tip_like"]:

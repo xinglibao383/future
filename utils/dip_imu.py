@@ -103,12 +103,12 @@ def process(source_dir, target_dir, use_len, compute_len, predict_len, stride_le
 
 
 class DIP_IMU(Dataset):
-    def __init__(self, root_path, use_len, compute_len, predict_len, stride_len, fps=60):
+    def __init__(self, use_len, compute_len, predict_len, stride_len, fps=60):
         """
         这里的 use_len / compute_len / predict_len / stride_len 单位都是“秒”
         """
         super().__init__()
-
+        root_path = '/mnt/mydata/yh/liming/workspace/future/mydata/DIP_IMU_split'
         self.imu_root_path = os.path.join(root_path, "imu", f"{use_len}_{compute_len}_{predict_len}_{stride_len}")
         self.pose_root_path = os.path.join(root_path, "pose", f"{use_len}_{compute_len}_{predict_len}_{stride_len}")
 

@@ -314,7 +314,7 @@ def process(source_dir, target_dir, smpl_model_dir,
 
 
 class AMASS_SYNTH_IMU(Dataset):
-    def __init__(self, root_path, use_len, compute_len, predict_len, stride_len,
+    def __init__(self, use_len, compute_len, predict_len, stride_len,
                  fps=60, source_dir="/mnt/mydata/yh/liming/data/AMASS",
                  smpl_model_dir="/mnt/mydata/yh/liming/workspace/future/SMPL",
                  subsets=None, device="cuda:1"):

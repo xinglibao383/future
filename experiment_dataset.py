@@ -10,16 +10,15 @@ from models.posenet24 import *
 
 
 torch.manual_seed(3407)
-devices = [torch.device('cuda:2')]
-output_save_path = '/mnt/mydata/yh/liming/workspace/future/outputs/experiment2028/dataset'
-# DATASET = 'AMASS'
-DATASET = 'DIP-IMU'
+devices = [torch.device('cuda:1')]
+DATASET = 'AMASS'
+# DATASET = 'DIP-IMU'
+output_save_path = os.path.join('/mnt/mydata/yh/liming/workspace/future/outputs/experiment2028/dataset', DATASET)
 
 
 def ours():
     global output_save_path
     timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
-    output_save_path = os.path.join(output_save_path, DATASET)
     logger = Logger(save_path=output_save_path, timestamp=timestamp)
     logger.record([f'备注: 数据集={DATASET}, baseline=aipose'])
     mask_ratio, batch_size, lr, num_epochs, loss_func = 0.25, 256, 1e-3, 200, "l1"
@@ -47,7 +46,6 @@ def ours():
 def experiment_baseline(baseline):
     global output_save_path
     timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
-    output_save_path = os.path.join(output_save_path, DATASET)
     logger = Logger(save_path=output_save_path, timestamp=timestamp)
     logger.record([f'备注: 数据集={DATASET}, baseline={baseline}'])
     mask_ratio, batch_size, lr, num_epochs, loss_func = 0.25, 256, 1e-3, 200, "l1"

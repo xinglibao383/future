@@ -239,17 +239,32 @@ def collect_results(root_dir: str) -> List[ParsedResult]:
     return results
 
 
+def sort_results_by_sum_desc(results: List[ParsedResult]) -> List[ParsedResult]:
+    """
+    对解析后的结果列表排序：
+    排序规则：(current_mjae + current_pe) 求和 → 降序（大的在前）
+    无论 BaselineResult / AIPoseResult 都支持
+    """
+    # 按和降序排列：reverse=True 表示大的在前
+    sorted_results = sorted(
+        results,
+        key=lambda x: x["current_mjae"] + x["current_pe"],
+        reverse=False
+    )
+    return sorted_results
+
+
 # /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/draw2028/parse_dataset.py
 if __name__ == "__main__":
     print("========================= DIP-IMU =========================")
     root_dir = "/mnt/mydata/yh/liming/workspace/future/outputs/experiment2028/dataset/DIP-IMU"
-    results = collect_results(root_dir)
+    results = sort_results_by_sum_desc(collect_results(root_dir))
     for item in results:
         print(item)
 
     print("========================= AMASS =========================")
 
     root_dir = "/mnt/mydata/yh/liming/workspace/future/outputs/experiment2028/dataset/AMASS"
-    results = collect_results(root_dir)
+    results = sort_results_by_sum_desc(collect_results(root_dir))
     for item in results:
         print(item)

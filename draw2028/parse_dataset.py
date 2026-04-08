@@ -241,7 +241,15 @@ def collect_results(root_dir: str) -> List[ParsedResult]:
 
 # /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/draw2028/parse_dataset.py
 if __name__ == "__main__":
+    print("========================= DIP-IMU =========================")
     root_dir = "/mnt/mydata/yh/liming/workspace/future/outputs/experiment2028/dataset/DIP-IMU"
+    results = collect_results(root_dir)
+    for item in results:
+        print(item)
+
+    print("========================= AMASS =========================")
+
+    root_dir = "/mnt/mydata/yh/liming/workspace/future/outputs/experiment2028/dataset/AMASS"
     results = collect_results(root_dir)
     for item in results:
         print(item)

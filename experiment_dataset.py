@@ -34,7 +34,8 @@ def ours():
     logger.record([", ".join([f"{k}={v}" for k, v in params.items()])])
     imu_generator_params = (transformer_hidden, transformer_layers, transformer_nhead, transformer_dropout)
     model = PoseNet(input_channels=input_channels, resnet_verson=resnet_verson, imu_generator=imu_generator, imu_generator_params=imu_generator_params, target_time=int(predict_len / 60 * 60), target_poses=predict_len, num_poses=compute_len, num_keypoints=24, output_dim=3)
-    train_loader, val_loader = get_dataloaders_dip_imu(data_root_path, use_len/60, compute_len/60, predict_len/60, stride_len/60, batch_size, 0.8, random_seed=3407)
+    # train_loader, val_loader = get_dataloaders_dip_imu(data_root_path, use_len/60, compute_len/60, predict_len/60, stride_len/60, batch_size, 0.8, random_seed=3407)
+    train_loader, val_loader = get_dataloaders_amass(data_root_path, use_len/60, compute_len/60, predict_len/60, stride_len/60, batch_size, 0.8, random_seed=3407)
     train3(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_normalize, alpha, beta, gamma, num_epochs, devices, output_save_path, logger, timestamp)
 
 
@@ -56,17 +57,18 @@ def experiment_baseline(baseline):
     }
     logger.record([", ".join([f"{k}={v}" for k, v in params.items()])])
     model = build_baseline_model(name=baseline, input_channels=input_channels, num_poses=compute_len*60, hidden_dim=hidden_dim, num_layers=num_layers, nhead=nhead, dropout=dropout, resnet_verson=resnet_verson, num_keypoints=24, output_dim=3)
-    train_loader, val_loader = get_dataloaders_dip_imu(data_root_path, use_len, compute_len, predict_len, stride_len, batch_size, train_ratio, random_seed=3407)
+    # train_loader, val_loader = get_dataloaders_dip_imu(data_root_path, use_len, compute_len, predict_len, stride_len, batch_size, train_ratio, random_seed=3407)
+    train_loader, val_loader = get_dataloaders_amass(data_root_path, use_len, compute_len, predict_len, stride_len, batch_size, train_ratio, random_seed=3407)
     train(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_normalize, num_epochs, devices, output_save_path, logger, timestamp)
 
 
 # nohup /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/experiment_dataset.py > /dev/null 2>&1 &
 # /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/experiment_dataset.py
 if __name__ == "__main__":
-    # ours()
+    ours()
     # experiment_baseline(baseline="pip_like_recon")
     # experiment_baseline(baseline="asip_like_recon")
     # experiment_baseline(baseline="mobileposer_like_recon")
     # experiment_baseline(baseline="tip_like_recon")
     # experiment_baseline(baseline="dynaip_like_recon")
-    experiment_baseline(baseline="imuposer_like_recon")
+    # experiment_baseline(baseline="imuposer_like_recon")

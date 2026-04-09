@@ -8750,3 +8750,707 @@
 [2026-04-09 13:44:31] [20260409092645] Epoch: 109, val loss1: 0.0519, val loss2: 0.4342, val loss3: 0.0544, val current mean joint angle error: 5.6369 deg, val current positional error: 7.8772 cm, val future mean joint angle error: 5.8945 deg, val future positional error: 8.2211 cm
 [2026-04-09 13:49:09] [20260409092645] Epoch: 110, train loss1: 0.0432, train loss2: 0.3539, train loss3: 0.0438, train current mean joint angle error: 4.8827 deg, train current positional error: 6.5548 cm, train future mean joint angle error: 4.9535 deg, train future positional error: 6.7294 cm
 [2026-04-09 13:49:09] [20260409092645] Epoch: 110, val loss1: 0.0531, val loss2: 0.4275, val loss3: 0.0551, val current mean joint angle error: 5.7533 deg, val current positional error: 8.1488 cm, val future mean joint angle error: 5.9864 deg, val future positional error: 8.4673 cm
+[2026-04-09 13:53:48] [20260409092645] Epoch: 111, train loss1: 0.0421, train loss2: 0.3472, train loss3: 0.0426, train current mean joint angle error: 4.7750 deg, train current positional error: 6.2788 cm, train future mean joint angle error: 4.8218 deg, train future positional error: 6.3129 cm
+[2026-04-09 13:53:48] [20260409092645] Epoch: 111, val loss1: 0.0515, val loss2: 0.4310, val loss3: 0.0532, val current mean joint angle error: 5.6079 deg, val current positional error: 7.7521 cm, val future mean joint angle error: 5.7816 deg, val future positional error: 8.1501 cm
+[2026-04-09 13:57:35] [20260409092645] Epoch: 112, train loss1: 0.0415, train loss2: 0.3442, train loss3: 0.0420, train current mean joint angle error: 4.7118 deg, train current positional error: 6.0467 cm, train future mean joint angle error: 4.7629 deg, train future positional error: 6.1246 cm
+[2026-04-09 13:57:35] [20260409092645] Epoch: 112, val loss1: 0.0529, val loss2: 0.4334, val loss3: 0.0559, val current mean joint angle error: 5.7415 deg, val current positional error: 8.1488 cm, val future mean joint angle error: 6.0498 deg, val future positional error: 8.5078 cm
+[2026-04-09 14:01:29] [20260409092645] Epoch: 113, train loss1: 0.0411, train loss2: 0.3426, train loss3: 0.0415, train current mean joint angle error: 4.6605 deg, train current positional error: 5.8634 cm, train future mean joint angle error: 4.7024 deg, train future positional error: 5.9154 cm
+[2026-04-09 14:01:29] [20260409092645] Epoch: 113, val loss1: 0.0506, val loss2: 0.4256, val loss3: 0.0529, val current mean joint angle error: 5.5102 deg, val current positional error: 7.4904 cm, val future mean joint angle error: 5.7466 deg, val future positional error: 7.8073 cm
+[2026-04-09 14:01:29] [20260409092645] Epoch: 113, train current per-joint angle error (deg):
+ joint_id joint_name  ang_err_deg
+        0    joint_0       8.6851
+        1    joint_1       4.4992
+        2    joint_2       4.4927
+        3    joint_3       3.7294
+        4    joint_4       6.1185
+        5    joint_5       5.9172
+        6    joint_6       2.9862
+        7    joint_7       4.6943
+        8    joint_8       5.8693
+        9    joint_9       2.2880
+       10   joint_10       0.3861
+       11   joint_11       0.3814
+       12   joint_12       6.6872
+       13   joint_13       4.1895
+       14   joint_14       4.1314
+       15   joint_15       6.7109
+       16   joint_16       5.5560
+       17   joint_17       5.7485
+       18   joint_18       7.2701
+       19   joint_19       7.3341
+       20   joint_20       6.5376
+       21   joint_21       6.6036
+       22   joint_22       0.4405
+       23   joint_23       0.5953
+[2026-04-09 14:01:29] [20260409092645] Epoch: 113, train future per-joint angle error (deg):
+ joint_id joint_name  ang_err_deg
+        0    joint_0       8.7992
+        1    joint_1       4.5565
+        2    joint_2       4.5575
+        3    joint_3       3.7343
+        4    joint_4       6.1990
+        5    joint_5       6.0258
+        6    joint_6       3.0053
+        7    joint_7       4.7740
+        8    joint_8       5.9559
+        9    joint_9       2.2780
+       10   joint_10       0.3536
+       11   joint_11       0.3559
+       12   joint_12       6.8138
+       13   joint_13       4.1996
+       14   joint_14       4.1497
+       15   joint_15       6.8254
+       16   joint_16       5.5701
+       17   joint_17       5.7675
+       18   joint_18       7.3028
+       19   joint_19       7.3917
+       20   joint_20       6.5947
+       21   joint_21       6.6796
+       22   joint_22       0.4132
+       23   joint_23       0.5556
+[2026-04-09 14:01:29] [20260409092645] Epoch: 113, val current per-joint angle error (deg):
+ joint_id joint_name  ang_err_deg
+        0    joint_0      11.6769
+        1    joint_1       5.2775
+        2    joint_2       5.2547
+        3    joint_3       4.3238
+        4    joint_4       7.4473
+        5    joint_5       7.1007
+        6    joint_6       3.3693
+        7    joint_7       5.2321
+        8    joint_8       6.7135
+        9    joint_9       2.5094
+       10   joint_10       0.4193
+       11   joint_11       0.4065
+       12   joint_12       7.8170
+       13   joint_13       4.9481
+       14   joint_14       5.0084
+       15   joint_15       7.8688
+       16   joint_16       6.3615
+       17   joint_17       6.9813
+       18   joint_18       8.5397
+       19   joint_19       8.6321
+       20   joint_20       7.3536
+       21   joint_21       7.3962
+       22   joint_22       0.7358
+       23   joint_23       0.8723
+[2026-04-09 14:01:29] [20260409092645] Epoch: 113, val future per-joint angle error (deg):
+ joint_id joint_name  ang_err_deg
+        0    joint_0      11.9152
+        1    joint_1       5.5003
+        2    joint_2       5.5160
+        3    joint_3       4.5681
+        4    joint_4       7.8428
+        5    joint_5       7.5623
+        6    joint_6       3.5562
+        7    joint_7       5.3706
+        8    joint_8       6.9219
+        9    joint_9       2.6034
+       10   joint_10       0.3999
+       11   joint_11       0.4095
+       12   joint_12       8.1756
+       13   joint_13       5.1462
+       14   joint_14       5.2055
+       15   joint_15       8.1224
+       16   joint_16       6.7196
+       17   joint_17       7.3132
+       18   joint_18       9.0079
+       19   joint_19       9.0827
+       20   joint_20       7.7489
+       21   joint_21       7.6471
+       22   joint_22       0.7124
+       23   joint_23       0.8707
+[2026-04-09 14:01:29] [20260409092645] Epoch: 113, train current per-joint positional error (cm):
+ joint_id joint_name  pos_err_cm
+        0    joint_0      0.0000
+        1    joint_1      1.2610
+        2    joint_2      1.2152
+        3    joint_3      1.1741
+        4    joint_4      5.3109
+        5    joint_5      5.4129
+        6    joint_6      2.4595
+        7    joint_7      9.3641
+        8    joint_8      9.3884
+        9    joint_9      2.9574
+       10   joint_10     10.2705
+       11   joint_11     10.3590
+       12   joint_12      5.5427
+       13   joint_13      4.5993
+       14   joint_14      4.5544
+       15   joint_15      6.2715
+       16   joint_16      5.3349
+       17   joint_17      5.3403
+       18   joint_18      6.2090
+       19   joint_19      6.2482
+       20   joint_20      8.6084
+       21   joint_21      8.8402
+       22   joint_22      9.9030
+       23   joint_23     10.0962
+[2026-04-09 14:01:29] [20260409092645] Epoch: 113, train future per-joint positional error (cm):
+ joint_id joint_name  pos_err_cm
+        0    joint_0      0.0000
+        1    joint_1      1.2750
+        2    joint_2      1.2281
+        3    joint_3      1.1854
+        4    joint_4      5.3771
+        5    joint_5      5.5000
+        6    joint_6      2.4697
+        7    joint_7      9.4549
+        8    joint_8      9.4803
+        9    joint_9      2.9683
+       10   joint_10     10.3860
+       11   joint_11     10.4649
+       12   joint_12      5.5679
+       13   joint_13      4.6193
+       14   joint_14      4.5792
+       15   joint_15      6.3059
+       16   joint_16      5.3609
+       17   joint_17      5.3805
+       18   joint_18      6.2566
+       19   joint_19      6.3132
+       20   joint_20      8.6735
+       21   joint_21      8.9311
+       22   joint_22      9.9786
+       23   joint_23     10.2140
+[2026-04-09 14:01:29] [20260409092645] Epoch: 113, val current per-joint positional error (cm):
+ joint_id joint_name  pos_err_cm
+        0    joint_0      0.0000
+        1    joint_1      1.6568
+        2    joint_2      1.5864
+        3    joint_3      1.5927
+        4    joint_4      7.0793
+        5    joint_5      7.2171
+        6    joint_6      3.3095
+        7    joint_7     12.2914
+        8    joint_8     12.1821
+        9    joint_9      3.9492
+       10   joint_10     13.4412
+       11   joint_11     13.4102
+       12   joint_12      7.2767
+       13   joint_13      6.0037
+       14   joint_14      6.0267
+       15   joint_15      8.1653
+       16   joint_16      6.8261
+       17   joint_17      6.9719
+       18   joint_18      7.5925
+       19   joint_19      7.9005
+       20   joint_20     10.1590
+       21   joint_21     10.9599
+       22   joint_22     11.6607
+       23   joint_23     12.5110
+[2026-04-09 14:01:29] [20260409092645] Epoch: 113, val future per-joint positional error (cm):
+ joint_id joint_name  pos_err_cm
+        0    joint_0      0.0000
+        1    joint_1      1.7112
+        2    joint_2      1.6215
+        3    joint_3      1.6563
+        4    joint_4      7.4167
+        5    joint_5      7.5037
+        6    joint_6      3.4587
+        7    joint_7     12.8331
+        8    joint_8     12.7311
+        9    joint_9      4.1249
+       10   joint_10     14.0506
+       11   joint_11     13.9903
+       12   joint_12      7.5879
+       13   joint_13      6.2468
+       14   joint_14      6.2934
+       15   joint_15      8.5239
+       16   joint_16      7.0862
+       17   joint_17      7.2862
+       18   joint_18      7.9472
+       19   joint_19      8.2356
+       20   joint_20     10.6476
+       21   joint_21     11.3277
+       22   joint_22     12.1715
+       23   joint_23     12.9233
+[2026-04-09 14:06:08] [20260409092645] Epoch: 114, train loss1: 0.0411, train loss2: 0.3420, train loss3: 0.0417, train current mean joint angle error: 4.6747 deg, train current positional error: 5.8807 cm, train future mean joint angle error: 4.7241 deg, train future positional error: 6.0157 cm
+[2026-04-09 14:06:08] [20260409092645] Epoch: 114, val loss1: 0.0519, val loss2: 0.4274, val loss3: 0.0542, val current mean joint angle error: 5.6723 deg, val current positional error: 7.8054 cm, val future mean joint angle error: 5.8984 deg, val future positional error: 8.0798 cm
+[2026-04-09 14:10:30] [20260409092645] Epoch: 115, train loss1: 0.0408, train loss2: 0.3409, train loss3: 0.0412, train current mean joint angle error: 4.6319 deg, train current positional error: 5.8081 cm, train future mean joint angle error: 4.6679 deg, train future positional error: 5.8354 cm
+[2026-04-09 14:10:30] [20260409092645] Epoch: 115, val loss1: 0.0535, val loss2: 0.4268, val loss3: 0.0560, val current mean joint angle error: 5.8349 deg, val current positional error: 8.1295 cm, val future mean joint angle error: 6.0864 deg, val future positional error: 8.3946 cm
+[2026-04-09 14:14:06] [20260409092645] Epoch: 116, train loss1: 0.0407, train loss2: 0.3410, train loss3: 0.0413, train current mean joint angle error: 4.6295 deg, train current positional error: 5.8218 cm, train future mean joint angle error: 4.6893 deg, train future positional error: 5.9025 cm
+[2026-04-09 14:14:06] [20260409092645] Epoch: 116, val loss1: 0.0518, val loss2: 0.4263, val loss3: 0.0542, val current mean joint angle error: 5.6346 deg, val current positional error: 7.8289 cm, val future mean joint angle error: 5.8876 deg, val future positional error: 8.4652 cm
+[2026-04-09 14:17:14] [20260409092645] Epoch: 117, train loss1: 0.0406, train loss2: 0.3401, train loss3: 0.0412, train current mean joint angle error: 4.6130 deg, train current positional error: 5.8612 cm, train future mean joint angle error: 4.6709 deg, train future positional error: 5.9593 cm
+[2026-04-09 14:17:14] [20260409092645] Epoch: 117, val loss1: 0.0525, val loss2: 0.4243, val loss3: 0.0547, val current mean joint angle error: 5.6921 deg, val current positional error: 8.0639 cm, val future mean joint angle error: 5.9153 deg, val future positional error: 8.1313 cm
+[2026-04-09 14:20:03] [20260409092645] Epoch: 118, train loss1: 0.0407, train loss2: 0.3396, train loss3: 0.0412, train current mean joint angle error: 4.6166 deg, train current positional error: 5.9466 cm, train future mean joint angle error: 4.6731 deg, train future positional error: 6.0786 cm
+[2026-04-09 14:20:03] [20260409092645] Epoch: 118, val loss1: 0.0529, val loss2: 0.4296, val loss3: 0.0551, val current mean joint angle error: 5.7510 deg, val current positional error: 8.3200 cm, val future mean joint angle error: 5.9643 deg, val future positional error: 8.3800 cm
+[2026-04-09 14:22:54] [20260409092645] Epoch: 119, train loss1: 0.0404, train loss2: 0.3395, train loss3: 0.0410, train current mean joint angle error: 4.5939 deg, train current positional error: 5.8485 cm, train future mean joint angle error: 4.6539 deg, train future positional error: 5.9402 cm
+[2026-04-09 14:22:54] [20260409092645] Epoch: 119, val loss1: 0.0512, val loss2: 0.4312, val loss3: 0.0530, val current mean joint angle error: 5.5810 deg, val current positional error: 7.4935 cm, val future mean joint angle error: 5.7748 deg, val future positional error: 7.7800 cm
+[2026-04-09 14:25:44] [20260409092645] Epoch: 120, train loss1: 0.0404, train loss2: 0.3394, train loss3: 0.0410, train current mean joint angle error: 4.5879 deg, train current positional error: 5.7988 cm, train future mean joint angle error: 4.6452 deg, train future positional error: 5.8977 cm
+[2026-04-09 14:25:44] [20260409092645] Epoch: 120, val loss1: 0.0514, val loss2: 0.4325, val loss3: 0.0533, val current mean joint angle error: 5.6067 deg, val current positional error: 7.7893 cm, val future mean joint angle error: 5.8015 deg, val future positional error: 8.0529 cm
+[2026-04-09 14:28:34] [20260409092645] Epoch: 121, train loss1: 0.0408, train loss2: 0.3397, train loss3: 0.0412, train current mean joint angle error: 4.6289 deg, train current positional error: 5.9007 cm, train future mean joint angle error: 4.6727 deg, train future positional error: 5.9831 cm
+[2026-04-09 14:28:34] [20260409092645] Epoch: 121, val loss1: 0.0532, val loss2: 0.4257, val loss3: 0.0564, val current mean joint angle error: 5.8075 deg, val current positional error: 8.1956 cm, val future mean joint angle error: 6.1514 deg, val future positional error: 8.4889 cm
+[2026-04-09 14:31:25] [20260409092645] Epoch: 122, train loss1: 0.0411, train loss2: 0.3390, train loss3: 0.0415, train current mean joint angle error: 4.6598 deg, train current positional error: 6.0931 cm, train future mean joint angle error: 4.6975 deg, train future positional error: 6.1855 cm
+[2026-04-09 14:31:25] [20260409092645] Epoch: 122, val loss1: 0.0499, val loss2: 0.4310, val loss3: 0.0520, val current mean joint angle error: 5.4125 deg, val current positional error: 7.5480 cm, val future mean joint angle error: 5.6298 deg, val future positional error: 7.7253 cm
+[2026-04-09 14:31:25] [20260409092645] Epoch: 122, train current per-joint angle error (deg):
+ joint_id joint_name  ang_err_deg
+        0    joint_0       9.2896
+        1    joint_1       4.4923
+        2    joint_2       4.4161
+        3    joint_3       3.6987
+        4    joint_4       6.0563
+        5    joint_5       5.8544
+        6    joint_6       3.0387
+        7    joint_7       4.6518
+        8    joint_8       5.7929
+        9    joint_9       2.2198
+       10   joint_10       0.3902
+       11   joint_11       0.3813
+       12   joint_12       6.6095
+       13   joint_13       4.0912
+       14   joint_14       4.0758
+       15   joint_15       6.6146
+       16   joint_16       5.4578
+       17   joint_17       5.7548
+       18   joint_18       7.2025
+       19   joint_19       7.4128
+       20   joint_20       6.5029
+       21   joint_21       6.5949
+       22   joint_22       0.5279
+       23   joint_23       0.7096
+[2026-04-09 14:31:25] [20260409092645] Epoch: 122, train future per-joint angle error (deg):
+ joint_id joint_name  ang_err_deg
+        0    joint_0       9.4945
+        1    joint_1       4.5672
+        2    joint_2       4.4673
+        3    joint_3       3.7245
+        4    joint_4       6.1166
+        5    joint_5       5.9282
+        6    joint_6       3.0839
+        7    joint_7       4.7285
+        8    joint_8       5.8925
+        9    joint_9       2.2387
+       10   joint_10       0.3582
+       11   joint_11       0.3547
+       12   joint_12       6.7103
+       13   joint_13       4.1131
+       14   joint_14       4.0884
+       15   joint_15       6.6785
+       16   joint_16       5.5331
+       17   joint_17       5.7165
+       18   joint_18       7.2075
+       19   joint_19       7.3975
+       20   joint_20       6.4971
+       21   joint_21       6.6390
+       22   joint_22       0.4953
+       23   joint_23       0.7077
+[2026-04-09 14:31:25] [20260409092645] Epoch: 122, val current per-joint angle error (deg):
+ joint_id joint_name  ang_err_deg
+        0    joint_0      11.7764
+        1    joint_1       5.2327
+        2    joint_2       5.3131
+        3    joint_3       4.2746
+        4    joint_4       7.2048
+        5    joint_5       7.0256
+        6    joint_6       3.3695
+        7    joint_7       5.1078
+        8    joint_8       6.5179
+        9    joint_9       2.4890
+       10   joint_10       0.4502
+       11   joint_11       0.4077
+       12   joint_12       7.9192
+       13   joint_13       4.6743
+       14   joint_14       4.5788
+       15   joint_15       7.6130
+       16   joint_16       6.2543
+       17   joint_17       6.6507
+       18   joint_18       8.3377
+       19   joint_19       8.6484
+       20   joint_20       7.3378
+       21   joint_21       7.4852
+       22   joint_22       0.5037
+       23   joint_23       0.7276
+[2026-04-09 14:31:25] [20260409092645] Epoch: 122, val future per-joint angle error (deg):
+ joint_id joint_name  ang_err_deg
+        0    joint_0      11.8094
+        1    joint_1       5.5093
+        2    joint_2       5.3820
+        3    joint_3       4.4903
+        4    joint_4       7.5746
+        5    joint_5       7.4129
+        6    joint_6       3.4583
+        7    joint_7       5.4132
+        8    joint_8       6.6994
+        9    joint_9       2.5463
+       10   joint_10       0.3714
+       11   joint_11       0.3777
+       12   joint_12       8.0212
+       13   joint_13       4.8919
+       14   joint_14       4.7825
+       15   joint_15       7.9196
+       16   joint_16       6.5795
+       17   joint_17       6.9925
+       18   joint_18       8.9065
+       19   joint_19       9.0758
+       20   joint_20       7.7630
+       21   joint_21       7.7924
+       22   joint_22       0.6836
+       23   joint_23       0.6607
+[2026-04-09 14:31:25] [20260409092645] Epoch: 122, train current per-joint positional error (cm):
+ joint_id joint_name  pos_err_cm
+        0    joint_0      0.0000
+        1    joint_1      1.3443
+        2    joint_2      1.2873
+        3    joint_3      1.2540
+        4    joint_4      5.6913
+        5    joint_5      5.7115
+        6    joint_6      2.5967
+        7    joint_7      9.8486
+        8    joint_8      9.7988
+        9    joint_9      3.1067
+       10   joint_10     10.8336
+       11   joint_11     10.8537
+       12   joint_12      5.8071
+       13   joint_13      4.8251
+       14   joint_14      4.7834
+       15   joint_15      6.5432
+       16   joint_16      5.5856
+       17   joint_17      5.5851
+       18   joint_18      6.3805
+       19   joint_19      6.4414
+       20   joint_20      8.6977
+       21   joint_21      9.0013
+       22   joint_22      9.9805
+       23   joint_23     10.2781
+[2026-04-09 14:31:25] [20260409092645] Epoch: 122, train future per-joint positional error (cm):
+ joint_id joint_name  pos_err_cm
+        0    joint_0      0.0000
+        1    joint_1      1.3724
+        2    joint_2      1.3070
+        3    joint_3      1.2835
+        4    joint_4      5.8187
+        5    joint_5      5.8434
+        6    joint_6      2.6432
+        7    joint_7     10.0468
+        8    joint_8      9.9801
+        9    joint_9      3.1621
+       10   joint_10     11.0726
+       11   joint_11     11.0407
+       12   joint_12      5.9100
+       13   joint_13      4.8978
+       14   joint_14      4.8762
+       15   joint_15      6.6635
+       16   joint_16      5.6470
+       17   joint_17      5.6971
+       18   joint_18      6.4396
+       19   joint_19      6.5130
+       20   joint_20      8.7507
+       21   joint_21      9.0803
+       22   joint_22     10.0374
+       23   joint_23     10.3698
+[2026-04-09 14:31:25] [20260409092645] Epoch: 122, val current per-joint positional error (cm):
+ joint_id joint_name  pos_err_cm
+        0    joint_0      0.0000
+        1    joint_1      1.6455
+        2    joint_2      1.6339
+        3    joint_3      1.5946
+        4    joint_4      7.2427
+        5    joint_5      7.5929
+        6    joint_6      3.3153
+        7    joint_7     12.6048
+        8    joint_8     12.7148
+        9    joint_9      3.9634
+       10   joint_10     13.6863
+       11   joint_11     13.8937
+       12   joint_12      7.2491
+       13   joint_13      6.0241
+       14   joint_14      5.9804
+       15   joint_15      8.1770
+       16   joint_16      6.8619
+       17   joint_17      6.8691
+       18   joint_18      7.5671
+       19   joint_19      7.5324
+       20   joint_20     10.3804
+       21   joint_21     10.5885
+       22   joint_22     11.8953
+       23   joint_23     12.1378
+[2026-04-09 14:31:25] [20260409092645] Epoch: 122, val future per-joint positional error (cm):
+ joint_id joint_name  pos_err_cm
+        0    joint_0      0.0000
+        1    joint_1      1.6728
+        2    joint_2      1.6375
+        3    joint_3      1.6164
+        4    joint_4      7.2384
+        5    joint_5      7.5024
+        6    joint_6      3.3953
+        7    joint_7     12.5912
+        8    joint_8     12.6596
+        9    joint_9      4.0667
+       10   joint_10     13.7253
+       11   joint_11     13.8702
+       12   joint_12      7.4571
+       13   joint_13      6.1796
+       14   joint_14      6.1561
+       15   joint_15      8.4008
+       16   joint_16      7.0239
+       17   joint_17      7.1079
+       18   joint_18      7.8852
+       19   joint_19      7.9094
+       20   joint_20     10.9885
+       21   joint_21     11.0907
+       22   joint_22     12.5514
+       23   joint_23     12.6803
+[2026-04-09 14:34:15] [20260409092645] Epoch: 123, train loss1: 0.0404, train loss2: 0.3376, train loss3: 0.0409, train current mean joint angle error: 4.5848 deg, train current positional error: 5.7679 cm, train future mean joint angle error: 4.6385 deg, train future positional error: 5.8285 cm
+[2026-04-09 14:34:15] [20260409092645] Epoch: 123, val loss1: 0.0532, val loss2: 0.4323, val loss3: 0.0558, val current mean joint angle error: 5.7500 deg, val current positional error: 7.8092 cm, val future mean joint angle error: 6.0185 deg, val future positional error: 8.1740 cm
+[2026-04-09 14:36:02] [20260409092645] Epoch: 124, train loss1: 0.0403, train loss2: 0.3371, train loss3: 0.0408, train current mean joint angle error: 4.5747 deg, train current positional error: 5.8460 cm, train future mean joint angle error: 4.6253 deg, train future positional error: 5.9939 cm
+[2026-04-09 14:36:02] [20260409092645] Epoch: 124, val loss1: 0.0527, val loss2: 0.4292, val loss3: 0.0552, val current mean joint angle error: 5.7104 deg, val current positional error: 8.3680 cm, val future mean joint angle error: 5.9576 deg, val future positional error: 8.7131 cm
+[2026-04-09 14:37:19] [20260409092645] Epoch: 125, train loss1: 0.0406, train loss2: 0.3386, train loss3: 0.0413, train current mean joint angle error: 4.6086 deg, train current positional error: 5.8913 cm, train future mean joint angle error: 4.6810 deg, train future positional error: 6.0230 cm
+[2026-04-09 14:37:19] [20260409092645] Epoch: 125, val loss1: 0.0514, val loss2: 0.4261, val loss3: 0.0535, val current mean joint angle error: 5.5953 deg, val current positional error: 7.6263 cm, val future mean joint angle error: 5.7976 deg, val future positional error: 7.7490 cm
+[2026-04-09 14:38:35] [20260409092645] Epoch: 126, train loss1: 0.0402, train loss2: 0.3367, train loss3: 0.0408, train current mean joint angle error: 4.5711 deg, train current positional error: 5.7968 cm, train future mean joint angle error: 4.6284 deg, train future positional error: 5.8898 cm
+[2026-04-09 14:38:35] [20260409092645] Epoch: 126, val loss1: 0.0515, val loss2: 0.4266, val loss3: 0.0537, val current mean joint angle error: 5.5962 deg, val current positional error: 8.3310 cm, val future mean joint angle error: 5.8372 deg, val future positional error: 8.5046 cm
+[2026-04-09 14:39:51] [20260409092645] Epoch: 127, train loss1: 0.0400, train loss2: 0.3354, train loss3: 0.0406, train current mean joint angle error: 4.5484 deg, train current positional error: 5.7157 cm, train future mean joint angle error: 4.6039 deg, train future positional error: 5.8446 cm
+[2026-04-09 14:39:51] [20260409092645] Epoch: 127, val loss1: 0.0523, val loss2: 0.4328, val loss3: 0.0548, val current mean joint angle error: 5.6866 deg, val current positional error: 7.8479 cm, val future mean joint angle error: 5.9640 deg, val future positional error: 8.1577 cm
+[2026-04-09 14:41:07] [20260409092645] Epoch: 128, train loss1: 0.0404, train loss2: 0.3375, train loss3: 0.0409, train current mean joint angle error: 4.5980 deg, train current positional error: 5.8410 cm, train future mean joint angle error: 4.6435 deg, train future positional error: 5.8873 cm
+[2026-04-09 14:41:07] [20260409092645] Epoch: 128, val loss1: 0.0514, val loss2: 0.4296, val loss3: 0.0535, val current mean joint angle error: 5.5802 deg, val current positional error: 7.9098 cm, val future mean joint angle error: 5.8199 deg, val future positional error: 8.1671 cm
+[2026-04-09 14:42:24] [20260409092645] Epoch: 129, train loss1: 0.0404, train loss2: 0.3357, train loss3: 0.0408, train current mean joint angle error: 4.5729 deg, train current positional error: 5.8289 cm, train future mean joint angle error: 4.6135 deg, train future positional error: 5.9163 cm
+[2026-04-09 14:42:24] [20260409092645] Epoch: 129, val loss1: 0.0502, val loss2: 0.4316, val loss3: 0.0522, val current mean joint angle error: 5.4367 deg, val current positional error: 7.5913 cm, val future mean joint angle error: 5.6534 deg, val future positional error: 7.8935 cm
+[2026-04-09 14:43:40] [20260409092645] Epoch: 130, train loss1: 0.0399, train loss2: 0.3338, train loss3: 0.0402, train current mean joint angle error: 4.5345 deg, train current positional error: 5.6617 cm, train future mean joint angle error: 4.5666 deg, train future positional error: 5.7327 cm
+[2026-04-09 14:43:40] [20260409092645] Epoch: 130, val loss1: 0.0501, val loss2: 0.4321, val loss3: 0.0524, val current mean joint angle error: 5.4306 deg, val current positional error: 7.4357 cm, val future mean joint angle error: 5.6803 deg, val future positional error: 7.8240 cm
+[2026-04-09 14:44:55] [20260409092645] Epoch: 131, train loss1: 0.0399, train loss2: 0.3337, train loss3: 0.0405, train current mean joint angle error: 4.5264 deg, train current positional error: 5.6168 cm, train future mean joint angle error: 4.5911 deg, train future positional error: 5.7852 cm
+[2026-04-09 14:44:55] [20260409092645] Epoch: 131, val loss1: 0.0509, val loss2: 0.4260, val loss3: 0.0531, val current mean joint angle error: 5.5437 deg, val current positional error: 7.5324 cm, val future mean joint angle error: 5.7706 deg, val future positional error: 7.7671 cm
+[2026-04-09 14:46:11] [20260409092645] Epoch: 132, train loss1: 0.0398, train loss2: 0.3327, train loss3: 0.0401, train current mean joint angle error: 4.5198 deg, train current positional error: 5.6078 cm, train future mean joint angle error: 4.5494 deg, train future positional error: 5.6785 cm
+[2026-04-09 14:46:11] [20260409092645] Epoch: 132, val loss1: 0.0517, val loss2: 0.4254, val loss3: 0.0541, val current mean joint angle error: 5.6185 deg, val current positional error: 7.8423 cm, val future mean joint angle error: 5.8635 deg, val future positional error: 8.1728 cm
+[2026-04-09 14:47:28] [20260409092645] Epoch: 133, train loss1: 0.0396, train loss2: 0.3324, train loss3: 0.0400, train current mean joint angle error: 4.5003 deg, train current positional error: 5.5983 cm, train future mean joint angle error: 4.5302 deg, train future positional error: 5.6552 cm
+[2026-04-09 14:47:28] [20260409092645] Epoch: 133, val loss1: 0.0511, val loss2: 0.4247, val loss3: 0.0538, val current mean joint angle error: 5.5548 deg, val current positional error: 7.7347 cm, val future mean joint angle error: 5.8270 deg, val future positional error: 8.0752 cm
+[2026-04-09 14:48:44] [20260409092645] Epoch: 134, train loss1: 0.0399, train loss2: 0.3322, train loss3: 0.0403, train current mean joint angle error: 4.5382 deg, train current positional error: 5.6981 cm, train future mean joint angle error: 4.5711 deg, train future positional error: 5.7711 cm
+[2026-04-09 14:48:44] [20260409092645] Epoch: 134, val loss1: 0.0504, val loss2: 0.4260, val loss3: 0.0523, val current mean joint angle error: 5.4964 deg, val current positional error: 7.5584 cm, val future mean joint angle error: 5.7053 deg, val future positional error: 7.9630 cm
+[2026-04-09 14:50:00] [20260409092645] Epoch: 135, train loss1: 0.0394, train loss2: 0.3319, train loss3: 0.0398, train current mean joint angle error: 4.4719 deg, train current positional error: 5.5881 cm, train future mean joint angle error: 4.5108 deg, train future positional error: 5.6251 cm
+[2026-04-09 14:50:00] [20260409092645] Epoch: 135, val loss1: 0.0524, val loss2: 0.4312, val loss3: 0.0548, val current mean joint angle error: 5.7124 deg, val current positional error: 7.6770 cm, val future mean joint angle error: 5.9422 deg, val future positional error: 8.0935 cm
+[2026-04-09 14:51:16] [20260409092645] Epoch: 136, train loss1: 0.0393, train loss2: 0.3308, train loss3: 0.0398, train current mean joint angle error: 4.4726 deg, train current positional error: 5.5319 cm, train future mean joint angle error: 4.5202 deg, train future positional error: 5.5709 cm
+[2026-04-09 14:51:16] [20260409092645] Epoch: 136, val loss1: 0.0498, val loss2: 0.4246, val loss3: 0.0518, val current mean joint angle error: 5.4257 deg, val current positional error: 7.4430 cm, val future mean joint angle error: 5.6374 deg, val future positional error: 7.8452 cm
+[2026-04-09 14:52:32] [20260409092645] Epoch: 137, train loss1: 0.0395, train loss2: 0.3317, train loss3: 0.0400, train current mean joint angle error: 4.4891 deg, train current positional error: 5.5810 cm, train future mean joint angle error: 4.5406 deg, train future positional error: 5.6653 cm
+[2026-04-09 14:52:32] [20260409092645] Epoch: 137, val loss1: 0.0539, val loss2: 0.4264, val loss3: 0.0554, val current mean joint angle error: 5.8362 deg, val current positional error: 8.3062 cm, val future mean joint angle error: 5.9790 deg, val future positional error: 8.4394 cm
+[2026-04-09 14:53:48] [20260409092645] Epoch: 138, train loss1: 0.0397, train loss2: 0.3320, train loss3: 0.0402, train current mean joint angle error: 4.5100 deg, train current positional error: 5.6836 cm, train future mean joint angle error: 4.5617 deg, train future positional error: 5.8010 cm
+[2026-04-09 14:53:48] [20260409092645] Epoch: 138, val loss1: 0.0508, val loss2: 0.4263, val loss3: 0.0531, val current mean joint angle error: 5.4928 deg, val current positional error: 7.5087 cm, val future mean joint angle error: 5.7362 deg, val future positional error: 7.9632 cm
+[2026-04-09 14:55:04] [20260409092645] Epoch: 139, train loss1: 0.0399, train loss2: 0.3326, train loss3: 0.0403, train current mean joint angle error: 4.5242 deg, train current positional error: 5.7961 cm, train future mean joint angle error: 4.5674 deg, train future positional error: 5.8974 cm
+[2026-04-09 14:55:04] [20260409092645] Epoch: 139, val loss1: 0.0507, val loss2: 0.4289, val loss3: 0.0528, val current mean joint angle error: 5.4957 deg, val current positional error: 7.7578 cm, val future mean joint angle error: 5.7151 deg, val future positional error: 8.0039 cm
+[2026-04-09 14:56:20] [20260409092645] Epoch: 140, train loss1: 0.0393, train loss2: 0.3301, train loss3: 0.0398, train current mean joint angle error: 4.4581 deg, train current positional error: 5.5998 cm, train future mean joint angle error: 4.5129 deg, train future positional error: 5.6910 cm
+[2026-04-09 14:56:20] [20260409092645] Epoch: 140, val loss1: 0.0501, val loss2: 0.4288, val loss3: 0.0525, val current mean joint angle error: 5.4473 deg, val current positional error: 7.4920 cm, val future mean joint angle error: 5.6879 deg, val future positional error: 7.8236 cm
+[2026-04-09 14:57:36] [20260409092645] Epoch: 141, train loss1: 0.0391, train loss2: 0.3291, train loss3: 0.0397, train current mean joint angle error: 4.4478 deg, train current positional error: 5.4735 cm, train future mean joint angle error: 4.5103 deg, train future positional error: 5.5665 cm
+[2026-04-09 14:57:36] [20260409092645] Epoch: 141, val loss1: 0.0492, val loss2: 0.4243, val loss3: 0.0516, val current mean joint angle error: 5.3481 deg, val current positional error: 7.3302 cm, val future mean joint angle error: 5.6019 deg, val future positional error: 7.6091 cm
+[2026-04-09 14:57:36] [20260409092645] Epoch: 141, train current per-joint angle error (deg):
+ joint_id joint_name  ang_err_deg
+        0    joint_0       8.0311
+        1    joint_1       4.3472
+        2    joint_2       4.3141
+        3    joint_3       3.5848
+        4    joint_4       5.7688
+        5    joint_5       5.6908
+        6    joint_6       2.9304
+        7    joint_7       4.4847
+        8    joint_8       5.6514
+        9    joint_9       2.1915
+       10   joint_10       0.3599
+       11   joint_11       0.3422
+       12   joint_12       6.3346
+       13   joint_13       3.9988
+       14   joint_14       3.9716
+       15   joint_15       6.3079
+       16   joint_16       5.2720
+       17   joint_17       5.4677
+       18   joint_18       6.9566
+       19   joint_19       7.0734
+       20   joint_20       6.2913
+       21   joint_21       6.4026
+       22   joint_22       0.4106
+       23   joint_23       0.5640
+[2026-04-09 14:57:36] [20260409092645] Epoch: 141, train future per-joint angle error (deg):
+ joint_id joint_name  ang_err_deg
+        0    joint_0       8.1943
+        1    joint_1       4.4027
+        2    joint_2       4.3744
+        3    joint_3       3.6648
+        4    joint_4       5.8859
+        5    joint_5       5.7342
+        6    joint_6       2.9332
+        7    joint_7       4.5497
+        8    joint_8       5.7299
+        9    joint_9       2.2059
+       10   joint_10       0.3504
+       11   joint_11       0.3414
+       12   joint_12       6.4464
+       13   joint_13       4.0447
+       14   joint_14       4.0015
+       15   joint_15       6.3902
+       16   joint_16       5.3201
+       17   joint_17       5.4920
+       18   joint_18       7.1249
+       19   joint_19       7.2618
+       20   joint_20       6.3775
+       21   joint_21       6.4536
+       22   joint_22       0.4158
+       23   joint_23       0.5514
+[2026-04-09 14:57:36] [20260409092645] Epoch: 141, val current per-joint angle error (deg):
+ joint_id joint_name  ang_err_deg
+        0    joint_0      11.2504
+        1    joint_1       5.6328
+        2    joint_2       5.3367
+        3    joint_3       4.5269
+        4    joint_4       6.8301
+        5    joint_5       6.7746
+        6    joint_6       3.2665
+        7    joint_7       5.0635
+        8    joint_8       6.3897
+        9    joint_9       2.5153
+       10   joint_10       0.3504
+       11   joint_11       0.3575
+       12   joint_12       7.6341
+       13   joint_13       4.7072
+       14   joint_14       4.6712
+       15   joint_15       7.4900
+       16   joint_16       6.3359
+       17   joint_17       6.5794
+       18   joint_18       8.0476
+       19   joint_19       8.4507
+       20   joint_20       7.3801
+       21   joint_21       7.7865
+       22   joint_22       0.4160
+       23   joint_23       0.5616
+[2026-04-09 14:57:36] [20260409092645] Epoch: 141, val future per-joint angle error (deg):
+ joint_id joint_name  ang_err_deg
+        0    joint_0      11.5180
+        1    joint_1       5.7667
+        2    joint_2       5.8008
+        3    joint_3       4.8086
+        4    joint_4       7.2601
+        5    joint_5       7.2440
+        6    joint_6       3.4331
+        7    joint_7       5.2823
+        8    joint_8       6.6006
+        9    joint_9       2.6394
+       10   joint_10       0.3724
+       11   joint_11       0.3828
+       12   joint_12       8.0310
+       13   joint_13       4.9059
+       14   joint_14       4.8592
+       15   joint_15       7.7929
+       16   joint_16       6.5056
+       17   joint_17       6.8877
+       18   joint_18       8.4751
+       19   joint_19       9.0049
+       20   joint_20       7.5823
+       21   joint_21       8.1521
+       22   joint_22       0.4205
+       23   joint_23       0.7205
+[2026-04-09 14:57:36] [20260409092645] Epoch: 141, train current per-joint positional error (cm):
+ joint_id joint_name  pos_err_cm
+        0    joint_0      0.0000
+        1    joint_1      1.1627
+        2    joint_2      1.1291
+        3    joint_3      1.0865
+        4    joint_4      4.9681
+        5    joint_5      5.0602
+        6    joint_6      2.2929
+        7    joint_7      8.7503
+        8    joint_8      8.7600
+        9    joint_9      2.7589
+       10   joint_10      9.6083
+       11   joint_11      9.6612
+       12   joint_12      5.1550
+       13   joint_13      4.2813
+       14   joint_14      4.2300
+       15   joint_15      5.8507
+       16   joint_16      4.9629
+       17   joint_17      4.9555
+       18   joint_18      5.8068
+       19   joint_19      5.8640
+       20   joint_20      8.0156
+       21   joint_21      8.3035
+       22   joint_22      9.2106
+       23   joint_23      9.4911
+[2026-04-09 14:57:36] [20260409092645] Epoch: 141, train future per-joint positional error (cm):
+ joint_id joint_name  pos_err_cm
+        0    joint_0      0.0000
+        1    joint_1      1.1836
+        2    joint_2      1.1501
+        3    joint_3      1.1051
+        4    joint_4      5.0578
+        5    joint_5      5.1596
+        6    joint_6      2.3385
+        7    joint_7      8.8957
+        8    joint_8      8.9341
+        9    joint_9      2.8154
+       10   joint_10      9.7726
+       11   joint_11      9.8625
+       12   joint_12      5.2596
+       13   joint_13      4.3673
+       14   joint_14      4.3166
+       15   joint_15      5.9723
+       16   joint_16      5.0537
+       17   joint_17      5.0486
+       18   joint_18      5.8980
+       19   joint_19      5.9273
+       20   joint_20      8.1413
+       21   joint_21      8.3879
+       22   joint_22      9.3538
+       23   joint_23      9.5937
+[2026-04-09 14:57:36] [20260409092645] Epoch: 141, val current per-joint positional error (cm):
+ joint_id joint_name  pos_err_cm
+        0    joint_0      0.0000
+        1    joint_1      1.5720
+        2    joint_2      1.5738
+        3    joint_3      1.5481
+        4    joint_4      7.0517
+        5    joint_5      7.0221
+        6    joint_6      3.2661
+        7    joint_7     12.0468
+        8    joint_8     11.7397
+        9    joint_9      3.9018
+       10   joint_10     13.2805
+       11   joint_11     12.9757
+       12   joint_12      7.1919
+       13   joint_13      6.0013
+       14   joint_14      5.8900
+       15   joint_15      8.0800
+       16   joint_16      6.8500
+       17   joint_17      6.7716
+       18   joint_18      7.5121
+       19   joint_19      7.7038
+       20   joint_20      9.8945
+       21   joint_21     10.6193
+       22   joint_22     11.3369
+       23   joint_23     12.0944
+[2026-04-09 14:57:36] [20260409092645] Epoch: 141, val future per-joint positional error (cm):
+ joint_id joint_name  pos_err_cm
+        0    joint_0      0.0000
+        1    joint_1      1.6241
+        2    joint_2      1.6164
+        3    joint_3      1.6085
+        4    joint_4      7.2154
+        5    joint_5      7.4697
+        6    joint_6      3.4136
+        7    joint_7     12.2919
+        8    joint_8     12.4883
+        9    joint_9      4.0872
+       10   joint_10     13.4862
+       11   joint_11     13.7648
+       12   joint_12      7.5104
+       13   joint_13      6.2243
+       14   joint_14      6.1805
+       15   joint_15      8.4331
+       16   joint_16      7.0612
+       17   joint_17      7.1290
+       18   joint_18      7.7448
+       19   joint_19      7.9660
+       20   joint_20     10.3664
+       21   joint_21     10.7939
+       22   joint_22     11.8557
+       23   joint_23     12.2869
+[2026-04-09 14:58:52] [20260409092645] Epoch: 142, train loss1: 0.0389, train loss2: 0.3285, train loss3: 0.0395, train current mean joint angle error: 4.4242 deg, train current positional error: 5.4755 cm, train future mean joint angle error: 4.4811 deg, train future positional error: 5.5704 cm
+[2026-04-09 14:58:52] [20260409092645] Epoch: 142, val loss1: 0.0523, val loss2: 0.4251, val loss3: 0.0544, val current mean joint angle error: 5.7216 deg, val current positional error: 8.1132 cm, val future mean joint angle error: 5.9378 deg, val future positional error: 8.3640 cm
+[2026-04-09 15:00:08] [20260409092645] Epoch: 143, train loss1: 0.0390, train loss2: 0.3290, train loss3: 0.0396, train current mean joint angle error: 4.4278 deg, train current positional error: 5.5336 cm, train future mean joint angle error: 4.4849 deg, train future positional error: 5.5952 cm
+[2026-04-09 15:00:08] [20260409092645] Epoch: 143, val loss1: 0.0496, val loss2: 0.4257, val loss3: 0.0521, val current mean joint angle error: 5.3848 deg, val current positional error: 7.3803 cm, val future mean joint angle error: 5.6439 deg, val future positional error: 7.7800 cm
+[2026-04-09 15:01:24] [20260409092645] Epoch: 144, train loss1: 0.0391, train loss2: 0.3287, train loss3: 0.0396, train current mean joint angle error: 4.4429 deg, train current positional error: 5.5671 cm, train future mean joint angle error: 4.4855 deg, train future positional error: 5.6226 cm
+[2026-04-09 15:01:24] [20260409092645] Epoch: 144, val loss1: 0.0496, val loss2: 0.4240, val loss3: 0.0517, val current mean joint angle error: 5.3890 deg, val current positional error: 7.5642 cm, val future mean joint angle error: 5.6059 deg, val future positional error: 7.9094 cm
+[2026-04-09 15:02:40] [20260409092645] Epoch: 145, train loss1: 0.0391, train loss2: 0.3279, train loss3: 0.0395, train current mean joint angle error: 4.4416 deg, train current positional error: 5.5656 cm, train future mean joint angle error: 4.4757 deg, train future positional error: 5.6137 cm
+[2026-04-09 15:02:40] [20260409092645] Epoch: 145, val loss1: 0.0499, val loss2: 0.4262, val loss3: 0.0520, val current mean joint angle error: 5.4175 deg, val current positional error: 7.4080 cm, val future mean joint angle error: 5.6266 deg, val future positional error: 7.6816 cm
+[2026-04-09 15:03:56] [20260409092645] Epoch: 146, train loss1: 0.0389, train loss2: 0.3267, train loss3: 0.0394, train current mean joint angle error: 4.4144 deg, train current positional error: 5.4177 cm, train future mean joint angle error: 4.4732 deg, train future positional error: 5.5526 cm
+[2026-04-09 15:03:56] [20260409092645] Epoch: 146, val loss1: 0.0525, val loss2: 0.4246, val loss3: 0.0547, val current mean joint angle error: 5.6930 deg, val current positional error: 7.8464 cm, val future mean joint angle error: 5.9043 deg, val future positional error: 8.0850 cm
+[2026-04-09 15:05:11] [20260409092645] Epoch: 147, train loss1: 0.0392, train loss2: 0.3294, train loss3: 0.0397, train current mean joint angle error: 4.4465 deg, train current positional error: 5.5584 cm, train future mean joint angle error: 4.5042 deg, train future positional error: 5.6636 cm
+[2026-04-09 15:05:11] [20260409092645] Epoch: 147, val loss1: 0.0502, val loss2: 0.4284, val loss3: 0.0522, val current mean joint angle error: 5.4697 deg, val current positional error: 7.5401 cm, val future mean joint angle error: 5.6610 deg, val future positional error: 7.7732 cm
+[2026-04-09 15:06:27] [20260409092645] Epoch: 148, train loss1: 0.0387, train loss2: 0.3273, train loss3: 0.0392, train current mean joint angle error: 4.3990 deg, train current positional error: 5.5066 cm, train future mean joint angle error: 4.4456 deg, train future positional error: 5.5881 cm
+[2026-04-09 15:06:27] [20260409092645] Epoch: 148, val loss1: 0.0503, val loss2: 0.4292, val loss3: 0.0524, val current mean joint angle error: 5.4579 deg, val current positional error: 7.5451 cm, val future mean joint angle error: 5.6883 deg, val future positional error: 7.9208 cm
+[2026-04-09 15:07:43] [20260409092645] Epoch: 149, train loss1: 0.0390, train loss2: 0.3270, train loss3: 0.0395, train current mean joint angle error: 4.4207 deg, train current positional error: 5.5288 cm, train future mean joint angle error: 4.4794 deg, train future positional error: 5.6568 cm
+[2026-04-09 15:07:43] [20260409092645] Epoch: 149, val loss1: 0.0521, val loss2: 0.4259, val loss3: 0.0540, val current mean joint angle error: 5.6432 deg, val current positional error: 7.4094 cm, val future mean joint angle error: 5.8335 deg, val future positional error: 7.7377 cm
+[2026-04-09 15:09:00] [20260409092645] Epoch: 150, train loss1: 0.0389, train loss2: 0.3262, train loss3: 0.0393, train current mean joint angle error: 4.4183 deg, train current positional error: 5.5564 cm, train future mean joint angle error: 4.4527 deg, train future positional error: 5.5776 cm
+[2026-04-09 15:09:00] [20260409092645] Epoch: 150, val loss1: 0.0511, val loss2: 0.4256, val loss3: 0.0536, val current mean joint angle error: 5.5363 deg, val current positional error: 7.3850 cm, val future mean joint angle error: 5.8141 deg, val future positional error: 7.7082 cm

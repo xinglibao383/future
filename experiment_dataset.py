@@ -11,8 +11,9 @@ from models.posenet24 import *
 
 torch.manual_seed(3407)
 devices = [torch.device('cuda:1')]
-DATASET = 'AMASS'
-# DATASET = 'DIP-IMU'
+# DATASET = 'AMASS'
+DATASET = 'DIP-IMU'
+# DATASET = 'IMUPoser'
 output_save_path = os.path.join('/mnt/mydata/yh/liming/workspace/future/outputs/experiment2028/dataset', DATASET)
 
 
@@ -24,22 +25,23 @@ def ours():
     mask_ratio, batch_size, lr, num_epochs, loss_func = 0.25, 256, 1e-3, 200, "l1"
     resnet_verson, imu_generator = "resnet18", "transformer"
     transformer_hidden, transformer_layers, transformer_nhead, transformer_dropout = 128, 2, 4, 0.1
-    use_len, compute_len, predict_len, stride_len = 240, 60, 60, 60
-    input_channels, need_normalize, alpha, beta, gamma = 204, True, 1, 1, 1
+    compute_len, predict_len = 25 if DATASET == 'IMUPoser' else 60, 25 if DATASET == 'IMUPoser' else 60
+    input_channels, need_normalize, alpha, beta, gamma = 60 if DATASET == 'IMUPoser' else 204, True, 1, 1, 1
     params = {
         "mask_ratio": mask_ratio, "batch_size": batch_size, "lr": lr, "epochs": num_epochs, "loss_func": loss_func,
         "resnet_verson": resnet_verson, "imu_generator": imu_generator, 
         "transformer_hidden": transformer_hidden, "transformer_layers": transformer_layers, "transformer_nhead": transformer_nhead, "transformer_dropout": transformer_dropout, 
-        "use_len": use_len, "compute_len": compute_len, "predict_len": predict_len, "stride_len": stride_len,
         "need_normalize": need_normalize, "alpha": alpha, "beta": beta, "gamma": gamma,
     }
     logger.record([", ".join([f"{k}={v}" for k, v in params.items()])])
     imu_generator_params = (transformer_hidden, transformer_layers, transformer_nhead, transformer_dropout)
     model = PoseNet(input_channels=input_channels, resnet_verson=resnet_verson, imu_generator=imu_generator, imu_generator_params=imu_generator_params, target_time=int(predict_len / 60 * 60), target_poses=predict_len, num_poses=compute_len, num_keypoints=24, output_dim=3)
     if DATASET == 'DIP-IMU':
-        train_loader, val_loader = get_dataloaders_dip_imu(use_len/60, compute_len/60, predict_len/60, stride_len/60, batch_size, 0.8, random_seed=3407)
+        train_loader, val_loader = get_dataloaders_dip_imu(4, 1, 1, 1, batch_size, 0.8, random_seed=3407)
+    elif DATASET == 'AMASS':   
+        train_loader, val_loader = get_dataloaders_amass(4, 1, 1, 1, batch_size, 0.8, random_seed=3407)
     else:
-        train_loader, val_loader = get_dataloaders_amass(use_len/60, compute_len/60, predict_len/60, stride_len/60, batch_size, 0.8, random_seed=3407)
+        train_loader, val_loader = get_dataloaders_imuposer(4, 1, 1, 1, batch_size, 0.8, random_seed=3407)
     train3(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_normalize, alpha, beta, gamma, num_epochs, devices, output_save_path, logger, timestamp)
 
 
@@ -50,22 +52,23 @@ def experiment_baseline(baseline):
     logger.record([f'备注: 数据集={DATASET}, baseline={baseline}'])
     mask_ratio, batch_size, lr, num_epochs, loss_func = 0.25, 256, 1e-3, 200, "l1"
     resnet_verson, hidden_dim, num_layers, nhead, dropout = "resnet18", 128, 2, 4, 0.1
-    use_len, compute_len, predict_len, stride_len = 4, 1, 1, 1
-    input_channels, train_ratio, need_normalize = 204, 0.8, True
+    compute_len = 25 if DATASET == 'IMUPoser' else 60
+    input_channels, train_ratio, need_normalize = 60 if DATASET == 'IMUPoser' else 204, 0.8, True
     params = {
         "baseline": baseline, "resnet_verson": resnet_verson,
         "mask_ratio": mask_ratio, "batch_size": batch_size, "lr": lr, "epochs": num_epochs, "loss_func": loss_func,
         "hidden_dim": hidden_dim, "num_layers": num_layers, "nhead": nhead, "dropout": dropout,
-        "use_len": use_len, "compute_len": compute_len, "predict_len": predict_len, "stride_len": stride_len,
         "input_channels": input_channels, "train_ratio": train_ratio, 
         "need_normalize": need_normalize,
     }
     logger.record([", ".join([f"{k}={v}" for k, v in params.items()])])
-    model = build_baseline_model(name=baseline, input_channels=input_channels, num_poses=compute_len*60, hidden_dim=hidden_dim, num_layers=num_layers, nhead=nhead, dropout=dropout, resnet_verson=resnet_verson, num_keypoints=24, output_dim=3)
+    model = build_baseline_model(name=baseline, input_channels=input_channels, num_poses=compute_len, hidden_dim=hidden_dim, num_layers=num_layers, nhead=nhead, dropout=dropout, resnet_verson=resnet_verson, num_keypoints=24, output_dim=3)
     if DATASET == 'DIP-IMU':
-        train_loader, val_loader = get_dataloaders_dip_imu(use_len, compute_len, predict_len, stride_len, batch_size, train_ratio, random_seed=3407)
-    else:   
-        train_loader, val_loader = get_dataloaders_amass(use_len, compute_len, predict_len, stride_len, batch_size, train_ratio, random_seed=3407)
+        train_loader, val_loader = get_dataloaders_dip_imu(4, 1, 1, 1, batch_size, train_ratio, random_seed=3407)
+    elif DATASET == 'AMASS':   
+        train_loader, val_loader = get_dataloaders_amass(4, 1, 1, 1, batch_size, train_ratio, random_seed=3407)
+    else:
+        train_loader, val_loader = get_dataloaders_imuposer(4, 1, 1, 1, batch_size, train_ratio, random_seed=3407)
     train(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_normalize, num_epochs, devices, output_save_path, logger, timestamp)
 
 

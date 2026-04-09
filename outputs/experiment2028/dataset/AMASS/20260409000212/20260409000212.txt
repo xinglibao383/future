@@ -1,2 +1,0 @@
-[2026-04-09 00:02:12] 备注: 数据集=AMASS, baseline=aipose
-[2026-04-09 00:02:12] mask_ratio=0.25, batch_size=256, lr=0.001, epochs=200, loss_func=l1, resnet_verson=resnet18, imu_generator=transformer, transformer_hidden=128, transformer_layers=2, transformer_nhead=4, transformer_dropout=0.1, use_len=240, compute_len=60, predict_len=60, stride_len=60, need_normalize=True, alpha=1, beta=1, gamma=1

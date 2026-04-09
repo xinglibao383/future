@@ -3,6 +3,18 @@ from utils.xrfv22 import *
 from utils.xrfv22_max_predict_len import *
 from utils.dip_imu import *
 from utils.amass import *
+from utils.imuposer_dataset import *
+
+
+def get_dataloaders_imuposer(use_len, compute_len, predict_len, stride_len, batch_size, train_ratio, random_seed=None):
+    use_len, compute_len, predict_len, stride_len = int(use_len), int(compute_len), int(predict_len), int(stride_len)
+    if random_seed != None: torch.manual_seed(random_seed)
+    dataset = IMUPoserDataset(use_len, compute_len, predict_len, stride_len, fps=25)
+    train_size = int(train_ratio * len(dataset))
+    val_size = len(dataset) - train_size
+    train_dataset, val_dataset = random_split(dataset, [train_size, val_size])
+    return (DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=2, prefetch_factor=2, persistent_workers=True, pin_memory=True), 
+            DataLoader(val_dataset, batch_size=batch_size, shuffle=False, num_workers=2, prefetch_factor=2, persistent_workers=True, pin_memory=True))
 
 
 def get_dataloaders_amass(use_len, compute_len, predict_len, stride_len, batch_size, train_ratio, random_seed=None):

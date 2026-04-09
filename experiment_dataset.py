@@ -79,6 +79,6 @@ if __name__ == "__main__":
     # experiment_baseline(baseline="pip_like_recon")
     # experiment_baseline(baseline="asip_like_recon")
     # experiment_baseline(baseline="mobileposer_like_recon")
-    experiment_baseline(baseline="imuposer_like_recon")
+    # experiment_baseline(baseline="imuposer_like_recon")
     # experiment_baseline(baseline="tip_like_recon")
-    # experiment_baseline(baseline="dynaip_like_recon")
+    experiment_baseline(baseline="dynaip_like_recon")

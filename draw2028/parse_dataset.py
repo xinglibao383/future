@@ -268,3 +268,10 @@ if __name__ == "__main__":
     results = sort_results_by_sum_desc(collect_results(root_dir))
     for item in results:
         print(item)
+
+    print("========================= IMUPoser =========================")
+
+    root_dir = "/mnt/mydata/yh/liming/workspace/future/outputs/experiment2028/dataset/IMUPoser"
+    results = sort_results_by_sum_desc(collect_results(root_dir))
+    for item in results:
+        print(item)

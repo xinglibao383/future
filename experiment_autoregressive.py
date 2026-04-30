@@ -10,7 +10,7 @@ from models.posenet_whi import *
 
 torch.manual_seed(3407)
 devices = [torch.device('cuda:0'), torch.device('cuda:1')]
-devices = [torch.device('cuda:2'), torch.device('cuda:3')]
+# devices = [torch.device('cuda:2'), torch.device('cuda:3')]
 output_save_path = '/mnt/mydata/yh/liming/workspace/future/outputs/experiment2028/autoregressive'
 data_root_path = '/mnt/mydata/yh/liming/workspace/future/mydata'
 
@@ -88,5 +88,5 @@ def ours_without_history_imu():
 # /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/experiment_autoregressive.py
 if __name__ == "__main__":
     # ours()
-    ours_with_pose_generator()
-    # ours_without_history_imu()
+    # ours_with_pose_generator()
+    ours_without_history_imu()

@@ -224,3 +224,5 @@
        22    RBigToe 262.8332
        23  RSmallToe 269.5084
        24      RHeel 247.7629
+[2026-05-01 00:31:34] [20260501002704] Epoch: 2, train loss1: 0.2248, train loss2: 0.5093, train loss3: 0.2273, train current mpjpe: 135.0380, train future mpjpe: 134.2578
+[2026-05-01 00:31:34] [20260501002704] Epoch: 2, val loss1: 0.2886, val loss2: 0.4966, val loss3: 0.3481, val current mpjpe: 153.3934, val future mpjpe: 211.3547

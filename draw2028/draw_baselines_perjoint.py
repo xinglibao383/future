@@ -7,7 +7,7 @@ FONT_PATH = "/usr/share/fonts/opentype/noto/NotoSerifCJK-Regular.ttc"
 
 cn_font_tick = FontProperties(fname=FONT_PATH, size=16)
 cn_font_label = FontProperties(fname=FONT_PATH, size=18)
-cn_font_legend = FontProperties(fname=FONT_PATH, size=16)
+cn_font_legend = FontProperties(fname=FONT_PATH, size=14)
 
 plt.rcParams["axes.unicode_minus"] = False
 plt.rcParams["pdf.fonttype"] = 42
@@ -82,8 +82,11 @@ def plot_per_joint_group(save_path, labels, method_data):
 
     ax.grid(True, axis='y', linestyle="--", alpha=0.4)
 
-    ax.legend(frameon=False, ncol=4)
-
+    ax.legend(
+        frameon=False,
+        ncol=4,
+        prop=cn_font_legend
+    )
 
     left_edge = x[0] + offsets[0] - bar_width / 2
     right_edge = x[-1] + offsets[-1] + bar_width / 2
@@ -156,7 +159,7 @@ def plot_all_per_joint_groups(save_dir):
             135.8306, 142.8988, 129.4154, 116.2933, 132.7475,
             133.8030, 109.0107, 131.3712, 131.2569, 116.2548
         ],
-        "AIPose (Ours)": [
+        "本章方法": [
             64.1483, 38.5916, 40.2098, 47.0918, 72.0981,
             40.3357, 42.3335, 60.4632, 0.2224, 11.4034,
             41.6569, 61.9996, 12.5581, 40.7128, 56.6253,
@@ -166,8 +169,8 @@ def plot_all_per_joint_groups(save_dir):
     }
 
     group_indices = [
-        (0, 13),   # 前13个
-        (13, 25),  # 后12个
+        (0, 13),
+        (13, 25),
     ]
 
     for idx, (start, end) in enumerate(group_indices, start=1):
@@ -185,7 +188,6 @@ def plot_all_per_joint_groups(save_dir):
         )
 
 
-# /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/draw2028/draw_baselines_perjoint.py
 if __name__ == "__main__":
-    # plot_all_per_joint_groups("/mnt/mydata/yh/liming/workspace/future/draw2028/imgs/per_joint")
-    plot_all_per_joint_groups("/root/future/draw2028/imgs/per_joint")
+    plot_all_per_joint_groups("/mnt/mydata/yh/liming/workspace/future/draw2028/imgs/per_joint")
+    # plot_all_per_joint_groups("/root/future/draw2028/imgs/per_joint")

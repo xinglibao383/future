@@ -10,10 +10,10 @@ from models.posenet24 import *
 
 
 torch.manual_seed(3407)
-devices = [torch.device('cuda:3')]
-# DATASET = 'AMASS'
+devices = [torch.device('cuda:1')]
+DATASET = 'AMASS'
 # DATASET = 'DIP-IMU'
-DATASET = 'IMUPoser'
+# DATASET = 'IMUPoser'
 output_save_path = os.path.join('/mnt/mydata/yh/liming/workspace/future/outputs/experiment2028/dataset', DATASET)
 
 

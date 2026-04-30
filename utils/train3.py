@@ -154,6 +154,9 @@ def train(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_norma
         current_score = val_metrics["current_mpjpe"] + val_metrics["future_mpjpe"]
         is_best_epoch = current_score < min_val_mpjpe
         if is_best_epoch:
+            if os.path.exists(os.path.join(output_save_path, timestamp, "checkpoints", f"epoch_{best_epoch}.pth")):
+                os.remove(os.path.join(output_save_path, timestamp, "checkpoints", f"epoch_{best_epoch}.pth"))
+            torch.save(model.state_dict(), os.path.join(output_save_path, timestamp, "checkpoints", f"epoch_{epoch}.pth"))
             min_val_mpjpe = current_score
             best_epoch = epoch
             best_val_metrics = val_metrics

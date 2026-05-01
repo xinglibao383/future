@@ -1,12 +1,21 @@
 import os
+import csv
 import datetime
 import torch
+import shutil
 from utils.logger import Logger
 from utils.dataloader import *
 from utils.train3 import train as train3
 from models.posenet import *
 from utils.predict_max_predict_len import *
 from draw2028.draw_max_predict_len import *
+
+
+def append_csv(csv_path, noise_steps, noise_std, noise_type, data):
+    ns = "None" if noise_steps is None else "_".join(map(str, noise_steps))
+    os.makedirs(os.path.dirname(csv_path), exist_ok=True)
+    with open(csv_path, "a", newline="", encoding="utf-8") as f:
+        csv.writer(f).writerow([ns, noise_std, noise_type, *data])
 
 
 def accumulate_error(checkpoint_filepath=None, noise_steps=None, noise_std=0.0, noise_type="gaussian"):
@@ -35,7 +44,10 @@ def accumulate_error(checkpoint_filepath=None, noise_steps=None, noise_std=0.0, 
     if checkpoint_filepath is not None:
         _, val_loader = get_dataloaders_v3(data_root_path, use_len, compute_len, 150, stride_len, batch_size, 0.8, random_seed=3407)
         data = val_loss_mpjpe(model, checkpoint_filepath, devices[0], val_loader, logger, noise_steps, noise_std, noise_type)
-        plot_prediction_horizon(save_path=os.path.join(output_save_path, timestamp, f"{timestamp}.png"), y=data)
+        data = [round(x, 2) for x in data]
+        shutil.rmtree(os.path.join(output_save_path, f"{timestamp}"))
+        plot_prediction_horizon(save_path=os.path.join(output_save_path, f"{noise_steps}_{noise_std}_{noise_type}.png"), y=data)
+        append_csv("/mnt/mydata/yh/liming/workspace/future/outputs/experiment2028/accumulate_error/data.csv", noise_steps, noise_std, noise_type, data)
     else:
         train_loader, val_loader = get_dataloaders_v3_max_predict_len(data_root_path, use_len, compute_len, 150, stride_len, batch_size, 0.8)
         train3(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_normalize, alpha, beta, gamma, num_epochs, devices, output_save_path, logger, timestamp)

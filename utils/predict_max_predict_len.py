@@ -15,7 +15,7 @@ def normalize(x, eps=1e-6):
     return (x - mean) / std
 
 
-def val_loss_mpjpe(model, checkpoint_filepath, device, dataloader, logger, noise_steps=None, noise_std=0.0, noise_type="gaussian"):
+def val_loss_mpjpe(model, checkpoint_filepath, device, dataloader, logger, noise_steps=None, noise_std=0.0):
     model = torch.nn.DataParallel(model)
     model.load_state_dict(torch.load(checkpoint_filepath))
     model = model.to(device)
@@ -41,15 +41,7 @@ def val_loss_mpjpe(model, checkpoint_filepath, device, dataloader, logger, noise
                 # ========================= 噪声注入 =========================
                 if noise_steps is not None and j in noise_steps:
                     std = x2_hat.std(dim=(0, 2), keepdim=True)
-                    if noise_type == "gaussian":
-                        noise = torch.randn_like(x2_hat) * noise_std * std
-                        x2_hat = x2_hat + noise
-                    elif noise_type == "uniform":
-                        noise = (torch.rand_like(x2_hat) - 0.5) * 2 * noise_std * std
-                        x2_hat = x2_hat + noise
-                    elif noise_type == "scale":
-                        noise = 1 + torch.randn_like(x2_hat) * noise_std
-                        x2_hat = x2_hat * noise
+                    x2_hat = x2_hat + torch.randn_like(x2_hat) * noise_std * std
                 # ============================================================
                 x1 = torch.cat([x1[:, :, 50:], x2_hat], dim=-1)
                 _, x2_hat, y2_hat = model(x1)

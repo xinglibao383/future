@@ -56,7 +56,7 @@ def accumulate_error(checkpoint_filepath=None, noise_steps=None, noise_std=0.0, 
 # nohup /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/experiment_accumulate_error.py > /dev/null 2>&1 &
 # /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/experiment_accumulate_error.py
 if __name__ == "__main__":
-    for noise_step in range(10):
+    for noise_step in range(9):
         for noise_type in ["gaussian", "uniform", "scale"]:
             for noise_std in range(10):
                 accumulate_error(

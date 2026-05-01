@@ -61,7 +61,7 @@ if __name__ == "__main__":
     os.makedirs("/mnt/mydata/yh/liming/workspace/future/outputs/experiment2028/accumulate_error/imgs_combinations", exist_ok=True)
     for noise_step in range(9):
         data_list, label = [], []
-        for noise_std in (0, 5, 10, 15):
+        for noise_std in (0, 1, 2, 8, 64):
             data = accumulate_error(
                 checkpoint_filepath="/mnt/mydata/yh/liming/workspace/future/outputs/experiment2028/accumulate_error/20260501003207/epoch_197.pth",
                 noise_steps=[noise_step], 

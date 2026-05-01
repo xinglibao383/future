@@ -9,7 +9,7 @@ plt.rcParams["pdf.fonttype"] = 42
 plt.rcParams["ps.fonttype"] = 42
 
 
-def plot_prediction_horizon(save_path):
+def plot_prediction_horizon(save_path, y=None):
     plt.rcParams.update({
         "font.size": 12,
         "axes.labelsize": 12,
@@ -40,19 +40,20 @@ def plot_prediction_horizon(save_path):
     """注意，在这里将x轴单位转换为秒"""
     """注意，在这里将x轴单位转换为秒"""
 
-    y = [
-        47.8203,
-        60.9056,
-        65.6229,
-        77.7804,
-        88.2202,
-        94.8827,
-        101.9103,
-        108.3201,
-        113.4193,
-        119.1812,
-        125.6723
-    ]
+    if y is None:
+        y = [
+            47.8203,
+            60.9056,
+            65.6229,
+            77.7804,
+            88.2202,
+            94.8827,
+            101.9103,
+            108.3201,
+            113.4193,
+            119.1812,
+            125.6723
+        ]
 
     fig, ax = plt.subplots(figsize=(8, 5))
 
@@ -75,7 +76,7 @@ def plot_prediction_horizon(save_path):
         )
 
     ax.set_xlim(-1.5, 10.5)
-    ax.set_ylim(43, 137)
+    ax.set_ylim(40, 200)
     ax.set_xlabel("未来预测时间区间（单位：秒）", fontproperties=cn_font)
     ax.set_ylabel("平均关节点位置误差（单位：像素）", fontproperties=cn_font)
     ax.grid(True, linestyle="--", alpha=0.4)

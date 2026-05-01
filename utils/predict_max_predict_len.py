@@ -15,13 +15,13 @@ def normalize(x, eps=1e-6):
     return (x - mean) / std
 
 
-def val_loss_mpjpe(model, checkpoint_filepath, device, dataloader, logger):
+def val_loss_mpjpe(model, checkpoint_filepath, device, dataloader, logger, noise_steps=None, noise_std=0.0, noise_type="gaussian"):
     model = torch.nn.DataParallel(model)
     model.load_state_dict(torch.load(checkpoint_filepath))
     model = model.to(device)
     model.eval()
-    criterion = nn.L1Loss()
     metric = Accumulator(22)
+    data = None
     with torch.no_grad():
         for i, (x1, y1, z1, x2, y2, z2) in enumerate(dataloader):
             result = []
@@ -37,6 +37,20 @@ def val_loss_mpjpe(model, checkpoint_filepath, device, dataloader, logger):
             error1, error2 = torch.norm(y1_hat - y1, dim=-1).mean(), torch.norm(y2_hat - y2[:, :15, :, :], dim=-1).mean()
             result.extend([error1.sum().item(), error1.numel(), error2.sum().item(), error2.numel()])
             for j in range(9):
+                x2_hat = x2_hat.detach()
+                # ========================= 噪声注入 =========================
+                if noise_steps is not None and j in noise_steps:
+                    std = x2_hat.std(dim=(0, 2), keepdim=True)
+                    if noise_type == "gaussian":
+                        noise = torch.randn_like(x2_hat) * noise_std * std
+                        x2_hat = x2_hat + noise
+                    elif noise_type == "uniform":
+                        noise = (torch.rand_like(x2_hat) - 0.5) * 2 * noise_std * std
+                        x2_hat = x2_hat + noise
+                    elif noise_type == "scale":
+                        noise = 1 + torch.randn_like(x2_hat) * noise_std
+                        x2_hat = x2_hat * noise
+                # ============================================================
                 x1 = torch.cat([x1[:, :, 50:], x2_hat], dim=-1)
                 _, x2_hat, y2_hat = model(x1)
                 y2_hat = y2_hat.clamp(min=-0.9999, max=0.9999)
@@ -45,4 +59,7 @@ def val_loss_mpjpe(model, checkpoint_filepath, device, dataloader, logger):
                 error = torch.norm(y2_hat - y2[:, (j + 1) * 15:(j + 2) * 15, :, :], dim=-1).mean()
                 result.extend([error.sum().item(), error.numel()])
             metric.add(*result)
-            logger.record([", ".join([f"val mpjpe{i}: {v:.4f}" for i, v in enumerate([metric[i] / metric[i + 1] for i in range(0, 22, 2)])])])
+            # logger.record([", ".join([f"val mpjpe{i}: {v:.4f}" for i, v in enumerate([metric[i] / metric[i + 1] for i in range(0, 22, 2)])])])
+            data = [metric[i] / metric[i + 1] for i in range(0, 22, 2)]
+            logger.record([", ".join([f"val mpjpe{i}: {v:.4f}" for i, v in enumerate(data)])])
+    return data

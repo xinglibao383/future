@@ -8,7 +8,7 @@ from utils.dataloader import *
 from utils.train3 import train as train3
 from models.posenet import *
 from utils.predict_max_predict_len import *
-from draw2028.draw_max_predict_len import *
+from draw2028.draw_max_predict_len_multi import *
 
 
 def append_csv(csv_path, noise_steps, noise_std, data):
@@ -48,6 +48,7 @@ def accumulate_error(checkpoint_filepath=None, noise_steps=None, noise_std=0.0):
         shutil.rmtree(os.path.join(output_save_path, f"{timestamp}"))
         plot_prediction_horizon(save_path=os.path.join(output_save_path, "imgs", f"{noise_steps}_{noise_std}.png"), y=data)
         append_csv("/mnt/mydata/yh/liming/workspace/future/outputs/experiment2028/accumulate_error/data.csv", noise_steps, noise_std, data)
+        return data
     else:
         train_loader, val_loader = get_dataloaders_v3_max_predict_len(data_root_path, use_len, compute_len, 150, stride_len, batch_size, 0.8)
         train3(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_normalize, alpha, beta, gamma, num_epochs, devices, output_save_path, logger, timestamp)
@@ -56,10 +57,15 @@ def accumulate_error(checkpoint_filepath=None, noise_steps=None, noise_std=0.0):
 # nohup /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/experiment_accumulate_error.py > /dev/null 2>&1 &
 # /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/experiment_accumulate_error.py
 if __name__ == "__main__":
+    os.makedirs("/mnt/mydata/yh/liming/workspace/future/outputs/experiment2028/accumulate_error/imgs", exist_ok=True)
+    os.makedirs("/mnt/mydata/yh/liming/workspace/future/outputs/experiment2028/accumulate_error/imgs_combinations", exist_ok=True)
     for noise_step in range(9):
-        for noise_std in range(10):
-            accumulate_error(
+        data_list = []
+        for noise_std in (0, 5, 10, 15):
+            data = accumulate_error(
                 checkpoint_filepath="/mnt/mydata/yh/liming/workspace/future/outputs/experiment2028/accumulate_error/20260501003207/epoch_197.pth",
                 noise_steps=[noise_step], 
                 noise_std=noise_std
             )
+            data_list.append(data)
+        plot_prediction_horizon(save_path=os.path.join('/mnt/mydata/yh/liming/workspace/future/outputs/experiment2028/accumulate_error/imgs_combinations', f"noise_step={noise_step}.png"), y=data_list)

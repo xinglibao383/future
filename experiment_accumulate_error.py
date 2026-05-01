@@ -60,7 +60,7 @@ if __name__ == "__main__":
     os.makedirs("/mnt/mydata/yh/liming/workspace/future/outputs/experiment2028/accumulate_error/imgs", exist_ok=True)
     os.makedirs("/mnt/mydata/yh/liming/workspace/future/outputs/experiment2028/accumulate_error/imgs_combinations", exist_ok=True)
     for noise_step in range(9):
-        data_list = []
+        data_list, label = [], []
         for noise_std in (0, 5, 10, 15):
             data = accumulate_error(
                 checkpoint_filepath="/mnt/mydata/yh/liming/workspace/future/outputs/experiment2028/accumulate_error/20260501003207/epoch_197.pth",
@@ -68,4 +68,9 @@ if __name__ == "__main__":
                 noise_std=noise_std
             )
             data_list.append(data)
-        plot_prediction_horizon(save_path=os.path.join('/mnt/mydata/yh/liming/workspace/future/outputs/experiment2028/accumulate_error/imgs_combinations', f"noise_step={noise_step}.png"), y=data_list)
+            label.append(f"noise_std={noise_std}")
+        plot_prediction_horizon(
+            save_path=os.path.join('/mnt/mydata/yh/liming/workspace/future/outputs/experiment2028/accumulate_error/imgs_combinations', f"noise_step={noise_step}.png"), 
+            y=data_list,
+            label=label
+        )

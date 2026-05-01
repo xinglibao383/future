@@ -9,7 +9,7 @@ plt.rcParams["pdf.fonttype"] = 42
 plt.rcParams["ps.fonttype"] = 42
 
 
-def plot_prediction_horizon(save_path, y=None):
+def plot_prediction_horizon(save_path, y=None, label=None, xlabel="未来预测时间区间（单位：秒）"):
     plt.rcParams.update({
         "font.size": 12,
         "axes.labelsize": 12,
@@ -57,28 +57,31 @@ def plot_prediction_horizon(save_path, y=None):
 
     fig, ax = plt.subplots(figsize=(8, 5))
 
-    # ---------- 核心修改 ----------
-    if isinstance(y[0], (list, tuple)):  # 二维
+    lines = []  # ← 新增
+
+    if isinstance(y[0], (list, tuple)):
         for i, yi_list in enumerate(y):
-            ax.plot(
+            line, = ax.plot(
                 x,
                 yi_list,
                 marker='o',
                 linewidth=1.5,
-                label=f"MPJPE_{i}"
+                label=label[i]
             )
+            lines.append(line)
 
-            for xi, yi in zip(x, yi_list):
-                ax.text(
-                    xi,
-                    yi + 1,
-                    f"{yi:.2f}",
-                    ha='center',
-                    va='bottom',
-                    fontsize=10
-                )
-    else:  # 一维（兼容原逻辑）
-        ax.plot(x, y, marker='o', linewidth=1.5, label="MPJPE")
+            # for xi, yi in zip(x, yi_list):
+            #     ax.text(
+            #         xi,
+            #         yi + 1,
+            #         f"{yi:.2f}",
+            #         ha='center',
+            #         va='bottom',
+            #         fontsize=10
+            #     )
+    else:
+        line, = ax.plot(x, y, marker='o', linewidth=1.5, label=label)
+        lines.append(line)
 
         for xi, yi in zip(x, y):
             ax.text(
@@ -89,21 +92,19 @@ def plot_prediction_horizon(save_path, y=None):
                 va='bottom',
                 fontsize=10
             )
-    # --------------------------------
 
     ax.set_xlim(-1.5, 10.5)
-    ax.set_ylim(40, 200)
-    ax.set_xlabel("未来预测时间区间（单位：秒）", fontproperties=cn_font)
+    ax.set_ylim(50, 200)
+    ax.set_xlabel(xlabel, fontproperties=cn_font)
     ax.set_ylabel("平均关节点位置误差（单位：像素）", fontproperties=cn_font)
     ax.grid(True, linestyle="--", alpha=0.4)
 
-    ax.legend()  # 多条线必须加
+    ax.legend(
+        handles=lines,
+        frameon=False,
+        loc="lower right"
+    )
 
     plt.savefig(save_path, dpi=1500, bbox_inches='tight')
     plt.close()
     print(f"已保存到: {save_path}")
-
-
-if __name__ == "__main__":
-    # plot_prediction_horizon(save_path="/mnt/mydata/yh/liming/workspace/future/draw/imgs/max_predict_len.png")
-    plot_prediction_horizon(save_path="/root/future/draw2028/imgs/max_predict_len.png")

@@ -65,7 +65,7 @@ def accumulate_error(checkpoint_filepath=None, noise_steps=None, noise_std=0.0):
 if __name__ == "__main__":
     reset_dir("/mnt/mydata/yh/liming/workspace/future/outputs/experiment2028/accumulate_error/imgs")
     reset_dir("/mnt/mydata/yh/liming/workspace/future/outputs/experiment2028/accumulate_error/imgs_combinations")
-    for noise_steps in [[0], [0, 1], [0, 1, 2], [0, 1, 2, 3]]:
+    for noise_steps in [[0, 1, 2, 3], [0, 1, 2], [0, 1], [0]]:
         data_list, label = [], []
         for noise_std in (0, 1, 2, 8, 64):
             data = accumulate_error(

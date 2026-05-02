@@ -2,7 +2,7 @@ from matplotlib import pyplot as plt
 from matplotlib.font_manager import FontProperties
 
 FONT_PATH = "/usr/share/fonts/opentype/noto/NotoSerifCJK-Regular.ttc"
-cn_font = FontProperties(fname=FONT_PATH, size=12)
+cn_font = FontProperties(fname=FONT_PATH, size=16)
 
 plt.rcParams["axes.unicode_minus"] = False
 plt.rcParams["pdf.fonttype"] = 42
@@ -11,11 +11,11 @@ plt.rcParams["ps.fonttype"] = 42
 
 def plot_prediction_horizon(save_path, y=None, label=None, xlabel="未来预测时间区间（单位：秒）"):
     plt.rcParams.update({
-        "font.size": 12,
-        "axes.labelsize": 12,
-        "xtick.labelsize": 10,
-        "ytick.labelsize": 10,
-        "legend.fontsize": 10
+        "font.size": 14,
+        "axes.labelsize": 14,
+        "xtick.labelsize": 14,
+        "ytick.labelsize": 14,
+        "legend.fontsize": 12
     })
 
     x = [
@@ -55,7 +55,7 @@ def plot_prediction_horizon(save_path, y=None, label=None, xlabel="未来预测�
             125.6723
         ]
 
-    fig, ax = plt.subplots(figsize=(6, 4))
+    fig, ax = plt.subplots(figsize=(8, 5))
 
     lines = []  # ← 新增
 
@@ -102,7 +102,8 @@ def plot_prediction_horizon(save_path, y=None, label=None, xlabel="未来预测�
     ax.legend(
         handles=lines,
         frameon=False,
-        loc="lower right"
+        loc="lower right",
+        ncol=2
     )
 
     plt.savefig(save_path, dpi=1500, bbox_inches='tight')

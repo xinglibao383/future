@@ -63,8 +63,8 @@ def accumulate_error(checkpoint_filepath=None, noise_steps=None, noise_std=0.0):
 # nohup /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/experiment_accumulate_error.py > /dev/null 2>&1 &
 # /home/yh/.conda/envs/myfuture/bin/python /mnt/mydata/yh/liming/workspace/future/experiment_accumulate_error.py
 if __name__ == "__main__":
-    reset_dir("/mnt/mydata/yh/liming/workspace/future/outputs/experiment2028/accumulate_error/imgs", exist_ok=True)
-    reset_dir("/mnt/mydata/yh/liming/workspace/future/outputs/experiment2028/accumulate_error/imgs_combinations", exist_ok=True)
+    reset_dir("/mnt/mydata/yh/liming/workspace/future/outputs/experiment2028/accumulate_error/imgs")
+    reset_dir("/mnt/mydata/yh/liming/workspace/future/outputs/experiment2028/accumulate_error/imgs_combinations")
     for noise_steps in [[0], [0, 1], [0, 1, 2], [0, 1, 2, 3]]:
         data_list, label = [], []
         for noise_std in (0, 1, 2, 8, 64):

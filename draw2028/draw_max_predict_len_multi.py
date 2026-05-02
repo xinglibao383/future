@@ -55,7 +55,7 @@ def plot_prediction_horizon(save_path, y=None, label=None, xlabel="未来预测�
             125.6723
         ]
 
-    fig, ax = plt.subplots(figsize=(8, 5))
+    fig, ax = plt.subplots(figsize=(6, 4))
 
     lines = []  # ← 新增
 
@@ -94,7 +94,7 @@ def plot_prediction_horizon(save_path, y=None, label=None, xlabel="未来预测�
             )
 
     ax.set_xlim(-1.5, 10.5)
-    ax.set_ylim(50, 205)
+    ax.set_ylim(50, 225)
     ax.set_xlabel(xlabel, fontproperties=cn_font)
     ax.set_ylabel("平均关节点位置误差（单位：像素）", fontproperties=cn_font)
     ax.grid(True, linestyle="--", alpha=0.4)

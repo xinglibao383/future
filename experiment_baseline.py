@@ -10,7 +10,7 @@ from models.posenet import *
 
 
 torch.manual_seed(3407)
-devices = [torch.device('cuda:2')]
+devices = [torch.device('cuda:3')]
 if socket.gethostname() == "lenovo-Lenovo-WenTian-WA5480-G3":
     output_save_path = '/mnt/mydata/yh/liming/workspace/future/outputs/experiment2028/baseline'
     data_root_path = '/mnt/mydata/yh/liming/workspace/future/mydata'

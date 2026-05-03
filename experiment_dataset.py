@@ -10,7 +10,7 @@ from models.posenet24 import *
 
 
 torch.manual_seed(3407)
-devices = [torch.device('cuda:1')]
+devices = [torch.device('cuda:0')]
 # DATASET = 'AMASS'
 DATASET = 'DIP-IMU'
 # DATASET = 'IMUPoser'
@@ -22,7 +22,7 @@ def ours():
     timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
     logger = Logger(save_path=output_save_path, timestamp=timestamp)
     logger.record([f'备注: 数据集={DATASET}, baseline=aipose'])
-    mask_ratio, batch_size, lr, num_epochs, loss_func = 0.25, 256, 1e-3, 200, "l1"
+    mask_ratio, batch_size, lr, num_epochs, loss_func = 0, 256, 1e-3, 200, "l1"
     resnet_verson, imu_generator = "resnet18", "transformer"
     transformer_hidden, transformer_layers, transformer_nhead, transformer_dropout = 128, 2, 4, 0.1
     compute_len, predict_len = 25 if DATASET == 'IMUPoser' else 60, 25 if DATASET == 'IMUPoser' else 60

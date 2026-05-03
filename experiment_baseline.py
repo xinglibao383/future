@@ -19,6 +19,29 @@ else:
     data_root_path = '/root/future/mydata'
 
 
+def count_params(model, name=None):
+    total_params = sum(p.numel() for p in model.parameters())
+    trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
+    msg = (
+        f"{name + ' | ' if name else ''}"
+        f"Total Params: {total_params:,} | "
+        f"Trainable Params: {trainable_params:,} | "
+        f"Total(M): {total_params / 1e6:.3f}"
+    )
+    print(msg)
+    return total_params, trainable_params
+
+
+def ours_only_curr_pose_reconstruction():
+    # 评估本文方法当前姿态重构模块的参数量
+    resnet_verson, imu_generator = "resnet18", "transformer"
+    transformer_hidden, transformer_layers, transformer_nhead, transformer_dropout = 128, 2, 4, 0.1
+    use_len, compute_len, predict_len, stride_len = 60, 15, 15, 15
+    imu_generator_params = (transformer_hidden, transformer_layers, transformer_nhead, transformer_dropout)
+    model = PoseNetOnlyCurr(input_channels=30, resnet_verson=resnet_verson, imu_generator=imu_generator, imu_generator_params=imu_generator_params, target_time=int(predict_len / 15 * 50), target_poses=predict_len, num_poses=compute_len, num_keypoints=25, output_dim=2)
+    count_params(model, name="aipose")
+
+
 def ours():
     timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
     logger = Logger(save_path=output_save_path, timestamp=timestamp)
@@ -60,6 +83,7 @@ def experiment_baseline(baseline="aipose"):
     }
     logger.record([", ".join([f"{k}={v}" for k, v in params.items()])])
     model = build_baseline_model(name=baseline, input_channels=input_channels, num_poses=compute_len, hidden_dim=hidden_dim, num_layers=num_layers, nhead=nhead, dropout=dropout, resnet_verson=resnet_verson)
+    count_params(model, name=baseline)
     train_loader, val_loader = get_dataloaders_v3(data_root_path, use_len, compute_len, predict_len, stride_len, batch_size, train_ratio, random_seed=3407)
     train(model, train_loader, val_loader, loss_func, mask_ratio, lr, need_normalize, num_epochs, devices, output_save_path, logger, timestamp)
 
@@ -69,10 +93,12 @@ def experiment_baseline(baseline="aipose"):
 # nohup /usr/local/miniconda3/envs/future/bin/python /root/future/experiment_baseline.py > /dev/null 2>&1 &
 # /usr/local/miniconda3/envs/future/bin/python /root/future/experiment_baseline.py
 if __name__ == "__main__":
+    ours_only_curr_pose_reconstruction()
+
     # ours()
     # experiment_baseline(baseline="pip_like_recon")
     # experiment_baseline(baseline="tip_like_recon")
     # experiment_baseline(baseline="dynaip_like_recon")
-    experiment_baseline(baseline="asip_like_recon")
+    # experiment_baseline(baseline="asip_like_recon")
     # experiment_baseline(baseline="mobileposer_like_recon")
     # experiment_baseline(baseline="imuposer_like_recon")

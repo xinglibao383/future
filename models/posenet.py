@@ -85,6 +85,28 @@ class PoseNet(nn.Module):
         return torch.tanh(now_pose), future_x, torch.tanh(future_pose)
 
 
+class PoseNetOnlyCurr(nn.Module):
+    """ 用于评估当前姿态重构模块的参数量 """
+    def __init__(self, input_channels, resnet_verson, imu_generator, imu_generator_params, target_time, target_poses, num_poses, num_keypoints=25, output_dim=2):
+        super().__init__()
+        self.resnet = resnet(resnet_verson, input_channels)
+        if resnet_verson == "resnet18" or resnet_verson == "resnet34":
+            resent_feature_dim = 512
+        elif resnet_verson == "resnet50":
+            resent_feature_dim = 2048
+        self.fc1 = nn.Linear(resent_feature_dim, num_poses * num_keypoints * output_dim)
+        self.num_poses = num_poses
+        self.num_keypoints = num_keypoints
+        self.output_dim = output_dim
+
+    def forward(self, x):
+        features = self.resnet(x)           # [batch, 512]
+        features = features.unsqueeze(1)    # [batch, 1, 512]
+        now_pose = self.fc1(features)       # [B, 25*2]
+        now_pose = now_pose.view(now_pose.size(0), self.num_poses, self.num_keypoints, self.output_dim)
+        return torch.tanh(now_pose)
+
+
 if __name__ == "__main__":
     mask_ratio, batch_size, lr, num_epochs, loss_func = 0.25, 128, 1e-2, 800, "l1"
     resnet_verson, lstm_hidden, lstm_layers, lstm_dropout = "resnet18", 128, 2, 0
